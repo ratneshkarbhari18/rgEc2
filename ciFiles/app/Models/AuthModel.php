@@ -9,7 +9,7 @@ class AuthModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['first_name', 'last_name','email','mobile_number','role','password','address'];
+    protected $allowedFields = ['first_name', 'last_name','email','mobile_number','role','password','address','country','state'];
 
     
 

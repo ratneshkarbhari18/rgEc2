@@ -64,6 +64,8 @@
 
                                                             ?>
                                                         <?php endforeach; ?>
+                                                        <p style="margin-bottom: 0; font-weight: bold;">COMPLETE ADDRESS: </p>
+                                                        <?php echo $order["address"]; ?>
                                                         <p>STATUS: <?php echo $order["status"]; ?></p>
 
                                                         <!-- <a class="btn btn-primary d-none" target="_blank" href="<?php echo site_url("download-order-slip/" . $order["public_order_id"]); ?>">download Order Slip</a> -->

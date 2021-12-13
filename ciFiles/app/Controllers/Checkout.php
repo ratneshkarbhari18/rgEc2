@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 require "./vendor/autoload.php";
 
+use App\Models\AuthModel;
 use Razorpay\Api\Api;
 use App\Models\CartModel;
 use App\Models\OrderModel;
@@ -26,9 +27,6 @@ class Checkout extends BaseController
 
 
         $rzpOrder =  $api->order->create($orderData);
-
-
-        
 
         $returnObj = array(
             "id" => $rzpOrder["id"],
@@ -140,9 +138,16 @@ class Checkout extends BaseController
         $orderModel = new OrderModel();
         $orderCreated = $orderModel->insert($orderData);
 
+        $authModel = new AuthModel();
 
+        $addressAdded = $authModel->update($_SESSION["id"],array(
+            "address"=>$this->request->getPost("address"),
+            "country" => $this->request->getPost("country"),
+            "state" => $this->request->getPost("state"),
+            )
+        );
 
-        if ($orderCreated) {
+        if ($orderCreated&$addressAdded) {
             $cartModel->clear_cart_for_ip();
             helper('cookie');
             delete_cookie('coupon_code');

@@ -28,8 +28,8 @@
                     <tbody>
                         <?php foreach($products as $product): ?>
                         <tr>
-                            <td>
-                                <img src="<?php echo site_url("assets/images/featured_image_product/".$product['featured_image']); ?>" style="width: 30px; height: 30px;">
+                            <td style="width: 20%;">
+                                <img src="<?php echo site_url("assets/images/featured_image_product/".$product['featured_image']); ?>" class="w-100">
                             </td>
                             <td><?php echo $product['title']; ?></td>
                             
