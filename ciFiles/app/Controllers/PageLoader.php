@@ -123,7 +123,9 @@ class PageLoader extends BaseController
         $allProducts = $productModel->findAll();
         $popups = $popupModel->findAll();
 
+
         $data["collections"] = $allCollections;
+
         $data["styles"] = $allStyles;
         
         $data["allProducts"] = $allProducts;

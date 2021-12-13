@@ -20,7 +20,14 @@
                 <div class="col-lg-5 col-md-12 col-sm-12 d-none d-lg-block" style="margin-bottom: 5%; padding: 0 2em 0 4em;">
                 
                     
-                    <div id="previewPane"><img class="" src="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" data-zoom-image="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" id="product-page-main-product-image" style="width: 100%; border: 1px solid darkgray; cursor: pointer;"></div>
+                    <div id="previewPane">
+                        <?php $session = session(); if($session->role=='customer'): ?>
+
+                            <a href="#" id="addToWishlistButtonx" class="btn" style="position: absolute; right: 2em; z-index: 150;"><img src="<?php echo site_url("assets/icons/heart.svg"); ?>" style="width: 30px; height: 30px;"></a>
+                        <?php else: ?>
+                            <a href="<?php echo site_url("login"); ?>" id="addToWishlistButtonx" class="btn" style="position: absolute; right: 2em; z-index: 150;"><img src="<?php echo site_url("assets/icons/heart.svg"); ?>" style="width: 30px; height: 30px;"></a>
+                        <?php endif; ?>
+                        <img class="" src="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" data-zoom-image="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" id="product-page-main-product-image" style="width: 100%; border: 1px solid darkgray; cursor: pointer;"></div>
 
 
                         <br>
@@ -91,38 +98,49 @@
 
                     <div class="container-fluid">
                     
-                        <div class="row" style='margin-top: 5%;'>
+                        <div class="row" >
                         
-                            <?php if($product['sizes']!=''): ?>
-                            <div class="col-lg-4 col-md-6 col-sm12 form-group" style="padding-left: 0;">
+                            <div class="col-lg-6 col-md-6 col-sm-12 form-group" style="padding-left: 0; margin-bottom: 0;">
                             
-                            <label for="product-size">Size: <a class="text-success" style="font-weight: 600;" href="<?php echo site_url("assets/images/rgSizeChart.jpg"); ?>" data-lity>See Size Chart</a></label>
+                                <label for="product-size">Size: <a class="text-success" style="font-weight: 600;" href="<?php echo site_url("assets/images/rgSizeChart.jpg"); ?>" data-lity>See Size Chart</a></label>
+                                <br>
 
-                                <select class="form-control" id="product-size">
-                                    <?php $sizes = explode(',',$product['sizes']); foreach($sizes as $size): ?>
-                                    <option value="<?php echo $size; ?>"><?php echo ucfirst($size); ?></option>
-                                    <?php endforeach; ?>
+                                <?php $sizes = explode(',',$product['sizes']); foreach($sizes as $size): ?>
 
-                                </select>
+                                    <button class="sizeSetter btn d-inline" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%" size="<?php echo $size; ?>"><?php echo strtoupper($size); ?></button>
+
+                                <?php endforeach; ?>
+                                <button class="sizeSetter btn" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%" size="Custom">Customize</button>
+
+
 
                             </div>
-                            <?php else: ?>
-                            <input type="hidden" name="product-size" value="default">
-                            <?php endif; ?>
-                            <div  class="col-lg-4 col-md-6 col-sm12 form-group" style="padding-left: 0;">
                             
-                                <label for="stitching">Stitching:</label>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0; margin: 1em 0;">
+                            
 
-                                <select class="form-control" id="stitching">
-                                    <option value="no">No</option>
-                                    <option value="yes">Yes</option>
-                                </select>
+                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; padding: 0.3em 0.1em;">-</button>
+                                <input type="number" id="product-quantity" style="width: 40px; font-size: 15px; height: 40px; text-align: center;" value="1" min="1" readonly>
+                                <button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; padding: 0.3em 0.1em;">+</button>
 
                             </div>
 
+                            <p id="atc-success" style="margin-bottom: 1%;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
+                            <p id="atc-failure" style="margin-bottom: 1%;" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
                             
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin-bottom: 1%; margin-top: 1%;">
+                            <div class="col-lg-12 col-md-6 col-sm-6 custom-half-grid" style="padding:0;">
+                                
+                                        
+                                <button type="button" id="addToCartButton" class="btn btn-primary" >Add to Cart</button>
+                            </div>
+                            <div style="margin: 1em 0;" id="share"></div>
+
+
+
+
+                            <div class="col-lg-6 col-md-6 col-sm-6 text-left custom-half-grid" style="padding-left: 0; margin-top: 1%;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 custom-half-grid" style="padding:0; margin-bottom: 1%; margin-top: 1%;">
                                 <p class="text-success" id="atwSuccess"></p>
                                 <p class="text-danger" id="atwFail"></p>
                                 <?php $session = session(); if($session->role=='customer'): ?>
@@ -134,7 +152,7 @@
                                 <?php endif;  ?>
 
                                 <script>
-                                    $("button#addToWishlistButton").click(function (e) { 
+                                    $("button#addToWishlistButton,button#addToWishlistButtonx").click(function (e) { 
                                         e.preventDefault();
                                         let pid = "<?php echo $product["id"] ?>";
                                         $.ajax({
@@ -163,47 +181,7 @@
 
 
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin-bottom: 3%;">
-                            
-                            <p id="atx-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
-                                <p id="atx-failure" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
-
-                                <a href="#" data-toggle="modal" data-target="#sizeChartModal" style="font-size: 16px;" class="d-none"> <img src="<?php echo site_url('assets/icons/sliders.svg'); ?>" width="16px" height="16px"> See Size Chart</a>
-
-                            </div>
-                            <!-- <div class="col-lg-4 col-md-12 col-sm-12"></div> -->
-
-                            <p id="atc-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
-                                <p id="atc-failure" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
-                            
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0;">
-                                <!-- <label for="product-quantity">Quantity:</label> -->
-
-                                <!-- <select class="form-control" id="product-quantity">
-                                    <?php for($i=1;$i<=5;$i++): ?>
-                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                    <?php endfor; ?>
-                                </select> -->
-
-
-
-                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-right: 0.5em;">-</button><input type="number" id="product-quantity" style="width: 50px; font-size: 15px; height: 50px; text-align: center;" value="1" min="1" readonly><button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-left: 0.5em;">+</button>
-
-                            </div>
-                            
-
-                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0;">
-                                
-                                        
-                                <button type="button" id="addToCartButton" class="btn btn-primary" style="background-color: black; color:white; margin-bottom: 3%;">Add to Cart</button>
-                            </div>
-                            <div id="share"></div>
-
-
-
-
-                            <div class="col-lg-6 col-md-6 col-sm-6 text-left custom-half-grid" style="padding-left: 0; margin-top: 1%;">
-                                <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a>
+                                <!-- <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a> -->
                             </div>
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>
@@ -308,7 +286,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin-bottom: 3%;">
                             
-                            <p id="atx-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
+                                <p id="atx-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
                                 <p id="atx-failure" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
 
                                 <a href="#" data-toggle="modal" data-target="#sizeChartModal" style="font-size: 16px;" class="d-none"> <img src="<?php echo site_url('assets/icons/sliders.svg'); ?>" width="16px" height="16px"> See Size Chart</a>
@@ -321,12 +299,6 @@
                             
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0;">
                                 <!-- <label for="product-quantity">Quantity:</label> -->
-
-                                <!-- <select class="form-control" id="product-quantity">
-                                    <?php for($i=1;$i<=5;$i++): ?>
-                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                    <?php endfor; ?>
-                                </select> -->
 
 
 

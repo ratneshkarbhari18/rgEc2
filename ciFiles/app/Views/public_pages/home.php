@@ -67,7 +67,7 @@
                             <div class="card">
                                 <img src="<?php echo site_url("assets/images/collection_featured_images/".$collection["featured_image"]); ?>" class="collection-image w-100">
                                 <div class="card-body">
-                                <h4 style="font-weight: 600;"><?php echo substr($product["title"],0,30); ?>...</h4>
+                                <h4 style="font-weight: 600;"><?php echo substr($collection["title"],0,30); ?></h4>
                                 </div>
                             </div>
                         </a>
@@ -82,7 +82,7 @@
                             <div class="card">
                                 <img src="<?php echo site_url("assets/images/collection_featured_images/".$collection["featured_image"]); ?>" class="collection-image w-100">
                                 <div class="card-body">
-                                <h4 style="font-weight: 600;"><?php echo substr($product["title"],0,30); ?>...</h4>
+                                <h4 style="font-weight: 600;"><?php echo substr($collection["title"],0,30); ?></h4>
                                 </div>
                             </div>
                         </a>

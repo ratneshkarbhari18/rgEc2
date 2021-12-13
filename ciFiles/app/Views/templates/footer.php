@@ -144,14 +144,14 @@
         </div>
     
         <a class="d-none d-lg-block whatsappLink " href="https://api.whatsapp.com/send?phone=919920166157" id="wa-desktop" class="whatsappLink">
-            <img src="<?php echo site_url("assets/images/wa.png"); ?>" style="width: 65px;
+            <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" style="width: 65px;
     height: 65px;
     position: fixed;
     right: 1em;
     bottom: 8em;">
         </a>
         <a href="https://api.whatsapp.com/send?phone=919920166157" id="wa-touch" class="whatsappLink d-block d-lg-none">
-            <img src="<?php echo site_url("assets/images/wa.png"); ?>" style="width: 65px;
+            <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" style="width: 65px;
     height: 65px;
     position: fixed;
     right: 1.5em;
