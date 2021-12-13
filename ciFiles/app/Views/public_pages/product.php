@@ -81,8 +81,8 @@
 
                 <div class="col-lg-7 col-md-12 col-sm-12 d-none d-lg-block" id='product-details' style="padding: 0 5em 0 10em;">
                 
-                    <h1 class="product-title" style='font-size: 26px;Rtext-transform:capitalize;'><?php echo $product['title']; ?></h1>
-
+                    <h1 class="product-title" style='font-size: 26px; margin-top: 1em;'><?php echo $product['title']; ?></h1>
+                    <h6>Product Code: <?php echo $product['sku']; ?></h6>
                     <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
                         <span class="larger-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['sale_price'],2); ?></span> | <del><span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span></del>
                     <?php elseif (($product["price"]==$product["sale_price"])||($product["sale_price"]==0.00)): ?>
@@ -206,7 +206,6 @@
                                 <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a>
                             </div>
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
-                                <h4>Product Code: <?php echo $product['sku']; ?></h4>
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>
                             </div>
 
@@ -225,6 +224,7 @@
                 <div class="col-lg-7 col-md-12 col-sm-12 d-block d-lg-none" id='product-details' >
                 
                     <h1 class="product-title" style='font-size: 26px; margin-top: 1em;'><?php echo $product['title']; ?></h1>
+                    <h4>Product Code: <?php echo $product['sku']; ?></h4>
 
                     <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
                         <span class="larger-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['sale_price'],2); ?></span> | <del><span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span></del>
@@ -349,7 +349,6 @@
                                 <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a>
                             </div>
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
-                                <h4>Product Code: <?php echo $product['sku']; ?></h4>
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>
                             </div>
 
