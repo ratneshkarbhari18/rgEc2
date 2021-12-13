@@ -29,6 +29,30 @@ class ShippingClasses extends BaseController
         
     }
 
+    public function update()
+    {
+
+        $id = $this->request->getPost("id");
+
+        $scData = array(
+            "title" => $this->request->getPost("title"),
+            "weight_min" => $this->request->getPost("weight_min"),
+            "weight_max" => $this->request->getPost("weight_max"),
+            "domestic_international" => $this->request->getPost("domestic_international"),
+            "shipping_charge_express" => $this->request->getPost("shipping_charge_express"),
+            "shipping_charge_regular" => $this->request->getPost("shipping_charge_regular")
+        );
+        $scModel = new ScModel();
+        $updated = $scModel->update($id,$scData);
+        $pageLoader = new PageLoader();
+        if ($updated) {
+            $pageLoader->sc_mgt("Shipping Class updated","");
+        } else {
+            $pageLoader->sc_mgt("","Shipping Class not updated");
+        }
+        
+    }
+
     public function delete ()
     {
         $id = $this->request->getPost("id");

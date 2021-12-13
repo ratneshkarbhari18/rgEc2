@@ -81,6 +81,54 @@
                                 <td><?php echo $sc["shipping_charge_regular"]; ?></td>
                                 <td><?php echo $sc["shipping_charge_express"]; ?></td>
                                 <td>
+                                    <a href="#" class="btn btn-primary modal-trigger" data-toggle="modal" data-target="#editcouponModal-<?php echo $sc["id"]; ?>">Edit</a>
+                                    <div class="modal fade" id="editcouponModal-<?php echo $sc["id"]; ?>"  tabindex="-1" aria-labelledby="addcouponModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addcouponModalLabel">Update Shipping Class</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <?php $attributes = array('method' => "POST","enctype"=>"multipart/form-data" ); echo form_open(site_url("update-sc-exe"),$attributes); ?>
+                                                        <input type="hidden" name="id" value="<?php echo $sc["id"]; ?>">
+                                                        <div class="form-group">
+                                                            <label for="title">Title</label>
+                                                            <input type="text" class="form-control" name="title" id="title" value="<?php echo $sc["title"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="weight_min">Min Weight (gms.)</label>
+                                                            <input type="text" class="form-control" name="weight_min" id="weight_min" value="<?php echo $sc["weight_min"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="weight_max">Max Weight (gms.)</label>
+                                                            <input type="text" class="form-control" name="weight_max" id="weight_max" value="<?php echo $sc["weight_max"]; ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="domestic_international">Domestic/International</label>
+                                                            <select name="domestic_international" class="form-control" id="domestic_international">
+                                                                <option value="domestic">Domestic</option>
+                                                                <option value="international">International</option>
+                                                            </select>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="shipping_charge_regular">Shipping Charge Regular (₹)</label>
+                                                            <input type="text" class="form-control" name="shipping_charge_regular" id="shipping_charge_regular" value="<?php echo $sc["shipping_charge_regular"]; ?>">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="shipping_charge_express">Shipping Charge Express (₹)</label>
+                                                            <input type="text" class="form-control" name="shipping_charge_express" id="shipping_charge_express" value="<?php echo $sc["shipping_charge_express"]; ?>">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-success">Update Shipping Class</button>
+                                                    <?php echo form_close(); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php $attributes = array("class"=>"d-inline"); echo form_open(site_url("delete-sc-exe"),$attributes);  ?>
                                         <input type="hidden" name="id" value="<?php echo $sc['id']; ?>">
                                         <button type="submit" class="btn btn-danger">Delete</button>

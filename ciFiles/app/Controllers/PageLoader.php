@@ -363,6 +363,9 @@ class PageLoader extends BaseController
         $selectPidsForSidQuery = $db->query("SELECT pid FROM product_style WHERE sid=".$focusStyle["id"]);
         $pids = $selectPidsForSidQuery->getResultArray();
 
+        if(!$pids){
+            return redirect()->to(site_url("/"));
+        }
 
         $pidArray = array();
 
@@ -703,9 +706,34 @@ class PageLoader extends BaseController
 
         $allScs = array_reverse($scModel->findAll());
 
+        $allScsIdCiphers = array();
+
+        
+
         $data = array("title"=>"Shipping Classes Management","success"=>$success,"error"=>$error,"scs"=>$allScs);
 
         $this->admin_page_loader("sc_mgt",$data);
+
+    }
+
+    public function edit_sc($id,$success="",$error="")
+    {
+        $session = session();
+        $currentrole = $session->get("role");
+
+        if ($currentrole!="admin") {
+            return redirect()->to(site_url("admin-login"));
+        }
+
+        helper("form");
+
+        $scModel = new ScModel();
+
+        $sc = $scModel->find($id);
+
+        $data = array("title"=>"Edit Shipping Class","success"=>$success,"error"=>$error,"sc"=>$sc);
+
+        $this->admin_page_loader("edit_sc",$data);
 
     }
 

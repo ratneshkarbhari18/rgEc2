@@ -101,6 +101,7 @@ $routes->get("coupons-mgt","PageLoader::coupon_mgt");
 $routes->get("manage-orders","PageLoader::manage_orders");
 $routes->get("popup-mgt","PageLoader::popup_mgt");
 $routes->get("sc-mgt","PageLoader::sc_mgt");
+$routes->get("edit-sc","PageLoader::edit_sc");
 $routes->get("manage-customers","PageLoader::manage_customers");
 $routes->get("customer-details/(:any)","PageLoader::customer_details/$1");
 
@@ -115,9 +116,11 @@ $routes->post("delete-popup-exe","Popups::delete");
 
 
 
+
 // Shipping Classes
 $routes->post("add-sc-exe","ShippingClasses::create");
 $routes->post("delete-sc-exe","ShippingClasses::delete");
+$routes->post("update-sc-exe","ShippingClasses::update");
 
 // Collection routes
 $routes->get("fetch-collections-ajax","Collections::manage_collections_content");
