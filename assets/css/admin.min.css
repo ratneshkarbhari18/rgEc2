@@ -1,0 +1,53 @@
+.page-content{
+    padding: 3% 0;
+}
+.custom-card-dashboard{padding: 2%; margin-bottom: 3%;
+}
+.custom-card-dashboard:hover{
+    background-color: purple;
+    color: white;
+}
+a:hover{
+    text-decoration: none;
+}
+.items-container{
+    margin-top: 5%;
+}
+.sidebar .nav-link:hover{
+    background-color: purple;
+    color: #fff;
+}
+
+.sidebar-link:hover{
+    color: #fff !important;
+}
+.sidebar-link{
+    color: #000;
+}
+.sidebar-dropdown-link{
+    font-size: 0.9em;
+    padding-left: 3em;
+}
+.sidebar-dropdown-link:hover{
+    background-color: #424242 !important;
+}
+.navbar-brand{
+    color: #fff !important;
+}
+a{
+    color: #000;
+}
+.bg-dark{
+    background-color: purple !important;
+}
+.btn-success,.btn-primary,.btn-danger,.btn-secondary{
+    color: #fff !important;
+    cursor: pointer;
+}
+.custom-card-dashboard:hover h2{color: #fff;}
+.bordered-table thead tr td,.bordered-table tbody tr td{
+    border-bottom: 1px solid #0a0a0a;
+}
+.no-margin{
+    margin: 0;
+}

@@ -1,0 +1,173 @@
+<?php
+
+namespace App\Controllers;
+
+require "./vendor/autoload.php";
+
+use Razorpay\Api\Api;
+use App\Models\CartModel;
+use App\Models\OrderModel;
+use App\Models\CouponModel;
+
+class Checkout extends BaseController
+{
+
+    public function create_rzp_order()
+    {
+        $amount = $this->request->getPost("amount");
+        $currency = $this->request->getPost("currency");
+        $api = new Api('rzp_live_EgCVc8wCwpPeDS', 'T0OGmuqRGGVRMD9Y6lPUnCDd');
+
+        $orderData = [
+            'receipt'         => uniqid(),
+            'amount'          => $amount*100, // 39900 rupees in paise
+            'currency'        => $currency
+        ];
+
+
+        $rzpOrder =  $api->order->create($orderData);
+
+
+        
+
+        $returnObj = array(
+            "id" => $rzpOrder["id"],
+            "amount" => $rzpOrder["amount"],
+            "currency" => $rzpOrder["currency"]
+        );
+
+        echo json_encode($returnObj);
+        
+    }
+
+    public function add(){
+
+
+        $pid = $this->request->getPost('product_id');
+        $stitching = $this->request->getPost('stitching');
+        $size = $this->request->getPost('size');
+        $quantity = $this->request->getPost('quantity');
+        
+        $cartModel = new CartModel();
+        
+        $existsAlready = $cartModel->where('product_id',$pid)->where('stitching',$stitching)->where('size',$size)->where('ip_address',$_SERVER['REMOTE_ADDR'])->first();
+        
+        if ($existsAlready) {
+            $existsAlready['quantity'] = $existsAlready['quantity']+$quantity;
+            $res = $cartModel->update($existsAlready['id'],$existsAlready); 
+            if ($res) {
+                exit('success');
+            } else {
+                exit('failure');
+            }
+        } else {
+            $data = array(
+                'product_id' => $pid,
+                'stitching' => $stitching,
+                'size' => $size,
+                'quantity' => $quantity,
+                'ip_address' => $_SERVER['REMOTE_ADDR']
+            );
+            $res = $cartModel->insert($data);
+            if ($res) {
+                exit('success');
+            } else {
+                exit('failure');
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+    }
+
+    public function update(){
+       $id = $this->request->getPost('cart-item-id');
+       $qty = $this->request->getPost('product-qty');
+        $cartModel = new CartModel();
+
+        $itemExists = $cartModel->find($id);
+            
+        $itemExists['quantity'] = $qty;
+        
+        $res = $cartModel->update($itemExists['id'], $itemExists);
+
+        return redirect()->to(site_url('cart')); 
+
+    }       
+
+    public function delete(){
+        $cartItemID = $this->request->getPost('cart-item-id');
+        $cartModel = new CartModel();
+        $cartModel->delete($cartItemID);
+        return redirect()->to(site_url('cart'));
+    }
+
+
+    public function payment_exe()
+    {
+
+        $customerDetails = array(
+            "first_name" => session("first_name"),
+            "last_name" => session("last_name"),
+            "email" => session("email"),
+            "country" => $this->request->getPost("country"),
+            "state" => $this->request->getPost("state"),
+            "pincode" => $this->request->getPost("pincode")
+        );
+
+        $cartModel = new CartModel();
+
+        $cartItems = $cartModel->fetch_all_cart_items();
+
+
+        $orderData = array(
+            "public_order_id" => uniqid(),
+            "amount_paid" => $this->request->getPost('amount'),
+            "currency" => $this->request->getPost('currency'),
+            "order_details" => json_encode($cartItems),
+            "customer_details" => json_encode($customerDetails),
+            "status" => "created",
+            "status_details" => "",
+            "address" => $this->request->getPost("address"),
+            "date" => date("d-m-Y H:i:s D"),
+            'customer_id' => session("id")
+        );
+
+        $orderModel = new OrderModel();
+        $orderCreated = $orderModel->insert($orderData);
+
+
+
+        if ($orderCreated) {
+            $cartModel->clear_cart_for_ip();
+            helper('cookie');
+            delete_cookie('coupon_code');
+            delete_cookie('coupon_value');
+            echo "order-created";
+        } else {
+            echo "order-not-created";
+        }
+         
+    }
+
+    public function apply_coupon()
+    {
+        $code = $this->request->getPost("couponcode");
+        $couponModel = new CouponModel();
+        $coupon = $couponModel->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->first();
+
+        if ($coupon) {
+            setcookie("coupon_code",$coupon["code"],time()+(5*24*60),site_url());
+            setcookie("coupon_value",$coupon["value"],time()+(5*24*60),site_url());
+            return redirect()->to(site_url("cart"));
+        } else {
+            $pageLoader = new PageLoader();
+            $pageLoader->cart("Invalid Coupon");
+        }
+    }
+
+}
