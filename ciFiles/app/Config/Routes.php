@@ -151,7 +151,7 @@ $routes->post("delete-testimonial-exe","Testimonials::delete");
 // Testimonial routes
 $routes->post("add-coupon-exe","Coupons::add");
 $routes->post("delete-coupon-exe","Coupons::delete");
-
+$routes->post("update-coupon-exe","Coupons::update");
 
 // Background services api
 $routes->post("send-email-api","BackgroundFeatures::send_email");

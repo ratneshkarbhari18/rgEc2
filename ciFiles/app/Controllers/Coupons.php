@@ -28,6 +28,29 @@ class Coupons extends BaseController
         }
     }
 
+    public function update()
+    {
+        $session = session();
+        $currentrole = $session->get("role");
+
+        if ($currentrole!="admin") {
+            return redirect()->to(site_url("admin-login"));
+        }
+
+        $id = $this->request->getPost("id");
+
+        $dataToInsert = array('title' => $this->request->getPost("title"), "code"=> $this->request->getPost("code"), "value"=>$this->request->getPost("value"),"start_date"=>$this->request->getPost("start_date"),"end_date"=>$this->request->getPost("end_date"));
+
+        $couponModel = new CouponModel();
+        $update = $couponModel->update($id,$dataToInsert);
+        $pageLoader = new PageLoader();
+        if ($update) {
+            $pageLoader->coupon_mgt("Coupon updated","");
+        } else {
+            $pageLoader->coupon_mgt("","Coupon not updated");
+        }
+    }
+
     public function delete()
     {
 
