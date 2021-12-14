@@ -123,9 +123,18 @@ class Checkout extends BaseController
             "pincode" => $this->request->getPost("pincode")
         );
 
-        $cartModel = new CartModel();
+        $buy_now = $this->request->getPost('buy_now');
 
-        $cartItems = $cartModel->fetch_all_cart_items();
+        if ($buy_now=="yes") {
+            # code...
+        } else {
+            $cartModel = new CartModel();
+
+            $cartItems = $cartModel->fetch_all_cart_items();
+    
+        }
+        
+
 
 
         $orderData = array(
@@ -140,6 +149,7 @@ class Checkout extends BaseController
             "date" => date("d-m-Y H:i:s D"),
             'customer_id' => session("id")
         );
+
 
         $orderModel = new OrderModel();
         $orderCreated = $orderModel->insert($orderData);

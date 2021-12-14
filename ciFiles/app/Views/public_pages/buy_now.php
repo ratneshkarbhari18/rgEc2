@@ -254,6 +254,7 @@ use PhpParser\Node\Stmt\Echo_;
                                                 <input type="hidden" name="currency" value="<?php echo $_COOKIE["currency_name"]; ?>">
                                                 <input type="hidden" name="cart_items" value='<?php $product["quantity"] = $quantity; $product["size"] = $size;  echo json_encode($product); ?>'>
                                                 <input type="hidden" name="amount" value="<?php echo $payable; ?>">
+                                                <input type="hidden" name="buy_now" value="yes">
                                                 <div class="form-group">
                                                     <label for="country">Country</label>
                                                     <select class="form-control" name="country" id="country">
