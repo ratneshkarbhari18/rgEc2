@@ -126,11 +126,11 @@ class Checkout extends BaseController
         $buy_now = $this->request->getPost('buy_now');
 
         if ($buy_now=="yes") {
-            # code...
+            $cartItems = $this->request->getPost("pdata"); 
         } else {
             $cartModel = new CartModel();
 
-            $cartItems = $cartModel->fetch_all_cart_items();
+            $cartItems = json_encode($cartModel->fetch_all_cart_items());
     
         }
         
@@ -141,7 +141,7 @@ class Checkout extends BaseController
             "public_order_id" => uniqid(),
             "amount_paid" => $this->request->getPost('amount'),
             "currency" => $this->request->getPost('currency'),
-            "order_details" => json_encode($cartItems),
+            "order_details" => $cartItems,
             "customer_details" => json_encode($customerDetails),
             "status" => "created",
             "status_details" => "",
@@ -163,7 +163,8 @@ class Checkout extends BaseController
             )
         );
 
-        if ($orderCreated&$addressAdded) {
+        if ($orderCreated) {
+            $cartModel = new CartModel(); 
             $cartModel->clear_cart_for_ip();
             helper('cookie');
             delete_cookie('coupon_code');

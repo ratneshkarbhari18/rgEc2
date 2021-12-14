@@ -311,6 +311,7 @@ if(count($cartItems)>0): ?>
                                                 <input type="hidden" name="cart_items" value="<?php echo json_encode($cartItems); ?>">
                                                 <input type="hidden" name="amount" value="<?php echo $payable; ?>">
                                                 <input type="hidden" name="buy_now" value="no">
+                                                
                                                 <div class="form-group">
                                                     <label for="country">Country</label>
                                                     <select class="form-control" name="country" id="country">
