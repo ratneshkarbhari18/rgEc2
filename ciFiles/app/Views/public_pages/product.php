@@ -158,7 +158,7 @@
 
                                 <script>
 
-                                    $("input#product-quantity-touch,select#product-size-touch").change(function (e) { 
+                                    $("input#product-quantity").change(function (e) { 
                                         e.preventDefault();
                                         // $("input#product-size-buy-now").val($("input#product-size-buy-now").val());
                                         $("input#product-quantity-buy-now").val($("input#product-quantity").val());
@@ -388,7 +388,7 @@
 
 
 
-                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-right: 0.5em;">-</button><input type="number" id="product-quantity-touch" style="width: 50px; font-size: 15px; height: 50px; text-align: center;" value="1" min="1" readonly><button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-left: 0.5em;">+</button>
+                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-right: 0.5em;">-</button><input type="number" id="product-quantity" style="width: 50px; font-size: 15px; height: 50px; text-align: center;" value="1" min="1" readonly><button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-left: 0.5em;">+</button>
 
                             </div>
                             
@@ -416,7 +416,7 @@
                                     $("input#product-quantity-touch,select#product-size-touch").change(function (e) { 
                                         e.preventDefault();
                                         $("input#product-size-buy-now").val($("select#product-size-touch").val());
-                                        $("input#product-quantity-buy-now").val($("input#product-quantity-touch").val());
+                                        $("input#product-quantity-buy-now").val($("input#product-quantity").val());
                                     });
 
                                 </script>
@@ -552,6 +552,7 @@
         e.preventDefault();
         let productQuantity = $("input#product-quantity").val();
         $("input#product-quantity").val(parseInt(productQuantity)+parseInt(1));
+        $("input#product-quantity-buy-now").val(parseInt(productQuantity)+parseInt(1));
     });
 
     $("button#reduce-qty").click(function (e) { 
@@ -559,6 +560,7 @@
         let productQuantity = $("input#product-quantity").val();
         if(parseInt(productQuantity)!=1){
             $("input#product-quantity").val(parseInt(productQuantity)-parseInt(1));
+            $("input#product-quantity-buy-now").val(parseInt(productQuantity)-parseInt(1));
         }
     });
     

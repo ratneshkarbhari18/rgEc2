@@ -173,6 +173,31 @@ class PageLoader extends BaseController
 
     }
 
+    public function buy_now($error="")
+    {
+
+        helper("form");
+
+        $pid = $this->request->getPost("product-id");
+        $psize = $this->request->getPost("product-size");
+        $pq = $this->request->getPost("product-quantity-buy-now");
+
+        $productModel = new ProductModel();
+
+        $pdata = $productModel->find($pid);
+
+        $scModel = new ScModel();
+
+        $allScs = array_reverse($scModel->findAll());
+
+        $subtotal =  $_COOKIE["currency_rate"]*$pdata['sale_price']*$pq;
+
+        $data = array('title' => "Buy Now","scs"=>$allScs,"product"=>$pdata,"size"=>$psize,"quantity"=>$pq,"subtotal"=>$subtotal,"error"=>$error);
+        
+        $this->public_page_loader("buy_now",$data);
+
+    }
+
     public function about()
     {
         helper("form");
@@ -519,21 +544,6 @@ class PageLoader extends BaseController
         $scModel = new ScModel();
 
         $allScs = array_reverse($scModel->findAll());
-
-        // $api = new Api('rzp_test_9tq9iab2LIBkZT', 'baYcbdg46PvBCmqic42adTGl');
-
-        // $orderData = [
-        //     'receipt'         => uniqid(),
-        //     'amount'          => 1*100, // 39900 rupees in paise
-        //     'currency'        => "INR"
-        // ];
-
-        // $api = new Api('rzp_test_9tq9iab2LIBkZT', 'baYcbdg46PvBCmqic42adTGl');
-
-
-        // $razorpayOrder = $api->order->create($orderData);
-
-
 
 
         $data = array('title' => "Cart","cartItems"=>$cartItems,"allProducts"=>$allProducts,"scs"=>$allScs,"rzpOrder"=> NULL,"error"=>$error);

@@ -345,6 +345,15 @@ class BackgroundFeatures extends BaseController
     }
 
 
+    public function set_shipping_cookies()
+    {
+        $shippingLocation = $this->request->getPost("shippingLocation");
+        $shippingSpeed = $this->request->getPost("shippingSpeed");
+        setcookie("shippingLocation",$shippingLocation,time()+(5*24*60*60));
+        setcookie("shippingSpeed",$shippingSpeed,time()+(5*24*60*60));
+        return "done";
+    }
+
     public function send_contact_email()
     {
         

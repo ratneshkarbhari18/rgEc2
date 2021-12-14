@@ -8,77 +8,29 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <main class="page-contentX" id="cart" style="padding: 0;">
 
-    <section class="title-section text-center" id="cart-title">
-        <div class="container-fluid " style="padding: 5em 0; margin-bottom: 2em; background-color: #d10762;">
-            <h2 class="section-titleX text-light">CART</h2>
+    <section class="title-section text-center" style="padding: 2em 0; margin-bottom: 2em; background-color: #d10762;" id="cart-title">
+        <div class="container " >
+            <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12"></div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <div class="card">
+                        <img src="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" class="w-100 card-img-top">
+
+                        <div class="card-content">
+                            <h1 class="text-dark"><?php echo $product["title"]; ?></h1>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12"></div>
+            </div>
         </div>
     </section>
     <?php
 
 use PhpParser\Node\Stmt\Echo_;
-
-if(count($cartItems)>0): ?>
+?>
     <section id="cart" >
-        <div class="container-fluid text-center">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product Title</th>
-                            <!-- <th scope="col">Stitching</th> -->
-                            <th scope="col">Size</th>
-                            <th scope="col">Price (<?php echo $_COOKIE["currency_symbol"]; ?>)</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total (<?php echo $_COOKIE["currency_symbol"]; ?>)</th>
-                            <th scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $subtotal = $totalWeight = 0.00; ?>
-                        <?php  foreach($cartItems as $cartItem): foreach($allProducts as $product): if($cartItem['product_id']==$product['id']): ?>
-                        <tr>
-                            <td><?php echo $product['title']; ?>
-                            </td>
-                            <td><?php echo $cartItem["size"]; ?></td>
-                            <td><?php echo $price = $_COOKIE["currency_rate"]*$product['sale_price']; ?></td>
-                            <td>    
-                                <?php echo form_open(site_url("update-cart"),'id="updateCart-'.$cartItem["id"].'"'); ?>
-                                    <input type="hidden" name="cart-item-id" value='<?php echo $cartItem['id']; ?>'>
-                                    <button type="button" class="d-inline qty-buttons btn btn-primary reduce-qty" cart-item-id="<?php echo $cartItem["id"]; ?>">-</button>
-                                    <input type="text" readonly name="product-qty" style="width: 55px; text-align: center;" value="<?php echo $cartItem['quantity']; ?>" min="1" id="product-qty-<?php echo $cartItem['id']; ?>">
-                                    <button type="button" class="d-inline qty-buttons btn btn-success add-qty" cart-item-id="<?php echo $cartItem["id"]; ?>">+</button>
-                                </td>
-                                <td><?php if($cartItem['product_id']==$product['id']){
-                                    echo $amount = $price*$cartItem['quantity'];
-                                    $subtotal=$subtotal+$amount; 
-                                    $totalWeight=$totalWeight+$product["weight"];
-
-                                } ?></td>
-                                <td>
-                                    <!-- <button style="margin-bottom: 5%;" type="submit" class="btn btn-info">Update</button> -->
-                                <?php echo form_close(); ?>
-                                <?php $attributes = array("id"=>"deleteFromCart-".$cartItem["id"],"class"=>"d-inline"); echo form_open("delete-from-cart",$attributes);  ?>
-                                    <input type="hidden" name="cart-item-id" value="<?php echo $cartItem['id']; ?>">
-                                    <button style="margin-bottom: 3%;" type="submit" class="btn btn-danger">DELETE</button>
-                                <?php echo form_close(); ?>
-                            </td>
-                        </tr>
-                        <?php endif; endforeach; endforeach; ?>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><h4>Subtotal:</h4></td>
-                            <td><h4><?php echo $_COOKIE["currency_symbol"]."". $subtotal; ?></h4></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            
-        </div>
+        
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-12 col-sm-12"></div>
@@ -142,6 +94,7 @@ if(count($cartItems)>0): ?>
                             }else {
                                 $shippingLocation = $_COOKIE["shippingLocation"];
                             }
+                            $totalWeight = $product["weight"];
                             foreach($scs as $sc){
                                 
                                 if (($sc["weight_min"]<=$totalWeight)&&($totalWeight<=$sc["weight_max"])&&$sc['domestic_international']==$_COOKIE["shippingLocation"]) {
@@ -163,7 +116,9 @@ if(count($cartItems)>0): ?>
                         <div class="card" style="margin: 2em 0;">
                             <div class="card-body text-center">
                                 
-                                <h3>SUBTOTAL:  <?php echo $_COOKIE["currency_symbol"]."". number_format($subtotal,2); ?></h3>
+                                <h3>PRICE:  <?php echo $price = $_COOKIE["currency_symbol"]."". number_format($subtotal,2); ?></h3>
+                                <h3>QUANTITY:  <?php echo $quantity; ?></h3>
+                                <h3>SUBTOTAL:  <?php echo $subtotal; ?></h3>
                                 <div class="form-group w-50 ml-auto mr-auto">
                                     <label for="shipping_speed">Select Shipping Speed</label>
                                     <select class="form-control shippingVariable" name="shipping_speed" id="shipping_speed">
@@ -179,18 +134,7 @@ if(count($cartItems)>0): ?>
                                     </select>
                                 </div>
                                 <script>
-                                    function setCookie(name,value,days) {
-                                        var expires = "";
-                                        if (days) {
-                                            var date = new Date();
-                                            date.setTime(date.getTime() + (days*24*60*60*1000));
-                                            expires = "; expires=" + date.toUTCString();
-                                        }
-                                        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-                                    }
-                                    function delete_cookie(name) {
-                                         document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                                    }
+                                    
                                     $("select.shippingVariable").on('change', function () {
                                         let shippingSpeed = $("select#shipping_speed").val();
                                         let shippingLocation = $("select#shipping_location").val();
@@ -308,7 +252,7 @@ if(count($cartItems)>0): ?>
                                                 <span class="text-danger" id="paymentError"></span>
                                                 <?php $attributes = array("id"=>"paymentForm"); echo form_open(site_url("payment-exe"),$attributes); ?>
                                                 <input type="hidden" name="currency" value="<?php echo $_COOKIE["currency_name"]; ?>">
-                                                <input type="hidden" name="cart_items" value="<?php echo json_encode($cartItems); ?>">
+                                                <input type="hidden" name="cart_items" value='<?php $product["quantity"] = $quantity; $product["size"] = $size;  echo json_encode($product); ?>'>
                                                 <input type="hidden" name="amount" value="<?php echo $payable; ?>">
                                                 <div class="form-group">
                                                     <label for="country">Country</label>
@@ -352,15 +296,6 @@ if(count($cartItems)>0): ?>
             </div>
         </div>
     </section>
-    <?php else: ?>
-        <div class="container">
-            <div class="card" style="margin: 2em 0;">
-                <div class="card-body">
-                    <h4>No Items in cart </h4>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
 </main>
 <script>
    $(document).ready(function () {
