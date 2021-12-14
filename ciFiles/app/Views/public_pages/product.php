@@ -107,7 +107,7 @@
 
                                 <?php $sizes = explode(',',$product['sizes']); foreach($sizes as $size): ?>
 
-                                    <button class="sizeSetter btn d-inline <?php if($size=="S"){echo "selectedSize";} ?>" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%; <?php if($size=="S"){echo "background-color: deeppink; color: white;";} ?>" size="<?php echo $size; ?>"><?php echo strtoupper($size); ?></button>
+                                    <button class="sizeSetter btn d-inline <?php if($size=="S"){echo "selectedSize";} ?>" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%; <?php if($size=="S"){echo "background-color: #d10762 !important; color: white;";} ?>" size="<?php echo $size; ?>"><?php echo strtoupper($size); ?></button>
 
                                 <?php endforeach; ?>
                                 <button class="sizeSetter btn" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%" size="Custom">Customize</button>
@@ -124,15 +124,19 @@
                                     sizeSetters.css("color","black");
                                     sizeSetters.removeClass("selectedSize");
 
-                                    $(this).css("background-color","deeppink");
+                                    $(this).css("background-color","#d10762");
                                     $(this).css("color","white");
                                     $(this).addClass("selectedSize");
+
+                                    $("input#product-size-buy-now").val($(this).attr("size"));
 
                                 });
 
                                 
 
                             </script>
+
+                            
                             
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0; margin: 1em 0;">
                             
@@ -149,8 +153,33 @@
 
                             <div class="col-lg-12 col-md-6 col-sm-6 custom-half-grid" style="padding:0;">
                                 
-                                        
-                                <button type="button" id="addToCartButton" class="btn btn-primary" >Add to Cart</button>
+
+                                <input type="hidden" name="product-size-buy-now" value="s" id="product-size-buy-now-ref">
+
+                                <script>
+
+                                    $("input#product-quantity-touch,select#product-size-touch").change(function (e) { 
+                                        e.preventDefault();
+                                        // $("input#product-size-buy-now").val($("input#product-size-buy-now").val());
+                                        $("input#product-quantity-buy-now").val($("input#product-quantity").val());
+                                    });
+
+                                </script>
+
+                            
+                                <?php echo form_open("buy-now"); ?>
+
+                                    <input type="hidden" name="product-id" id="product-id-buy-now" value="<?php echo $product["id"]; ?>">
+
+                                    <input type="hidden" name="product-size" id="product-size-buy-now" value="s">
+
+                                    <input type="hidden" name="product-quantity-buy-now" id="product-quantity-buy-now"  value="1">
+
+                                    <button type="submit" id="buyNowButton" class="btn d-inline" style="background-color: #d10762 !important; color:white; border: 1px solid black; border-radius:0px !important;">Buy Now</button>
+
+                                <?php form_close(); ?>
+
+                                <button type="button" id="addToCartButton" style="border-radius: 0px !important; background-color: white; color: black; border: 1px solid black;" class="btn" >Add to Cart</button>
 
                                 <script>
 
@@ -364,12 +393,43 @@
                             </div>
                             
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0;">
+                            <div class="col-lg-6 col-md-12 col-sm-12 " style="padding:0;">
+                            
+                                    
+
+                                <?php echo form_open("buy-now"); ?>
+
+                                <input type="hidden" name="product-id" id="product-id-buy-now" value="<?php echo $product["id"]; ?>">
+
+                                <input type="hidden" name="product-size" id="product-size-buy-now" value="s">
+
+                                <input type="hidden" name="product-quantity-buy-now" id="product-quantity-buy-now"  value="1">
+
+                                <button type="submit" id="buyNowButton" class="btn d-inline" style="background-color: #d10762 !important; color:white; border: 1px solid black; border-radius:0px !important; margin-bottom: 3%;">Buy Now</button>
+
+                                <?php form_close(); ?>
                                 
-                                        
-                                <button type="button" id="addToCartButton" class="btn btn-primary" style="background-color: black; color:white; margin-bottom: 3%;">Add to Cart</button>
+                                
 
                                 <script>
+
+                                    $("input#product-quantity-touch,select#product-size-touch").change(function (e) { 
+                                        e.preventDefault();
+                                        $("input#product-size-buy-now").val($("select#product-size-touch").val());
+                                        $("input#product-quantity-buy-now").val($("input#product-quantity-touch").val());
+                                    });
+
+                                </script>
+
+
+                                <script>
+
+                                    $("select#product-size-touch").change(function (e) { 
+                                        e.preventDefault();
+                                        let productSize = $(this).val();
+                                        $("input#product-size-touch").val(productSize);
+                                    });
+
 
                                     $("button#addToCartButton").click(function (e) { 
                                         e.preventDefault();
@@ -406,6 +466,9 @@
                                     });
 
                                 </script>
+
+                                <button type="button" id="addToCartButton" class="btn d-inline" style="background-color: white; color:black; border: 1px solid black; border-radius:0px !important; margin-bottom: 3%;">Add to Cart</button>
+
 
                             </div>
                             <div id="share"></div>
