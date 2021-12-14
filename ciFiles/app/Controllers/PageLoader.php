@@ -605,6 +605,8 @@ class PageLoader extends BaseController
 
     // Admin Pages
 
+   
+
     public function popup_mgt($success="",$error="")
     {
 

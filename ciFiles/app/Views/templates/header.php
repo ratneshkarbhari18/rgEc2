@@ -160,7 +160,7 @@ echo $title; ?> | Ricka Gauba</title>
                 </div>
             </div>
         </nav>
-        <div id="mqCarousel" class="mq w-100 owl-carousel text-center" style="background-color: white; padding: 1em 0; border: 1px solid #eaeaea;"  >
+        <div id="mqCarousel" class="mq w-100 owl-carousel text-center" style="background-color: #000; color: white; padding: 1em 0;"  >
             <p style="margin: 0; padding: 0;">MQ Text 1</p>
             <p style="margin: 0; padding: 0;">MQ Text 2</p>
             <p style="margin: 0; padding: 0;">MQ Text 3</p>

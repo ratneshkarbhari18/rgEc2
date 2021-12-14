@@ -33,6 +33,13 @@
                         <br>
 
                     <div id="gallery_01" class="owl-carouselx " style='margin-top: 5%;'>
+
+                    
+                    
+                        <a href="#" data-image="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" data-zoom-image="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>">
+                            <img style="cursor: pointer;" src="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" class="product-gallery-imagex" width="100px" height="100px">
+                        </a>
+
                         <?php $gallery_images = explode(',',$product['gallery_images']); foreach($gallery_images as $gallery_image): ?>
 
                             <a href="#" data-image="<?php echo site_url('assets/images/gallery_images_product/'.$gallery_image); ?>" data-zoom-image="<?php echo site_url('assets/images/gallery_images_product/'.$gallery_image); ?>">

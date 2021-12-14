@@ -40,7 +40,7 @@
             </div>
         </div>
     </section>
-    <section id="contact-info" class="text-center bg-dark " style="padding: 5em 0;">
+    <section id="contact-info" class="text-center bg-dark " style="padding: 1em 0;">
         <div class="container">
             <p style="font-size: 25px; color: white;">Talk to us. We love it when you do</p>
             
