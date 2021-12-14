@@ -25,7 +25,7 @@ if(count($cartItems)>0): ?>
                     <thead>
                         <tr>
                             <th scope="col">Product Title</th>
-                            <th scope="col">Stitching</th>
+                            <!-- <th scope="col">Stitching</th> -->
                             <th scope="col">Size</th>
                             <th scope="col">Price (<?php echo $_COOKIE["currency_symbol"]; ?>)</th>
                             <th scope="col">Quantity</th>
@@ -39,7 +39,6 @@ if(count($cartItems)>0): ?>
                         <tr>
                             <td><?php echo $product['title']; ?>
                             </td>
-                            <td><?php echo ucfirst($cartItem["stitching"]); ?></td>
                             <td><?php echo $cartItem["size"]; ?></td>
                             <td><?php echo $price = $_COOKIE["currency_rate"]*$product['sale_price']; ?></td>
                             <td>    

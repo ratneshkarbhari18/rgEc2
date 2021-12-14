@@ -62,6 +62,7 @@
                         $("img#product-page-main-product-image").attr('data-zoom-image',$(this).attr('srcset'));
                     });
                     </script>
+                    
                 
                 </div>
 
@@ -107,16 +108,16 @@
 
                                 <?php $sizes = explode(',',$product['sizes']); foreach($sizes as $size): ?>
 
-                                    <button class="sizeSetter btn d-inline <?php if($size=="S"){echo "selectedSize";} ?>" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%; <?php if($size=="S"){echo "background-color: deeppink; color: white;";} ?>" size="<?php echo $size; ?>"><?php echo strtoupper($size); ?></button>
+                                    <button class="sizeSetter btn d-inline" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%" size="<?php echo $size; ?>" stitching = "no"><?php echo strtoupper($size); ?></button>
 
                                 <?php endforeach; ?>
-                                <button class="sizeSetter btn" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%" size="Custom">Customize</button>
+                                    <button class="sizeSetter btn" style="border: 1px solid #424242; border-radius: 0 !important; padding: 1% 2%" size="Custom" stitching = "yes">Customize</button>
 
 
 
                             </div>
-
                             <script>
+
                                 $("button.sizeSetter").on("click", function () {
                                     let sizeSetters = $("button.sizeSetter");
 
@@ -129,11 +130,8 @@
                                     $(this).addClass("selectedSize");
 
                                 });
-
-                                
-
                             </script>
-                            
+
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0; margin: 1em 0;">
                             
 
@@ -151,45 +149,6 @@
                                 
                                         
                                 <button type="button" id="addToCartButton" class="btn btn-primary" >Add to Cart</button>
-
-                                <script>
-
-                                    $("button#addToCartButton").click(function (e) { 
-                                        e.preventDefault();
-                                        let productSize = $(".selectedSize").attr("size"); 
-                                        let productQuantity = $("input#product-quantity").val();
-
-
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "<?php echo site_url('add-to-cart-exe'); ?>",
-                                            data: {
-                                                product_id : '<?php echo $product['id']; ?>',
-                                                stitching : $("select#stitching").val(),
-                                                size : productSize,
-                                                quantity : productQuantity,
-                                            },
-                                            success: function (response) {
-                                                if(response=='success'){
-                                                    $("p#atc-success").html('Added to Cart Successfully');
-                                                    let currentCartCount = "<?php echo $cart_item_count; ?>"
-                                                    $("span#cart_item_count").html(currentCartCount+1);
-                                                    setTimeout(function() {
-                                                        $("p#atc-success").html('');
-                                                    }, 3000);
-                                                    location.reload();
-                                                }else{
-                                                    $("p#atc-failure").html('Added to Cart Failed');
-                                                    setTimeout(function() {
-                                                        $("p#atc-failure").html('');
-                                                    }, 3000);
-                                                }
-                                            }
-                                        });
-                                    });
-
-                                </script>
-
                             </div>
                             <div style="margin: 1em 0;" id="share"></div>
 
@@ -250,7 +209,43 @@
                     
                     </div>
 
+                    <script>
 
+                        $("button#addToCartButton").click(function (e) { 
+                            e.preventDefault();
+
+                            console.log("clicked");
+
+                            let productSize = $(".selectedSize")[0].attr("size");
+                            let productSize = $("input#product-quantity").val();
+
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('add-to-cart-exe'); ?>",
+                                data: {
+                                    product_id : '<?php echo $product['id']; ?>',
+                                    size : productSize,
+                                    quantity : productQuantity,
+                                },
+                                success: function (response) {
+                                    if(response=='success'){
+                                        $("p#atc-success").html('Added to Cart Successfully');
+                                        let currentCartCount = "<?php echo $cart_item_count; ?>"
+                                        $("span#cart_item_count").html(currentCartCount+1);
+                                        setTimeout(function() {
+                                            $("p#atc-success").html('');
+                                        }, 3000);
+                                        location.reload();
+                                    }else{
+                                        $("p#atc-failure").html('Added to Cart Failed');
+                                        setTimeout(function() {
+                                            $("p#atc-failure").html('');
+                                        }, 3000);
+                                    }
+                                }
+                            });
+                        });
+                    </script>
 
                     
                 
@@ -272,22 +267,23 @@
                         <div class="row" style='margin-top: 5%;'>
                         
                             <?php if($product['sizes']!=''): ?>
-                            <div class="col-lg-4 col-md-6 col-sm12 form-group" style="padding-left: 0;">
+                            <div class="col-lg-4 col-md-6 col-sm-12 form-group" style="padding-left: 0;">
                             
                             <label for="product-size">Size: <a class="text-success" style="font-weight: 600;" href="<?php echo site_url("assets/images/rgSizeChart.jpg"); ?>" data-lity>See Size Chart</a></label>
 
                                 <select class="form-control" id="product-size-touch">
                                     <?php $sizes = explode(',',$product['sizes']); foreach($sizes as $size): ?>
-                                    <option value="<?php echo $size; ?>"><?php echo ucfirst($size); ?></option>
+                                    <option class="product-size-touch" value="<?php echo $size; ?>" stitching="no"><?php echo ucfirst($size); ?></option>
                                     <?php endforeach; ?>
-                                    <option value="Custom">Custom</option>
+                                    <option value="Custom" class="product-size-touch" stitching="yes">Customize</option>
                                 </select>
 
+                               
                             </div>
                             <?php else: ?>
                             <input type="hidden" name="product-size" value="default">
                             <?php endif; ?>
-                            <div  class="col-lg-4 col-md-6 col-sm12 form-group d-none" style="padding-left: 0;">
+                            <div  class="col-lg-4 col-md-6 col-sm-12 form-group d-none" style="padding-left: 0;">
                             
                                 <label for="stitching">Stitching:</label>
 
@@ -300,16 +296,10 @@
 
                             
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin-bottom: 1%; margin-top: 1%;">
+                            <div class="col-lg-6 col-md-6 col-sm-12 custom-half-grid" style="padding:0; margin-bottom: 1%; margin-top: 1%;">
                                 <p class="text-success" id="atwSuccess"></p>
                                 <p class="text-danger" id="atwFail"></p>
-                                <?php $session = session(); if($session->role=='customer'): ?>
-                                    <p id="atw-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
-                                    <p id="atw-failure" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
-                                    <button href="#" type="button" id="addToWishlistButton" style=" font-size: 16px; padding-left: 1%; padding-right: 1%;" class="btn btn-link"> <img src="<?php echo site_url('assets/icons/heart.svg'); ?>" width="16px" height="16px"> Add to Wishlist</button>
-                                <?php else: ?>
-                                    <a  id="addToWishlistButton" href="<?php echo site_url('login'); ?>" style=" font-size: 16px;"> <img src="<?php echo site_url('assets/icons/heart.svg'); ?>" width="16px" height="16px"> Add to Wishlist</a>
-                                <?php endif;  ?>
+
 
                                 <script>
                                     $("button#addToWishlistButton").click(function (e) { 
@@ -341,82 +331,51 @@
 
 
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin-bottom: 3%;">
+                            <!-- <div class="col-lg-6 col-md-6 col-sm-12 custom-half-grid" style="padding:0; margin-bottom: 3%;">
                             
                                 <p id="atx-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
                                 <p id="atx-failure" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
 
                                 <a href="#" data-toggle="modal" data-target="#sizeChartModal" style="font-size: 16px;" class="d-none"> <img src="<?php echo site_url('assets/icons/sliders.svg'); ?>" width="16px" height="16px"> See Size Chart</a>
 
-                            </div>
+                            </div> -->
                             <!-- <div class="col-lg-4 col-md-12 col-sm-12"></div> -->
 
-                            <p id="atc-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
-                                <p id="atc-failure" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
-                            
-                            <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0;">
+                            <p id="atc-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important; margin-bottom:0;"></p>
+                            <p id="atc-failure" style="margin-bottom:0;" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
+                        
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0; margin-bottom:0;">
                                 <!-- <label for="product-quantity">Quantity:</label> -->
 
 
 
-                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-right: 0.5em;">-</button><input type="number" id="product-quantity-touch" style="width: 50px; font-size: 15px; height: 50px; text-align: center;" value="1" min="1" readonly><button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-left: 0.5em;">+</button>
+                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-right: 0.5em;">-</button><input type="number" id="product-quantity" style="width: 50px; font-size: 15px; height: 50px; text-align: center;" value="1" min="1" readonly><button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-left: 0.5em;">+</button>
 
                             </div>
                             
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin: 1em 0;">
                                 
                                         
                                 <button type="button" id="addToCartButton" class="btn btn-primary" style="background-color: black; color:white; margin-bottom: 3%;">Add to Cart</button>
-
-                                <script>
-
-                                    $("button#addToCartButton").click(function (e) { 
-                                        e.preventDefault();
-                                        let productSize = $("select#product-size-touch").val(); 
-                                        let productQuantity = $("input#product-quantity-touch").val();
-
-
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "<?php echo site_url('add-to-cart-exe'); ?>",
-                                            data: {
-                                                product_id : '<?php echo $product['id']; ?>',
-                                                stitching : $("select#stitching").val(),
-                                                size : productSize,
-                                                quantity : productQuantity,
-                                            },
-                                            success: function (response) {
-                                                if(response=='success'){
-                                                    $("p#atc-success").html('Added to Cart Successfully');
-                                                    let currentCartCount = "<?php echo $cart_item_count; ?>"
-                                                    $("span#cart_item_count").html(currentCartCount+1);
-                                                    setTimeout(function() {
-                                                        $("p#atc-success").html('');
-                                                    }, 3000);
-                                                    location.reload();
-                                                }else{
-                                                    $("p#atc-failure").html('Added to Cart Failed');
-                                                    setTimeout(function() {
-                                                        $("p#atc-failure").html('');
-                                                    }, 3000);
-                                                }
-                                            }
-                                        });
-                                    });
-
-                                </script>
-
                             </div>
                             <div id="share"></div>
 
-
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                            <?php $session = session(); if($session->role=='customer'): ?>
+                                <p id="atw-success" style="margin-bottom: 0;" class="col-lg-12 col-md-12 col-sm-12 text-success" style="color: darkgreen !important;"></p>
+                                <p id="atw-failure" class="col-lg-12 col-md-12 col-sm-12 text-danger"></p>
+                                <button href="#" type="button" id="addToWishlistButton" style=" font-size: 16px; padding-left: 1%; padding-right: 1%;" class="btn btn-link"> <img src="<?php echo site_url('assets/icons/heart.svg'); ?>" width="16px" height="16px"> Add to Wishlist</button>
+                            <?php else: ?>
+                                <a  id="addToWishlistButton" href="<?php echo site_url('login'); ?>" style=" font-size: 16px;"> <img src="<?php echo site_url('assets/icons/heart.svg'); ?>" width="16px" height="16px"> Add to Wishlist</a>
+                            <?php endif;  ?>
+                            </div>
 
 
                             <div class="col-lg-6 col-md-6 col-sm-6 text-left custom-half-grid" style="padding-left: 0; margin-top: 1%;">
-                                <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a>
+                                <!-- <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a> -->
                             </div>
-                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
+                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 1em 0;">
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>
                             </div>
 
@@ -426,8 +385,40 @@
                     
                     </div>
 
+                    <script>
 
+                        $("select#product-size-touch").change(function (e) { 
+                            e.preventDefault();
+                            let productSize = $(this).val();
+                            let productSize = $("input#product-quantity").val();
 
+                            $.ajax({
+                                type: "POST",
+                                url: "<?php echo site_url('add-to-cart-exe'); ?>",
+                                data: {
+                                    product_id : '<?php echo $product['id']; ?>',
+                                    size : productSize,
+                                    quantity : productQuantity,
+                                },
+                                success: function (response) {
+                                    if(response=='success'){
+                                        $("p#atc-success").html('Added to Cart Successfully');
+                                        let currentCartCount = "<?php echo $cart_item_count; ?>"
+                                        $("span#cart_item_count").html(currentCartCount+1);
+                                        setTimeout(function() {
+                                            $("p#atc-success").html('');
+                                        }, 3000);
+                                        location.reload();
+                                    }else{
+                                        $("p#atc-failure").html('Added to Cart Failed');
+                                        setTimeout(function() {
+                                            $("p#atc-failure").html('');
+                                        }, 3000);
+                                    }
+                                }
+                            });
+                        });
+                    </script>
                     
                 
                 </div>
@@ -466,7 +457,7 @@
                                 <span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo $_COOKIE["currency_rate"]*$related_product['price']; ?></span>
                             <?php endif; ?>
 
-                                <br>
+                        <br>
                                 <button style="margin-top: 1em;" class="btn btn-primary">BUY NOW</button>
 
                             </div>
@@ -551,7 +542,7 @@
 </script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
 <script>
-    $("#share,#share-touch").jsSocials({
+    $("#share").jsSocials({
         shares: ["email", "twitter", "facebook",  "linkedin", "pinterest", "stumbleupon", "whatsapp"]
     });
 </script>

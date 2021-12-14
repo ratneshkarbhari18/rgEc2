@@ -42,9 +42,15 @@ class Checkout extends BaseController
 
 
         $pid = $this->request->getPost('product_id');
-        $stitching = $this->request->getPost('stitching');
+        // $stitching = $this->request->getPost('stitching');
         $size = $this->request->getPost('size');
         $quantity = $this->request->getPost('quantity');
+
+        if($size=="Custom"){
+            $stitching = "yes";
+        }else {
+            $stitching="no";
+        }
         
         $cartModel = new CartModel();
         
