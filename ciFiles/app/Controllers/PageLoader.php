@@ -1020,7 +1020,7 @@ class PageLoader extends BaseController
 
     public function add_style($success="",$error="")
     {
-        
+        helper("form");
 
         $session = session();
         $currentrole = $session->get("role");

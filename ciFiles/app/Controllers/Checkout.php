@@ -180,7 +180,7 @@ class Checkout extends BaseController
     {
         $code = $this->request->getPost("couponcode");
         $couponModel = new CouponModel();
-        $coupon = $couponModel->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->first();
+        $coupon = $couponModel->where("code",$code)->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->first();
 
         if ($coupon) {
             setcookie("coupon_code",$coupon["code"],time()+(5*24*60),site_url());

@@ -31,7 +31,7 @@
                                 <a href="<?php echo site_url(''); ?>">Home</a>
                             </li>
                             <li class="menu-item">
-                                <a href="<?php echo site_url('customer-login'); ?>">Login</a>
+                                <a href="<?php echo site_url('login'); ?>">Login</a>
                             </li>
                             <li class="menu-item">
                                 <a href="<?php echo site_url('about'); ?>">About</a>

@@ -354,6 +354,13 @@ class BackgroundFeatures extends BaseController
         return "done";
     }
 
+    public function remove_cc()
+    {
+        setcookie('coupon_code','xxx',time()-24*3600);
+        setcookie('coupon_value',0,time()-24*3600);
+        return redirect()->to(site_url("cart"));
+    }
+
     public function send_contact_email()
     {
         

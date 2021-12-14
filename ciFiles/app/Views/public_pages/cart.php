@@ -52,7 +52,7 @@ if(count($cartItems)>0): ?>
                                     echo $amount = $price*$cartItem['quantity'];
                                     $subtotal=$subtotal+$amount; 
                                     $totalWeight=$totalWeight+$product["weight"];
-
+                                    
                                 } ?></td>
                                 <td>
                                     <!-- <button style="margin-bottom: 5%;" type="submit" class="btn btn-info">Update</button> -->
@@ -68,10 +68,11 @@ if(count($cartItems)>0): ?>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                             <td><h4>Subtotal:</h4></td>
                             <td><h4><?php echo $_COOKIE["currency_symbol"]."". $subtotal; ?></h4></td>
                             <td></td>
+                            <td></td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -274,6 +275,7 @@ if(count($cartItems)>0): ?>
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
                                 <p><?php echo $_COOKIE["coupon_code"]; ?> applied that gives <?php echo $_COOKIE["coupon_value"]; ?>% of Discount</p>
+                                <a href="<?php echo site_url("remove-cc"); ?>"><p class="text-danger">Remove?</p></a>
                                 <?php else: ?>
                                 <?php echo form_open("apply-coupon-exe"); ?>
                                     <div class="form-group">

@@ -175,6 +175,8 @@ $routes->post("apply-coupon-exe","Checkout::apply_coupon");
 $routes->post("buy-now","PageLoader::buy_now");
 $routes->post("set-shipping-cookies","BackgroundFeatures::set_shipping_cookies");
 
+$routes->get("remove-cc","BackgroundFeatures::remove_cc");
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
