@@ -13,6 +13,7 @@ use App\Models\CartModel;
 use App\Models\AuthModel;
 use App\Models\OrderModel;
 use App\Models\PopupModel;
+use App\Models\TsModel;
 
 //Load Composer's autoloader
 require 'vendor/autoload.php';
@@ -29,6 +30,11 @@ class BackgroundFeatures extends BaseController
         $styleModel = new StyleModel();
         $allCollections = array_reverse($collectionModel->findAll());
         $allStyles = array_reverse($styleModel->findAll());
+
+        $tsModel = new TsModel();
+
+        $data["messages"] = explode(",",$tsModel->findAll()[0]["messages"]);
+        
 
         $data["collections"] = $allCollections;
         $data["styles"] = $allStyles;

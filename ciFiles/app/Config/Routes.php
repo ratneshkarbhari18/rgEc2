@@ -105,6 +105,9 @@ $routes->get("edit-sc","PageLoader::edit_sc");
 $routes->get("manage-customers","PageLoader::manage_customers");
 $routes->get("customer-details/(:any)","PageLoader::customer_details/$1");
 $routes->get("email-signups","PageLoader::email_signups_list");
+$routes->post("delete-es","EmailSignups::delete");
+$routes->post("update-ts-messages","TsMessages::update");
+$routes->get("manage-top-strip-messages","PageLoader::ts_messages");
 
 // es
 $routes->post("subsribe-to-email-list","EmailSignups::create");

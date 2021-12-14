@@ -22,6 +22,14 @@ class EmailSignups extends BaseController
 
     }
 
+    public function delete()
+    {
+        $id = $this->request->getPost("id");
+        $esModel = new EsModel();
+        $esModel->delete($id);
+        return redirect()->to(site_url("email-signups"));
+    }
+
 }
 
 

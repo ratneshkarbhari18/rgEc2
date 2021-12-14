@@ -22,6 +22,7 @@ use CodeIgniter\Commands\Help;
 use CodeIgniter\Database\Query;
 use App\Models\PopupModel;
 use App\Models\ScModel;
+use App\Models\TsModel;
 
 class PageLoader extends BaseController
 {
@@ -38,7 +39,11 @@ class PageLoader extends BaseController
         $allStyles = array_reverse($styleModel->findAll());
         $allProducts = $productModel->findAll();
         $popups = $popupModel->findAll();
+        
+        $tsModel = new TsModel();
 
+        $data["messages"] = explode(",",$tsModel->findAll()[0]["messages"]);
+        
         $data["collections"] = $allCollections;
         $data["styles"] = $allStyles;
         
@@ -606,8 +611,21 @@ class PageLoader extends BaseController
 
     // Admin Pages
 
+    public function ts_messages()
+    {
+        helper("form");
+        $tsModel = new TsModel();
+        $tsMessages = $tsModel->findAll();
+        $data = array(
+            "title" => "Top Strip Messages",
+            "tsMessages" => $tsMessages
+        );
+        $this->admin_page_loader("ts_messages",$data); 
+    }
+
    public function email_signups_list()
    {
+       helper("form");
        $esModel = new EsModel();
        $email_signups = $esModel->findAll();
        $data = array(
