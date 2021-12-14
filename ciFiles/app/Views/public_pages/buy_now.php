@@ -362,62 +362,62 @@ $(".currency-switcher-item").click(function (e) {
 </script>
 <?php if(isset($_SESSION["first_name"])): ?>
 <script>
-    // $("form#paymentForm").submit(function (e) { 
-    //     e.preventDefault();
-    //     let address = $("textarea#address").val();
-    //     let state = $("input#state").val();
-    //     let pincode = $("input#pincode").val();
-    //     if (address==""||state==""||pincode=="") {
-    //     $("span#paymentError").html("Please fill all fields");
-    //     } else {
-    //     $('#staticBackdrop').modal('hide');
+    $("form#paymentForm").submit(function (e) { 
+        e.preventDefault();
+        let address = $("textarea#address").val();
+        let state = $("input#state").val();
+        let pincode = $("input#pincode").val();
+        if (address==""||state==""||pincode=="") {
+        $("span#paymentError").html("Please fill all fields");
+        } else {
+        $('#staticBackdrop').modal('hide');
 
 
 
 
-    //     let options = {
-    //     "key": "rzp_live_EgCVc8wCwpPeDS", // Enter the Key ID generated from the Dashboard
-    //     // "key": "rzp_test_tt5wGNQQXooze8", // Enter the Key ID generated from the D   ashboard
-    //     "amount": '<?php echo $payable*100; ?>', 
-    //     "currency": '<?php echo $_COOKIE['currency_name']; ?>',
-    //     "name": "Ricka Gauba",
-    //     "description": 'Payment on Ricka Gauba',
-    //     "image": "<?php echo site_url('assets/images/sitelogo.jpg'); ?>",
-    //     <?php $rzpOrder["id"]=""; ?>
-    //     "order_id": "<?php echo $rzpOrder['id'] ?>", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    //     "handler": function (response){
-    //     $.ajax({
-    //         type: "POST",
-    //         url: $("form#paymentForm").attr("action"),
-    //         data: $("form#paymentForm").serialize(),
-    //         success: function (response) {
-    //             if(response=="order-created"){
-    //                 window.location.replace("<?php echo site_url("payment-successful"); ?>");
-    //             }else{
-    //                 $("span#paymentError").html("Order not created");
-    //                 setTimeout(() => {
-    //                     window.location.replace("<?php echo site_url("payment-failed"); ?>");
+        let options = {
+        "key": "rzp_live_EgCVc8wCwpPeDS", // Enter the Key ID generated from the Dashboard
+        // "key": "rzp_test_tt5wGNQQXooze8", // Enter the Key ID generated from the D   ashboard
+        "amount": '<?php echo $payable*100; ?>', 
+        "currency": '<?php echo $_COOKIE['currency_name']; ?>',
+        "name": "Ricka Gauba",
+        "description": 'Payment on Ricka Gauba',
+        "image": "<?php echo site_url('assets/images/sitelogo.jpg'); ?>",
+        <?php $rzpOrder["id"]=""; ?>
+        "order_id": "<?php echo $rzpOrder['id'] ?>", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+        $.ajax({
+            type: "POST",
+            url: $("form#paymentForm").attr("action"),
+            data: $("form#paymentForm").serialize(),
+            success: function (response) {
+                if(response=="order-created"){
+                    window.location.replace("<?php echo site_url("payment-successful"); ?>");
+                }else{
+                    $("span#paymentError").html("Order not created");
+                    setTimeout(() => {
+                        window.location.replace("<?php echo site_url("payment-failed"); ?>");
 
-    //                 }, 200);
-    //             }
-    //         }
-    //     });
-    //     },
-    //     "prefill": {
-    //     "name": "<?php echo $_SESSION['first_name']; ?>",
-    //     "email": "<?php echo $_SESSION['email']; ?>",
-    //     "contact": $("input#mobile_number").val()
-    //     },
-    //     "theme": {
-    //     "color": "#d10762"
-    //     }
-    //     };
-    //     var rzp1 = new Razorpay(options);
-    //     rzp1.open();
-    //     e.preventDefault();
+                    }, 200);
+                }
+            }
+        });
+        },
+        "prefill": {
+        "name": "<?php echo $_SESSION['first_name']; ?>",
+        "email": "<?php echo $_SESSION['email']; ?>",
+        "contact": $("input#mobile_number").val()
+        },
+        "theme": {
+        "color": "#d10762"
+        }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+        e.preventDefault();
 
 
-    //     }
-    // });
+        }
+    });
 </script>
 <?php endif; ?>
