@@ -303,14 +303,14 @@ button.owl-next span{
     color: #424242;
     font-size: 5em;
     position: absolute;
-    right: 5%;
+    right: 0%;
     top: 40%;
 }
 button.owl-prev span{
     color: #424242;
     font-size: 5em;
     position: absolute;
-    left: 5%;
+    left: 0%;
     top: 40%;
 }
 .usual-section{

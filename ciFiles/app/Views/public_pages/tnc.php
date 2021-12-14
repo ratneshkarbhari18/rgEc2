@@ -1,3 +1,8 @@
+<section class="title-section text-center" id="cart-title">
+        <div class="container-fluid " style="padding: 1em 0; margin-bottom: 2em; background-color: #d10762;">
+            <h2 class="section-titleX text-light">TERMS AND CONDITIONS</h2>
+        </div>
+    </section>
 <div class="container" style="margin-top: 2em; margin-bottom:2em"> 
 Introduction
 

@@ -104,12 +104,14 @@ class PageLoader extends BaseController
         $slidesModel = new SlidesModel();
         $collectionModel = new CollectionModel();
         $productModel = new ProductModel();
-        $testimonialsModel = new TestimonialsModel();
         
         $allStyles = array_reverse($styleModel->findAll());
         $allSlides = $slidesModel->findAll();
         $allCollections = array_reverse($collectionModel->findAll());
         $allProducts = array_reverse($productModel->findAll());
+
+        $testimonialsModel = new TestimonialsModel();
+
         $testimonials = array_reverse($testimonialsModel->findAll());
 
         $data = array("collections"=>$allCollections,"styles"=>$allStyles,"slides"=>$allSlides,"products"=>$allProducts,"testimonials"=>$testimonials);
@@ -584,10 +586,17 @@ class PageLoader extends BaseController
 
         $relatedProducts = $productModel->find($pidsArray);
 
+        $testimonialsModel = new TestimonialsModel();
+
+        $testimonials = array_reverse($testimonialsModel->findAll());
+
+
+
         $data  = array(
             'title' => $focusProduct["title"],
             "related_products" => $relatedProducts,
-            "product"=>$focusProduct
+            "product"=>$focusProduct,
+            "testimonials" => $testimonials
         );
 
         $this->public_page_loader("product",$data);

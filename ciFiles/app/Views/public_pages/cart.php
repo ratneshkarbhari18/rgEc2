@@ -9,7 +9,7 @@
 <main class="page-contentX" id="cart" style="padding: 0;">
 
     <section class="title-section text-center" id="cart-title">
-        <div class="container-fluid " style="padding: 5em 0; margin-bottom: 2em; background-color: #d10762;">
+        <div class="container-fluid " style="padding: 1em 0; margin-bottom: 2em; background-color: #d10762;">
             <h2 class="section-titleX text-light">CART</h2>
         </div>
     </section>

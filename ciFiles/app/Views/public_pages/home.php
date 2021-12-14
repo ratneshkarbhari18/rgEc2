@@ -25,32 +25,42 @@
     </section>
 
     <section class="usual-section" id="featured-products">
-        <div class="container">
+        <div class="container-fluid">
             <div class="text-center">
                 <h1 class="section-title">Featured Products</h1>
-                <div class="owl-carousel product-carousel">
-                    <?php foreach ($products as $product):  
-                        if($product["featured"]=='yes'):    
-                    ?>
-                        <a href="<?php echo site_url("product/".$product["slug"]); ?>">
-                            <div class="card">
-                                <img src="<?php echo site_url("assets/images/featured_image_product/".$product["featured_image"]); ?>" class="product-image w-100">
-                                <div class="card-body">
-                                    <h4 style="font-weight: 600;"><?php echo substr($product["title"],0,30); ?>...</h4>
-                                    <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-12 col-sm-12"></div>
+                        <div class="col-lg-10 col-md-12 col-sm-12">
 
-                                    <p> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product["sale_price"],2); ?> | <?php echo $_COOKIE["currency_symbol"]; ?> <del><?php echo number_format($_COOKIE["currency_rate"]*$product["price"],2); ?></del></p>
+                            <div class="owl-carousel product-carousel">
+                                <?php foreach ($products as $product):  
+                                    if($product["featured"]=='yes'):    
+                                ?>
+                                    <a href="<?php echo site_url("product/".$product["slug"]); ?>">
+                                        <div class="card">
+                                            <img src="<?php echo site_url("assets/images/featured_image_product/".$product["featured_image"]); ?>" class="product-image w-100">
+                                            <div class="card-body">
+                                                <h4 style="font-weight: 600;"><?php echo substr($product["title"],0,30); ?>...</h4>
+                                                <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
 
-                                    <?php elseif (($product["price"]==$product["sale_price"])||($product["sale_price"]==0.00)): ?>
-                                        <p> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product["price"],2); ?></p>
-                                    <?php endif; ?>
+                                                <p> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product["sale_price"],2); ?> | <?php echo $_COOKIE["currency_symbol"]; ?> <del><?php echo number_format($_COOKIE["currency_rate"]*$product["price"],2); ?></del></p>
 
-                                </div>
+                                                <?php elseif (($product["price"]==$product["sale_price"])||($product["sale_price"]==0.00)): ?>
+                                                    <p> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product["price"],2); ?></p>
+                                                <?php endif; ?>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                <?php 
+                                endif;  
+                                endforeach; ?>
                             </div>
-                        </a>
-                    <?php 
-                    endif;  
-                    endforeach; ?>
+
+                        </div>
+                        <div class="col-lg-1 col-md-12 col-sm-12"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,7 +171,7 @@
     $(".product-carousel").owlCarousel({
         loop:true,
         margin:10,
-        nav:false,
+        nav:true,
         dots: false,
         autoplay:true,
         autoplayTimeout:3000,

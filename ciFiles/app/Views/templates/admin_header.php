@@ -168,7 +168,7 @@
                 Sales Reports
                 </a>
             </li>
-            <li class="nav-item no-margin">
+            <li class="nav-item no-margin d-none">
                 <a class="nav-link sidebar-link" href="<?php echo site_url('flush-cache'); ?>">
                 Flush Cache
                 </a>

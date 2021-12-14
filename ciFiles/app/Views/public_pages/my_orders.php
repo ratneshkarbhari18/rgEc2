@@ -34,6 +34,10 @@
                                 <label for="email">Email</label>
                                 <input class="form-control" value="<?php echo session("email"); ?>" type="email" name="email" id="email">
                             </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea name="address" class="form-control"><?php echo session("address"); ?></textarea>
+                            </div>
                             <button type="submit" class="btn btn-success">UPDATE</button>
                         <?php echo form_close(); ?>
                     </div>

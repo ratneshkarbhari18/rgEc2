@@ -82,7 +82,8 @@ class Authentication extends BaseController
         $dataToUpdate = array(
             "first_name" => $firstName,
             "last_name" => $lastName,
-            "email" => $email
+            "email" => $email,
+            "address" => $this->request->getPost("address")
         );
 
         $session = session();

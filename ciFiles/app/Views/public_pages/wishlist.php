@@ -1,13 +1,13 @@
-<main class="page-content" id="my-account" style="padding: 5% 0 10% 0;">
+<main class="page-content" id="my-account" style="padding: 10% 0 10% 0;">
     <div class="container">
         
         <div class="row">
             <div class="col-lg-3 col-md-12 col-sm-12">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item w-100" role="presentation">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                        <a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
                     </li>
-                    <li class="nav-item w-100" role="presentation">
+                    <li class="nav-item w-100 " role="presentation">
                         <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
                     </li>
                     <li class="nav-item w-100" role="presentation">
@@ -22,7 +22,6 @@
                         <h4>Update Profile</h4>
                         <?php echo form_open("update-profile-exe"); ?>
                             <input type="hidden" name="id" value="<?php echo session("id"); ?>">
-
                             <div class="form-group">
                                 <label for="first_name">First Name</label>
                                 <input class="form-control" value="<?php echo session("first_name"); ?>" type="text" name="first_name" id="first_name">
@@ -35,10 +34,14 @@
                                 <label for="email">Email</label>
                                 <input class="form-control" value="<?php echo session("email"); ?>" type="email" name="email" id="email">
                             </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea name="address" class="form-control"><?php echo session("address"); ?></textarea>
+                            </div>
                             <button type="submit" class="btn btn-success">UPDATE</button>
                         <?php echo form_close(); ?>
                     </div>
-                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                    <div class="tab-pane fade " id="orders" role="tabpanel" aria-labelledby="orders-tab">
                         <h4>Orders</h4>
                         <div class="table-responsive">
                         
@@ -102,7 +105,7 @@
 
                                     <?php endforeach; else: ?>
 
-                                    <h4>Your have no past Orders <a style="color: #c09578 !important;" href="<?php echo site_url('shop'); ?>">go back to the shop</a> and get a lil something for you.</h4>
+                                    <h4>you have no past Orders <a style="color: #c09578 !important;" href="<?php echo site_url('shop'); ?>">go back to the shop</a> and get a lil something for you.</h4>
 
                                     <?php endif; ?>
                                 

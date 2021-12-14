@@ -5,10 +5,10 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item w-100" role="presentation">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                        <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
                     </li>
                     <li class="nav-item w-100 " role="presentation">
-                        <a class="nav-link active" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+                        <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
                     </li>
                     <li class="nav-item w-100" role="presentation">
                         <a class="nav-link" id="wishlist-tab" data-toggle="tab" href="#wishlist" role="tab" aria-controls="wishlist" aria-selected="false">Wishlist</a>
@@ -33,6 +33,10 @@
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input class="form-control" value="<?php echo session("email"); ?>" type="email" name="email" id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea name="address" class="form-control"><?php echo session("address"); ?></textarea>
                             </div>
                             <button type="submit" class="btn btn-success">UPDATE</button>
                         <?php echo form_close(); ?>
