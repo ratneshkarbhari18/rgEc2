@@ -248,14 +248,25 @@
                         <img src="<?php echo site_url("assets/images/popupImages/".$popup["image"]); ?>" class="w-100">
 
                         <h4>Sign Up for our Email List</h4>
-                        <?php echo form_open("subsribe-to-email-list",array("class"=>"d-inline")); ?>
+                        <?php echo form_open("subsribe-to-email-list",array("class"=>"d-inline","id"=>"emailSubForm")); ?>
+                        <p class="text-success" id="emailSubSuccess"></p>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" name="email" class="form-control" id="email">
                         </div>
-                        <button class="btn btn-block" style="background-color: deeppink; color: white;">Sign Up</button>
+                        <button id="emailSubAdd" class="btn btn-block" style="background-color: deeppink; color: white;">Sign Up</button>
                         <?php echo form_close(); ?>
                     </div>
+
+                    <script>
+                        $("button#emailSubAdd").click(function (e) { 
+                            e.preventDefault();
+                            $("form#emailSubForm").submit();
+                            $("p#emailSubSucces").html("Subscribted to email List");
+                            setCookie("popup_closed","y",3);
+                            location.reload();
+                        });
+                    </script>
 
                 </div>
             </div>

@@ -104,7 +104,10 @@ $routes->get("sc-mgt","PageLoader::sc_mgt");
 $routes->get("edit-sc","PageLoader::edit_sc");
 $routes->get("manage-customers","PageLoader::manage_customers");
 $routes->get("customer-details/(:any)","PageLoader::customer_details/$1");
+$routes->get("email-signups","PageLoader::email_signups_list");
 
+// es
+$routes->post("subsribe-to-email-list","EmailSignups::create");
 
 $routes->post("search-customer-exe","PageLoader::customer_search");
 $routes->post("send-contact-email","BackgroundFeatures::send_contact_email");

@@ -21,6 +21,9 @@
                     <p style="font-size: 1.4em; margin-bottom: 0;" class="text-dark">Location: Mumbai, India</p>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 text-left text-dark">
+
+                    <p class="text-success"><?php echo $message; ?></p>
+
                     <?php echo form_open("send-contact-email"); ?>
                         <div class="form-group">
                             <label for="full_name">Full Name</label>
@@ -36,6 +39,9 @@
                         </div>
                         <button type="submit" class="btn" style="background-color: deeppink; color: white;">Send Message</button>
                     <?php echo form_close(); ?>
+
+                    
+
                 </div>
             </div>
         </div>

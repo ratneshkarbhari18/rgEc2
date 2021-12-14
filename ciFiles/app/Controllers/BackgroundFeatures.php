@@ -377,7 +377,7 @@ class BackgroundFeatures extends BaseController
 
         $altBody = strip_tags($body);
 
-        $res = $this->send_email("sales@rickagauba.com","Ricka Gauba","New Message from contact form",$body,$altBody);
+        $res = $this->send_email("info@rickagauba.com","Ricka Gauba","New Message from contact form",$body,$altBody);
 
         $pageLoader = new PageLoader();
 

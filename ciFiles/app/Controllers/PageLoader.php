@@ -15,6 +15,7 @@ use App\Models\ProductModel;
 use App\Models\SlidesModel;
 use App\Models\TestimonialsModel;
 use App\Models\CouponModel;
+use App\Models\EsModel;
 use App\Models\OrderModel;
 use App\Models\WishlistModel;
 use CodeIgniter\Commands\Help;
@@ -605,7 +606,16 @@ class PageLoader extends BaseController
 
     // Admin Pages
 
-   
+   public function email_signups_list()
+   {
+       $esModel = new EsModel();
+       $email_signups = $esModel->findAll();
+       $data = array(
+           "title" => "Email Signups",
+           "email_signups" => $email_signups
+       );
+       $this->admin_page_loader("es",$data);
+   }
 
     public function popup_mgt($success="",$error="")
     {
