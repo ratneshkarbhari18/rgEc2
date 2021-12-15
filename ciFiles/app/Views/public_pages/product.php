@@ -33,13 +33,6 @@
                         <br>
 
                     <div id="gallery_01" class="owl-carouselx " style='margin-top: 5%;'>
-
-                    
-                    
-                        <a href="#" data-image="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" data-zoom-image="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>">
-                            <img style="cursor: pointer;" src="<?php echo site_url('assets/images/featured_image_product/'.$product['featured_image']); ?>" class="product-gallery-imagex" width="100px" height="100px">
-                        </a>
-
                         <?php $gallery_images = explode(',',$product['gallery_images']); foreach($gallery_images as $gallery_image): ?>
 
                             <a href="#" data-image="<?php echo site_url('assets/images/gallery_images_product/'.$gallery_image); ?>" data-zoom-image="<?php echo site_url('assets/images/gallery_images_product/'.$gallery_image); ?>">
@@ -276,26 +269,8 @@
                             </div>
                                 <!-- <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a> -->
                             </div>
-                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 2%; padding-left: 0;">
-
-                            
-                                <div class="accordion" id="accordionExample">
-                                    <div class="card">
-                                        <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left" style="border-radius: 0px;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            Description
-                                            </button>
-                                        </h2>
-                                    </div>
-
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                    <div class="card-body">
-                                        <p class="product-description text-left"><?php echo $product['description']; ?></p>                                    </div>
-                                    </div>
-                                </div>
-
-
+                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
+                                <p class="product-description text-left"><?php echo $product['description']; ?></p>
                             </div>
 
                         
@@ -354,7 +329,7 @@
 
                             
 
-                            <div class="col-lg-12 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin-bottom: 1%; margin-top: 1%;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 custom-half-grid" style="padding:0; margin-bottom: 1%; margin-top: 1%;">
                                 <p class="text-success" id="atwSuccess"></p>
                                 <p class="text-danger" id="atwFail"></p>
                                 <?php $session = session(); if($session->role=='customer'): ?>
@@ -456,11 +431,20 @@
                                     });
 
 
-                                    $("button#addToCartButton").click(function (e) { 
-                                        e.preventDefault();
-                                        let productSize = $("select#product-size-touch").val(); 
-                                        let productQuantity = $("input#product-quantity-touch").val();
+                                    
 
+                                </script>
+
+                                <button type="button" id="addToCartButtonTouch" class="btn d-inline" style="background-color: white; color:black; border: 1px solid black; border-radius:0px !important; margin-bottom: 3%;">Add to Cart</button>
+
+                                <script>
+                                    $("button#addToCartButtonTouch").click(function (e) { 
+                                        e.preventDefault();
+
+                                        let productSize = $("select#product-size-touch").val(); 
+                                        let productQuantity = $("input#product-quantity").val();
+
+                                        console.log(productSize+"&"+productQuantity);
 
                                         $.ajax({
                                             type: "POST",
@@ -489,11 +473,7 @@
                                             }
                                         });
                                     });
-
                                 </script>
-
-                                <button type="button" id="addToCartButton" class="btn d-inline" style="background-color: white; color:black; border: 1px solid black; border-radius:0px !important; margin-bottom: 3%;">Add to Cart</button>
-
 
                             </div>
                             <div id="share"></div>
@@ -570,26 +550,6 @@
         </div>
     </section>
 
-    <section class="usual-section" id="testimonials">
-        <div class="container">
-            <h1 class="section-title text-center">TESTIMONIALS</h1>
-            <div class="owl-carousel product-carousel">
-                <?php foreach ($testimonials as $testimonial):  ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <img src="<?php echo site_url("assets/images/testimonial_images/".$testimonial["mugshot"]); ?>" class="collection-image w-25" style="border-radius: 50%;">
-                            <br>
-                            <h5 style="font-weight: 600;"><?php echo $testimonial["name"]; ?></h5>
-                            <p class="testimonial-body"><?php echo $testimonial["testimonial"]; ?></p>
-                        </div>
-                    </div>
-                <?php 
-                endforeach; ?>
-            </div>
-
-        </div>
-    </section>
-
 </main>
 <script src="<?php echo site_url("assets/lity/lity.min.js"); ?>"></script>
 <script>
@@ -662,6 +622,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
 <script>
     $("#share,#share-touch").jsSocials({
-        shares: ["email", "twitter", "facebook", "pinterest", "whatsapp"]
+        shares: ["email", "twitter", "facebook",  "linkedin", "pinterest", "stumbleupon", "whatsapp"]
     });
 </script>
