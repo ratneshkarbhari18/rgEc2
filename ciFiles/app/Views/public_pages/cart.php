@@ -356,7 +356,8 @@ if(count($cartItems)>0): ?>
             </div>
         </div>
     </section>
-    <?php else: ?>
+    <?php else:         setcookie('coupon_code','xxx',time()-24*3600);
+        setcookie('coupon_value',0,time()-24*3600); ?>
         <div class="container">
             <div class="card" style="margin: 2em 0;">
                 <div class="card-body">
