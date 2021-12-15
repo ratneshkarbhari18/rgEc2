@@ -1,10 +1,16 @@
+<style>
+    p{
+        font-size: 12pt;
+        color: #000;
+    }
+</style>
 <section class="title-section text-center" id="cart-title">
         <div class="container-fluid " style="padding: 1em 0; margin-bottom: 2em; background-color: #d10762;">
             <h2 class="section-titleX text-light">TERMS AND CONDITIONS</h2>
         </div>
     </section>
 <div class="container" style="margin-top: 2em; margin-bottom:2em"> 
-Introduction
+<p>Introduction</p>
 
 <p>Welcome to www.rickagauba.com (“Company”, “we”, “our”, “us”)!
 Ricka Gauba ("we" and "us") is the operator of (https://www.rickagauba.com)
@@ -15,10 +21,10 @@ products and service.</p>
 
 <p>These Terms and Conditions govern your use of our website located at www.rickagauba.com
 </p>
-1. Communications
+<p>1. Communications</p>
 <p>By using our service, you agree to subscribe to newsletters, marketing or promotional materials and other information we may send. However, you may opt out of receiving any, or all, of these communications from us by following the unsubscribe link or by emailing at support@rickagauba.com.
 </p>
-2. Purchases
+<p>2. Purchases</p>
 <p>If you wish to purchase any product or service made available through our website, you may be asked to supply certain information relevant to your purchase including but not limited to, your credit or debit card number, the expiration date of your card, your billing address, and your shipping information.
 You represent and warrant that: (i) you have the legal right to use any card(s) or other payment method(s) in connection with any purchase; and that (ii) the information you supply to us is true, correct and complete. We reserve the right to refuse or cancel your order if fraud or an unauthorized or illegal transaction is suspected.
 We may employ the use of third party services for the purpose of facilitating payment and the completion of purchases. By submitting your information, you grant us the right to provide the information to these third parties subject to our Privacy Policy.</p>
