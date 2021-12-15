@@ -622,6 +622,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
 <script>
     $("#share,#share-touch").jsSocials({
-        shares: ["email", "twitter", "facebook", "pinterest", "whatsapp"]
+        shares: ["email", "twitter", "facebook", "pinterest"]
     });
 </script>
