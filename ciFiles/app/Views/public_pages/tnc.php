@@ -2,6 +2,7 @@
     p{
         font-size: 12pt;
         color: #000;
+        font-weight: 600;
     }
 </style>
 <section class="title-section text-center" id="cart-title">
