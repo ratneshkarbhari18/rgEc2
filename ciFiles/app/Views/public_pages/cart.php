@@ -166,14 +166,14 @@ if(count($cartItems)>0): ?>
                                 
                                 <h3>SUBTOTAL:  <?php echo $_COOKIE["currency_symbol"]."". number_format($subtotal,2); ?></h3>
                                 <div class="form-group w-50 ml-auto mr-auto">
-                                    <label for="shipping_speed">Select Shipping Speed</label>
+                                    <label for="shipping_speed">Express or Normal Delivery?</label>
                                     <select class="form-control shippingVariable" name="shipping_speed" id="shipping_speed">
-                                        <option value="regular" <?php if($_COOKIE["shippingSpeed"]=="regular"){echo "selected";} ?>>REGULAR</option>
+                                        <option value="regular" <?php if($_COOKIE["shippingSpeed"]=="regular"){echo "selected";} ?>>NORMAL</option>
                                         <option value="express" <?php if($_COOKIE["shippingSpeed"]=="express"){echo "selected";} ?>>EXPRESS</option>
                                     </select>
                                 </div>
                                 <div class="form-group w-50 ml-auto mr-auto">
-                                    <label for="shipping_location">Select Shipping Location</label>
+                                    <label for="shipping_location">Delivery Destination</label>
                                     <select class="form-control shippingVariable" name="shipping_location" id="shipping_location">
                                         <option value="domestic" <?php if($_COOKIE["shippingLocation"]=="domestic"){echo "selected";} ?>>DOMESTIC</option>
                                         <option value="international" <?php if($_COOKIE["shippingLocation"]=="international"){echo "selected";} ?>>INTERNATIONAL</option>
