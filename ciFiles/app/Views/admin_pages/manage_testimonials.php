@@ -58,9 +58,42 @@
                                 
                                 <td><?php echo $testimonial['testimonial']; ?></td>
                                 <td>
-                                    <img src="<?php echo site_url("assets/images/testimonial_images/".$testimonial["mugshot"]) ?>" style="width: 50px; height: 50px;">
+                                    <img src="<?php echo site_url("assets/images/testimonial_images/".$testimonial["mugshot"]); ?>" style="width: 50px; height: 50px;">
                                 </td>
                                 <td>
+                                    <a href="#" class="btn btn-primary modal-trigger" data-toggle="modal" data-target="#editTestimonialModal-<?php echo $testimonial["id"]; ?>">Edit</a>
+                                    <div class="modal fade" id="editTestimonialModal-<?php echo $testimonial["id"]; ?>"  tabindex="-1" aria-labelledby="addTestimonialModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="addTestimonialModalLabel">Edit Testimonial</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <?php $attributes = array('method' => "POST","enctype"=>"multipart/form-data" ); echo form_open(site_url("update-testimonial-exe"),$attributes); ?>
+                                                    <input type="hidden" name="id" value="<?php echo $testimonial['id']; ?>">
+
+                                                        <div class="form-group">
+                                                            <label for="name">Name</label>
+                                                            <input value="<?php echo $testimonial["name"]; ?>" type="text" class="form-control" name="name" id="name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="testimonial">Testimonial</label>
+                                                            <textarea class="form-control" name="testimonial" id="testimonial"><?php echo $testimonial["testimonial"]; ?></textarea>
+                                                        </div>
+                                                        <img src="<?php echo site_url("assets/images/testimonial_images/".$testimonial["mugshot"]) ?>" class="w-25">
+                                                        <div class="form-group">
+                                                            <label for="mugshot">Display Picture</label>
+                                                            <input type="file" name="mugshot" id="mugshot">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-success">UPDATE Testimonial</button>
+                                                    <?php echo form_close(); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php $attributes = array("class"=>"d-inline"); echo form_open(site_url("delete-testimonial-exe"),$attributes);  ?>
                                         <input type="hidden" name="id" value="<?php echo $testimonial['id']; ?>">
                                         <button type="submit" class="btn btn-danger">Delete</button>

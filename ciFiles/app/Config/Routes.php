@@ -152,6 +152,7 @@ $routes->post("delete-slide-exe","Slides::delete");
 
 // Testimonial routes
 $routes->post("add-testimonial-exe","Testimonials::add");
+$routes->post("update-testimonial-exe","Testimonials::update");
 $routes->post("delete-testimonial-exe","Testimonials::delete");
 
 // Testimonial routes
