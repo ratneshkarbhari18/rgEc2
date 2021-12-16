@@ -8,7 +8,7 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <main class="page-contentX" id="cart" style="padding: 0;">
 
-    <section class="title-section text-center" style="padding: 2em 0; margin-bottom: 2em; background-color: #d10762;" id="cart-title">
+    <section class="title-section text-center" style="padding: 2em 0; margin-bottom: 2em; background-color: #fff;" id="cart-title">
         <div class="container " >
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-sm-12"></div>
@@ -52,6 +52,9 @@ use PhpParser\Node\Stmt\Echo_;
                                 <?php
                                         echo form_open(site_url("customer-login-exe"),'id="customerLogin"');
                                         ?>
+                                    <p id="errorMessage" class="text-danger"></p>
+
+                                        <input type="hidden" name="redirect_url" value="<?php echo site_url("product/".$product["slug"]); ?>">
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input class="form-control" type="text" name="email" id="email">
@@ -281,7 +284,7 @@ use PhpParser\Node\Stmt\Echo_;
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="address">Address</label>
-                                                    <textarea name="address" id="address" class="form-control" require></textarea>
+                                                    <textarea name="address" id="address" class="form-control" required></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="state">State</label>

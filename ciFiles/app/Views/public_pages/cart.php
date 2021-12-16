@@ -101,6 +101,9 @@ if(count($cartItems)>0): ?>
                                 <?php
                                         echo form_open(site_url("customer-login-exe"),'id="customerLogin"');
                                         ?>
+                                        <input type="hidden" name="redirect_url" value="<?php echo site_url("cart"); ?>">
+
+                                        <p id="errorMessage" class="text-danger"></p>
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input class="form-control" type="text" name="email" id="email">
@@ -213,12 +216,12 @@ if(count($cartItems)>0): ?>
                                 
                                 <!-- <h3>SHIPPING CHARGES:  <?php $_COOKIE["currency_symbol"]."". number_format(($shippingCharge*$_COOKIE["currency_rate"]),2); ?></h3> -->
                                 <h3>SHIPPING CHARGE: <?php echo number_format($shippingCharge,2); ?></h3>
-                                <h3>GST : <?php echo $_COOKIE["currency_symbol"]."". $gstAmt = 0.12*$subtotal; ?></h3>
+                                <h3>GST : <?php $gstAmt = 0.12*$subtotal; echo $_COOKIE["currency_symbol"]."". number_format($gstAmt,2); ?></h3>
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
-                                <h3>DISCOUNT: <?php echo $_COOKIE["currency_symbol"]."". $discount = ($_COOKIE["coupon_value"]/100)*$subtotal; ?></h3>
-                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". $payable = ($subtotal+$gstAmt+$shippingCharge)-$discount; ?></h3>
+                                <h3>DISCOUNT: <?php echo $_COOKIE["currency_symbol"]."". number_format($discount = ($_COOKIE["coupon_value"]/100)*$subtotal,2); ?></h3>
+                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". number_format($payable = ($subtotal+$gstAmt+$shippingCharge)-$discount,2); ?></h3>
 
                                 <?php else: ?>
 
@@ -326,7 +329,7 @@ if(count($cartItems)>0): ?>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="address">Address</label>
-                                                    <textarea name="address" id="address" class="form-control" require></textarea>
+                                                    <textarea name="address" id="address" class="form-control" required></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="state">State</label>

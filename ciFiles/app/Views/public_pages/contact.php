@@ -37,7 +37,7 @@
                             <label for="message">Message</label>
                             <textarea required name="message" id="message" class="form-control"></textarea>
                         </div>
-                        <button type="submit" class="btn" style="background-color: deeppink; color: white;">Send Message</button>
+                        <button type="submit" class="btn" style="background-color: #d10762; color: white;">Send Message</button>
                     <?php echo form_close(); ?>
 
                     
@@ -46,7 +46,7 @@
             </div>
         </div>
     </section>
-    <section id="contact-info" class="text-center bg-dark " style="padding: 1em 0;">
+    <section id="contact-info" class="text-center bg-dark d-none" style="padding: 1em 0;">
         <div class="container">
             <p style="font-size: 25px; color: white;">Talk to us. We love it when you do</p>
             

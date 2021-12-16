@@ -93,7 +93,7 @@
                     <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
                         <span class="larger-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['sale_price'],2); ?></span> | <del><span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span></del>
                     <?php elseif (($product["price"]==$product["sale_price"])||($product["sale_price"]==0.00)): ?>
-                        <span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo $_COOKIE["currency_rate"]*$product['price']; ?></span>
+                        <span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span>
                     <?php endif; ?>
 
                     <div class="container-fluid">
@@ -141,9 +141,9 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 form-group " style="padding-left: 0; margin: 1em 0;">
                             
 
-                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; padding: 0.3em 0.1em;">-</button>
-                                <input type="number" id="product-quantity" style="width: 40px;position: absolute;font-size: 15px;height: 38px;text-align: center;" value="1" min="1" readonly>
-                                <button class="btn" id="add-qty" type="button" style="border-radius: 0 !important;border: 1px solid gray;color: black;margin: 0%;margin-left: 2.3em;font-size: 20px;padding: 0.3em 0.1em;">+</button>
+                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; padding: 0.3em 0.3em;">-</button>
+                                <input type="number" id="product-quantity" style="width: 40px;position: absolute;font-size: 15px;height: 38px;text-align: center; padding-left: 2%;" value="1" min="1" readonly>
+                                <button class="btn" id="add-qty" type="button" style="border-radius: 0 !important;border: 1px solid gray;color: black;margin: 0%;margin-left: 2.3em;font-size: 20px;padding: 0.3em 0.2em;">+</button>
 
                             </div>
 
@@ -268,7 +268,7 @@
 
                             </div>
                             </div>
-                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a>
+                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
 
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>
@@ -389,7 +389,7 @@
 
 
 
-                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-right: 0.5em;">-</button><input type="number" id="product-quantity" style="width: 50px; font-size: 15px; height: 50px; text-align: center;" value="1" min="1" readonly><button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-left: 0.5em;">+</button>
+                                <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-right: 0.5em;">-</button><input type="number" id="product-quantity" style="width: 50px; font-size: 15px; height: 50px; text-align: center; padding-left:2%;" value="1" min="1" readonly><button class="btn" id="add-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; margin-left: 0.5em;">+</button>
 
                             </div>
                             
@@ -484,7 +484,8 @@
 
 
                             <div class="col-lg-12 col-md-12 col-sm-12 text-left" style="padding-left: 0; margin-top: 1%;">
-                                <a style="font-size: 19px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1200px-WhatsApp.svg.png" width="20px" height="20px"></a>
+                                                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
+
                             </div>
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>

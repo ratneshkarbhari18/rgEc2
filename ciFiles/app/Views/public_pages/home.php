@@ -86,8 +86,9 @@
                 </div>
                 <?php else: ?>
                 <div class="row">
+                    <div class="col-lg-4"></div>
                     <?php foreach($collections as $collection): ?>
-                    <div class="col-lg-auto col-md-auto col-sm-auto ml-auto mr-auto">
+                    <div class="col-lg-4 col-md-auto col-sm-auto ml-auto mr-auto">
                         <a href="<?php echo site_url("collection/".$collection["slug"]); ?>">
                             <div class="card">
                                 <img src="<?php echo site_url("assets/images/collection_featured_images/".$collection["featured_image"]); ?>" class="collection-image w-100">
@@ -98,6 +99,7 @@
                         </a>
                     </div>
                     <?php endforeach; ?>
+                    <div class="col-lg-4"></div>
                 </div>
                 <?php endif; ?>
             </div>
@@ -124,15 +126,20 @@
             </div>
         </div>
     </section>
+
+    <link rel="stylesheet" href="<?php echo site_url("assets/lity/lity.min.css"); ?>">
+
     
     <section class="usual-section" id="testimonials">
         <div class="container">
             <h1 class="section-title text-center">TESTIMONIALS</h1>
             <div class="owl-carousel product-carousel">
                 <?php foreach ($testimonials as $testimonial):  ?>
-                    <div class="card">
+                    <div class="card" style="border: none !important;">
                         <div class="card-body">
+                            <a data-lity href="<?php echo site_url("assets/images/testimonial_images/".$testimonial["mugshot"]); ?>">
                             <img src="<?php echo site_url("assets/images/testimonial_images/".$testimonial["mugshot"]); ?>" class="collection-image w-25" style="border-radius: 50%;">
+                            </a>
                             <br>
                             <h5 style="font-weight: 600;"><?php echo $testimonial["name"]; ?></h5>
                             <p class="testimonial-body"><?php echo $testimonial["testimonial"]; ?></p>
@@ -144,8 +151,12 @@
 
         </div>
     </section>
+
+
     
 </main>
+<script src="<?php echo site_url("assets/lity/lity.min.js"); ?>"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $("#home-hero-slider,#home-hero-slider-mobile").owlCarousel({
