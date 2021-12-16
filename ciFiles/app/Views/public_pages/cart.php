@@ -172,7 +172,7 @@ if(count($cartItems)>0): ?>
                                     <label for="shipping_speed">Express or Normal Delivery?</label>
                                     <select class="form-control shippingVariable" name="shipping_speed" id="shipping_speed">
                                         <option value="regular" <?php if($_COOKIE["shippingSpeed"]=="regular"){echo "selected";} ?>>NORMAL</option>
-                                        <option value="express" <?php if($_COOKIE["shippingSpeed"]=="express"){echo "selected";} ?>>EXPRESS</option>
+                                        <!-- <option value="express" <?php if($_COOKIE["shippingSpeed"]=="express"){echo "selected";} ?>>EXPRESS</option> -->
                                     </select>
                                 </div>
                                 <div class="form-group w-50 ml-auto mr-auto">

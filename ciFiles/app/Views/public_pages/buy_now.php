@@ -126,7 +126,7 @@ use PhpParser\Node\Stmt\Echo_;
                                     <label for="shipping_speed">Select Shipping Speed</label>
                                     <select class="form-control shippingVariable" name="shipping_speed" id="shipping_speed">
                                         <option value="regular" <?php if($_COOKIE["shippingSpeed"]=="regular"){echo "selected";} ?>>REGULAR</option>
-                                        <option value="express" <?php if($_COOKIE["shippingSpeed"]=="express"){echo "selected";} ?>>EXPRESS</option>
+                                        <!-- <option value="express" <?php if($_COOKIE["shippingSpeed"]=="express"){echo "selected";} ?>>EXPRESS</option> -->
                                     </select>
                                 </div>
                                 <div class="form-group w-50 ml-auto mr-auto">
