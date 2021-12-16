@@ -128,7 +128,9 @@ class Authentication extends BaseController
                 
                     $session->set($newdata);                
 
-                    return json_encode(array("result"=>"success","redirectUrl"=>site_url()));
+                    $redirect_url = $this->request->getPost("redirect_url");
+
+                    return json_encode(array("result"=>"success","redirectUrl"=>$redirect_url));
 
                 } else {
 
