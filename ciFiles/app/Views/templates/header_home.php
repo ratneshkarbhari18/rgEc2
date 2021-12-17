@@ -201,10 +201,10 @@
         </script>
         <!-- <a class="nav-link" href="<?php echo site_url('cart'); ?>"><img src="<?php echo site_url('assets/icons/shopping-bag.svg'); ?>" width="15px" height="15px"></a> -->
     </nav>
-        <div id="sidenavMobileCloser"></div>
-        <div id="sidenavMobile" style="overflow: auto;
-        max-height: 500vh;
-        height: 100vh;">
+    <div id="sidenavMobileCloser"></div>
+    <div id="sidenavMobile" style="overflow: auto;
+    max-height: 500vh;
+    height: 100vh;">
         <div id="sidenavLogoBox" style="text-align: center; background-color: #f7f7f7 !important;">
         <img src="<?php echo site_url('assets/images/sitelogo.jpg'); ?>" id="logonew" style="width: 70%; margin: 10% auto;">
         </div>
@@ -223,4 +223,6 @@
             <a href="<?php echo site_url('contact'); ?>" class="sidenav-link">Contact</a>
         </div>
 
-        </div>
+    </div>
+
+    

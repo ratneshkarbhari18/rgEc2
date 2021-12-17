@@ -109,7 +109,7 @@ nav#mobileBottomNav {
     background-color: #fff;
     border-top: 1px solid darkgray;
 }
-div#sidenavMobileCloser {
+div#sidenavMobileCloser,div#sideNavFilterCloser {
     position: fixed;
     top: 0;
     left: 0;
@@ -120,7 +120,7 @@ div#sidenavMobileCloser {
     opacity: 0.5;
     display: none;
 }
-div#sidenavMobile {
+div#sidenavMobile,div#sideNavFilter {
     position: fixed;
     top: 0;
     left: 0;
