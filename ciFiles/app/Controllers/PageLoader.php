@@ -307,6 +307,9 @@ class PageLoader extends BaseController
 
         $maxPrice = $this->request->getPost("maxPrice");
 
+        $sorting = $this->request->getPost("sort_by");
+        
+
         $collections = $this->request->getPost("collections");
         $styles = $this->request->getPost("styles");
 
@@ -340,7 +343,19 @@ class PageLoader extends BaseController
 
         $productModel = new ProductModel();
 
-        $filterProducts = $productModel->find($resultPids);
+        if ($sorting=="name_ascending") {
+            $filterProducts = $productModel->orderBy("title","asc")->find($resultPids);
+        }elseif ($sorting=="name_descending") {
+            $filterProducts = $productModel->orderBy("title","desc")->find($resultPids);
+        }elseif ($sorting=="price_low_to_high") {
+            $filterProducts = $productModel->orderBy("sale_price","asc")->find($resultPids);
+        }elseif ($sorting=="price_high_to_low") {
+            $filterProducts = $productModel->orderBy("sale_price","desc")->find($resultPids);
+        }
+        else {
+            $filterProducts = $productModel->orderBy("id","desc")->find($resultPids);
+        }
+        
 
         $productMarkup = '';
         
