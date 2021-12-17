@@ -166,6 +166,8 @@
 
                                 </script>
 
+                                <?php $session = session(); if($session->role=='customer'): ?>
+
                             
                                 <?php echo form_open("buy-now"); ?>
 
@@ -178,6 +180,12 @@
                                     <button type="submit" id="buyNowButton" class="btn d-inline" style="background-color: #d10762 !important; color:white; border: 1px solid black; border-radius:0px !important;">Buy Now</button>
 
                                 <?php form_close(); ?>
+
+                                <?php else: ?>
+
+                                    <a href="<?php echo site_url("login?redirect_url=".site_url("product/".$product["slug"])); ?>" class="btn d-inline" style="background-color: #d10762 !important; color:white; border: 1px solid black; border-radius:0px !important; padding: 1.4em 1em;">Buy Now</a>
+
+                                <?php endif; ?>
 
                                 <button type="button" id="addToCartButton" style="border-radius: 0px !important; background-color: white; color: black; border: 1px solid black;" class="btn" >Add to Cart</button>
 
@@ -396,7 +404,9 @@
 
                             <div class="col-lg-6 col-md-12 col-sm-12 " style="padding:0;">
                             
-                                    
+                                                            
+                            <?php $session = session(); if($session->role=='customer'): ?>
+
 
                                 <?php echo form_open("buy-now"); ?>
 
@@ -410,6 +420,12 @@
 
                                 <?php form_close(); ?>
                                 
+                            <?php else: ?>
+
+                                <a href="<?php echo site_url("login?redirect_url=".site_url("product/".$product["slug"])); ?>" id="buyNowButton" class="btn d-inline" style="background-color: #d10762 !important; color:white; border: 1px solid black; border-radius:0px !important; padding: 1.4em 1em;">Buy Now</a>
+
+
+                            <?php endif; ?>
                                 
 
                                 <script>
@@ -628,3 +644,54 @@
         shares: ["email", "twitter", "facebook", "pinterest"]
     });
 </script>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <?php
+                echo form_open(site_url("customer-login-exe"),'id="customerLogin"');
+                ?>
+                <input type="hidden" name="redirect_url" value="<?php echo site_url("product/".$product["slug"]); ?>">
+
+                <p id="errorMessage" class="text-danger"></p>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control" type="text" name="email" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <small id="forgotPwdLink" style="position: absolute; right: 2em;"><a href="<?php echo site_url("forgot-password"); ?>">Forgot Password?</a></small>
+                    <input class="form-control pwdField" type="password" name="password" id="password">
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="showPwd">
+                    <label class="form-check-label" for="showPwd">
+                        Show Password
+                    </label>
+                </div>
+                <br>
+
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+            <?php 
+                echo form_close();  
+            ?>
+            <div class="text-center">
+                <br>
+                <h5>OR</h5>
+                <a href="<?php echo site_url("register"); ?>" class="btn btn-link">REGISTER</a>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+<?php foreach($scripts as $script): ?>
+<script src="<?php echo site_url($script); ?>"></script>
+<?php endforeach; ?>

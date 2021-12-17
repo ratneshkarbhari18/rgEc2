@@ -12,6 +12,14 @@
                 <?php
                     echo form_open(site_url("customer-login-exe"),'id="customerLogin"');
                     ?>
+                    <input type="hidden" name="redirect_url" value="<?php if(isset($_GET["redirect_url"])){
+                        echo $_GET["redirect_url"];
+                    }
+                    else {
+                        echo site_url();
+                    }
+                     ?>">
+                    
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input class="form-control" type="text" name="email" id="email">

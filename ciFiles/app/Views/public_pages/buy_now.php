@@ -158,7 +158,7 @@ use PhpParser\Node\Stmt\Echo_;
                                 </script>
                                 
                                 <!-- <h3>SHIPPING CHARGES:  <?php $_COOKIE["currency_symbol"]."". number_format(($shippingCharge*$_COOKIE["currency_rate"]),2); ?></h3> -->
-                                <h3>SHIPPING CHARGE: <?php echo number_format($shippingCharge,2); ?></h3>
+                                <h3>SHIPPING: <?php echo number_format($shippingCharge,2); ?></h3>
                                 <h3 class="d-none">GST : <?php echo $_COOKIE["currency_symbol"]."". $gstAmt = 0*$subtotal; ?></h3>
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):

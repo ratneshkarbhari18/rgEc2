@@ -26,10 +26,20 @@
                     ?>
 
                         <div class="form-group">
+                            <label for="sort_by">Sort by:</label>
+                            <select name="sort_by" id="sort_by" class="form-control filter-trigger">
+                                <option value="name_ascending">Name (A to Z)</option>
+                                <option value="name_descending">Name (Z to A)</option>
+                                <option value="price_low_to_high">Price (Low to High)</option>
+                                <option value="price_high_to_low">Price (High to Low)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="maxPrice" id="maxPrice">Max Price: ₹ 10000</label>
                             <input  style="width: 50%" min="0" value="10000" max="200000" type="range" name="maxPrice" class="form-control-range filter-trigger" id="maxPrice">
                         </div>
-                        
+                    
                         <h5>by collection</h5>
                         <?php foreach($collections as $collection): ?>
                         <div class="form-check" style="padding-left: 0;">

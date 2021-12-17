@@ -596,13 +596,15 @@ class PageLoader extends BaseController
 
         $testimonials = array_reverse($testimonialsModel->findAll());
 
+        $scripts = array("assets/js/app/auth.min.js");
 
 
         $data  = array(
             'title' => $focusProduct["title"],
             "related_products" => $relatedProducts,
             "product"=>$focusProduct,
-            "testimonials" => $testimonials
+            "testimonials" => $testimonials,
+            "scripts" => $scripts
         );
 
         $this->public_page_loader("product",$data);
