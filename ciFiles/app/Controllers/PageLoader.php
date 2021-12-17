@@ -298,7 +298,7 @@ class PageLoader extends BaseController
 
         $allProducts = array_reverse($productModel->find($pidArray));
 
-        $data = array("title"=>$focusCollection["title"],"error"=>$error,"products"=>$allProducts,"scripts"=>$scripts);
+        $data = array("title"=>$focusCollection["title"],"error"=>$error,"products"=>$allProducts,"scripts"=>$scripts,"collectionId"=>$focusCollection["id"],"styleId"=>0);
         $this->public_page_loader("shop",$data);
     }
 
@@ -425,7 +425,7 @@ class PageLoader extends BaseController
 
         $allProducts = array_reverse($productModel->find($pidArray));
 
-        $data = array("title"=>$focusStyle["title"],"error"=>$error,"products"=>$allProducts,"scripts"=>$scripts);
+        $data = array("title"=>$focusStyle["title"],"error"=>$error,"products"=>$allProducts,"scripts"=>$scripts,"colId"=>0,"sid"=>$focusStyle["id"]);
         $this->public_page_loader("shop",$data);
     }
 
