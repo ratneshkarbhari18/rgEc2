@@ -42,13 +42,13 @@
 
                             <div class="form-group">
                                 <label for="maxPrice" id="maxPriceTouch">Max Price: ₹ 100000</label>
-                                <input  style="width: 50%" min="0" value="40000" max="200000" type="range" name="maxPrice" class="form-control-range filter-trigger" id="maxPrice">
+                                <input  style="width: 50%" min="0" value="40000" max="200000" type="range" name="maxPrice" class="form-control-range filter-trigger" id="maxPriceTouch">
                             </div>
 
                             <h5>by collection</h5>
                             <?php foreach($collections as $collection): ?>
                             <div class="form-check" style="padding-left: 0;">
-                                <input name="collections[]" id="<?php echo $collection["id"]; ?>" type="checkbox" class=" filter-trigger filter-collection" value="<?php echo $collection["id"]; ?>" <?php if($colId!=0): if($collection["id"]==$colId){
+                                <input name="collections[]" id="<?php echo $collection["id"]; ?>" type="checkbox" class=" filter-trigger filter-collection" value="<?php echo $collection["id"]; ?>" <?php  if($collectionId!=0): if($collection["id"]==$collectionId){
                                     echo "checked";
                                 } endif; ?>>
                                 <label for="<?php echo $collection["id"]; ?>"><?php echo ucfirst($collection['title']); ?></label>
@@ -68,6 +68,19 @@
                         <br>
 
                         <script>
+                            $("div#filterBoxTouch").on("load", function () {
+                                let maxPrice = $("input#maxPriceTouch").val();
+                                $("label#maxPriceTouch").html("Max Price: ₹ "+maxPrice);
+                                let formData = $("form#filterForm").serialize();
+                                $.ajax({
+                                    type: "POST",
+                                    url:  $("form#filterForm").attr("action"),
+                                    data: formData,
+                                    success: function (response) {
+                                        $("div#productsBox").html(response);
+                                    }
+                                });
+                            });
                             $(".filter-trigger").change(function (e) { 
                                 e.preventDefault();
                                 let maxPrice = $("input#maxPriceTouch").val();
@@ -127,10 +140,12 @@
                     
                         <h5>by collection</h5>
                         <?php foreach($collections as $collection): ?>
-                        <div class="form-check" style="padding-left: 0;">
-                            <input name="collections[]" id="<?php echo $collection["id"]; ?>" type="checkbox" class=" filter-trigger filter-collection" value="<?php echo $collection["id"]; ?>">
-                            <label for="<?php echo $collection["id"]; ?>"><?php echo ucfirst($collection['title']); ?></label>
-                        </div>
+                            <div class="form-check" style="padding-left: 0;">
+                                <input name="collections[]" id="<?php echo $collection["id"]; ?>" type="checkbox" class=" filter-trigger filter-collection" value="<?php echo $collection["id"]; ?>" <?php  if($collectionId!=0): if($collection["id"]==$collectionId){
+                                    echo "checked";
+                                } endif; ?>>
+                                <label for="<?php echo $collection["id"]; ?>"><?php echo ucfirst($collection['title']); ?></label>
+                            </div>
                         <?php endforeach; ?>
                         <br>
                         <h5>by style</h5>
@@ -144,6 +159,23 @@
                     <br>
 
                     <script>
+
+                        $("div#filterBox").on("load", function () {
+                            let maxPrice = $("input#maxPrice").val();
+                            $("label#maxPrice").html("Max Price: ₹ "+maxPrice);
+                            let formData = $("form#filterForm").serialize();
+                            $.ajax({
+                                type: "POST",
+                                url:  $("form#filterForm").attr("action"),
+                                data: formData,
+                                success: function (response) {
+                                    $("div#productsBox").html(response);
+                                }
+                            });
+                        });
+
+                        
+
                         $(".filter-trigger").change(function (e) { 
                             e.preventDefault();
                             let maxPrice = $("input#maxPrice").val();
