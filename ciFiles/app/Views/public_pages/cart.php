@@ -1,10 +1,4 @@
-<?php 
-    $payable = 0.00;
-    if(!isset($_COOKIE["shippingLocation"])){
-        setcookie("shippingLocation","domestic",site_url());
-        setcookie("shippingSpeed","regular",site_url());
-    }
-?>
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <main class="page-contentX" id="cart" style="padding: 0;">
 
@@ -34,7 +28,6 @@ if(count($cartItems)>0): ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $subtotal = $totalWeight = 0.00; ?>
                         <?php  foreach($cartItems as $cartItem): foreach($allProducts as $product): if($cartItem['product_id']==$product['id']): ?>
                         <tr>
                             <td><?php echo $product['title']; ?>
@@ -48,12 +41,7 @@ if(count($cartItems)>0): ?>
                                     <input type="text" readonly name="product-qty" style="width: 55px; text-align: center;" value="<?php echo $cartItem['quantity']; ?>" min="1" id="product-qty-<?php echo $cartItem['id']; ?>">
                                     <button type="button" class="d-inline qty-buttons btn btn-success add-qty" cart-item-id="<?php echo $cartItem["id"]; ?>">+</button>
                                 </td>
-                                <td><?php if($cartItem['product_id']==$product['id']){
-                                    echo $amount = $price*$cartItem['quantity'];
-                                    $subtotal=$subtotal+$amount; 
-                                    $totalWeight=$totalWeight+$product["weight"];
-                                    
-                                } ?></td>
+                                <td><?php echo $price*$cartItem['quantity']*$_COOKIE["currency_rate"]; ?></td>
                                 <td>
                                     <!-- <button style="margin-bottom: 5%;" type="submit" class="btn btn-info">Update</button> -->
                                 <?php echo form_close(); ?>
@@ -139,31 +127,6 @@ if(count($cartItems)>0): ?>
 
                     <?php else: ?>
                         
-                        <?php
-                            $shippingCharge = 0.00;
-                            if (!isset($_COOKIE["shippingLocation"])) {
-                                $shippingLocation = "domestic";
-                            }else {
-                                $shippingLocation = $_COOKIE["shippingLocation"];
-                            }
-                            foreach($scs as $sc){
-                                
-                                if (($sc["weight_min"]<=$totalWeight)&&($totalWeight<=$sc["weight_max"])&&$sc['domestic_international']==$_COOKIE["shippingLocation"]) {
-
-                                    if ($_COOKIE["shippingSpeed"]=="express") {
-
-                                        $shippingCharge = $sc["shipping_charge_express"]*$_COOKIE['currency_rate'];
-
-                                    } else {
-
-                                        $shippingCharge = $sc["shipping_charge_regular"]*$_COOKIE['currency_rate'];
-                                        
-                                    }
-                                    
-
-                                }
-                            }
-                        ?>
                         <div class="card" style="margin: 2em 0;">
                             <div class="card-body text-center">
                                 
@@ -214,9 +177,8 @@ if(count($cartItems)>0): ?>
                                     });
                                 </script>
                                 
-                                <!-- <h3>SHIPPING CHARGES:  <?php $_COOKIE["currency_symbol"]."". number_format(($shippingCharge*$_COOKIE["currency_rate"]),2); ?></h3> -->
-                                <h3>SHIPPING: <?php echo number_format($shippingCharge,2); ?></h3>
-                                <h3 class="d-none">GST : <?php $gstAmt = 0*$subtotal; echo $_COOKIE["currency_symbol"]."". number_format($gstAmt,2); ?></h3>
+                                <h3>SHIPPING: <?php echo $_COOKIE["currency_symbol"]."".  number_format($shippingCharge,2); ?></h3>
+                                <h3 class="d-none">GST : <?php echo $_COOKIE["currency_symbol"]."". number_format($gstAmt,2); ?></h3>
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
@@ -225,55 +187,11 @@ if(count($cartItems)>0): ?>
 
                                 <?php else: ?>
 
-                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". $payable = $subtotal+$gstAmt+$shippingCharge; ?></h3>
+                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". $payable; ?></h3>
 
                                 <?php endif; ?>
 
-                                <?php
-
-                                    $pf = array(
-                                        'amount' => number_format($payable,2),
-                                        'currency' => $_COOKIE["currency_name"]
-                                    );
-
-                                    // print_r($pf);
-
-                                    $curl = curl_init();
-
-                                    curl_setopt_array($curl, array(
-                                    CURLOPT_URL => site_url("create-rzp-order"),
-                                    CURLOPT_RETURNTRANSFER => true,
-                                    CURLOPT_ENCODING => '',
-                                    CURLOPT_MAXREDIRS => 10,
-                                    CURLOPT_TIMEOUT => 0,
-                                    CURLOPT_FOLLOWLOCATION => true,
-                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                                    CURLOPT_CUSTOMREQUEST => 'POST',
-                                    CURLOPT_POSTFIELDS => $pf,
-                                    ));
-
-                                    $rzpOrder = curl_exec($curl);
-
-                                    curl_close($curl);
-
-                                    // echo $rzpOrder;
-
-                                    $rzpOrder = json_decode($rzpOrder,TRUE);
-
-                                    // print_r($rzpOrder);
-
-                                    // echo($rzpOrder);
-
-                                    // echo $rzpOrder->id;
-
-                                    // $rzpOrder = json_decode($rzpOrder,TRUE);
-
-                                    // var_dump($rzpOrder);
-
-                                    
-                                ?>
-                                <!-- Button trigger modal -->
-                                
+                          
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
@@ -294,9 +212,59 @@ if(count($cartItems)>0): ?>
                                 
                                 
                                 
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                                <button type="button" id="ptpButton" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                                     PROCEED to payment
                                 </button>
+
+                                <script type="application/javascript" crossorigin="anonymous" src="https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/RICKAG48377511400337.js"> </script>
+
+
+
+                                <div id="paymentButtonsBox" class="d-none">
+                                    <?php if($_COOKIE["currency_name"]=="INR"): ?>
+                                    <button type="button" class="btn btn-primary" id="paytmPay">
+                                        Pay Now 
+                                    </button>
+                                    <p id="paymentErrorPayPal" class="text-danger"></p>
+                                    <?php else: ?>
+                                        <!-- Sandbox -->
+                                        <script src="https://www.paypal.com/sdk/js?client-id=ATpq7eEQpxzOLYcBQZfdJmq8cWvsNur0Th580tAar7Y_uihvwME8nDUUs22WA2sQSPBUr5hMM4gw-95m&currency=<?php echo $_COOKIE["currency_name"]; ?>">
+                                        </script>
+                                        <div id="paypal-button-container"></div>
+                                        <script>
+                                            paypal.Buttons({
+                                                createOrder: function(data, actions) {
+                                                return actions.order.create({
+                                                    purchase_units: [{
+                                                    amount: {
+                                                        value: '<?php echo $payable; ?>',
+                                                        currency: '<?php echo $_COOKIE["currency_name"]; ?>'
+                                                    }
+                                                    }]
+                                                });
+                                                },
+                                                onApprove: function(data, actions) {
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: $("form#paymentForm").attr("action"),
+                                                        data: $("form#paymentForm").serialize(),
+                                                        success: function (response) {
+                                                            if(response=="order-created"){
+                                                                window.location.replace("<?php echo site_url("payment-successful"); ?>");
+                                                            }else{
+                                                                $("p#paymentErrorPayPal").html("Order not created");
+                                                                setTimeout(() => {
+                                                                    window.location.replace("<?php echo site_url("payment-failed"); ?>");
+
+                                                                }, 200);
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }).render('#paypal-button-container'); // Display payment options on your web page
+                                        </script>
+                                    <?php endif; ?>
+                                </div>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -340,7 +308,7 @@ if(count($cartItems)>0): ?>
                                                     <input class="form-control" required type="text" name="pincode" id="pincode">
                                                 </div>
                                                 
-                                                <button class="btn btn-success" id="payNow" type="submit">Pay now</button>
+                                                <button class="btn btn-success" id="payNow" type="submit">Submit Details</button>
                                                 <?php echo form_close(); ?>
                                                
                                             </div>
@@ -419,6 +387,7 @@ $(".currency-switcher-item").click(function (e) {
 });
 </script>
 <?php if(isset($_SESSION["first_name"])): ?>
+
 <script>
     $("form#paymentForm").submit(function (e) { 
         e.preventDefault();
@@ -426,56 +395,19 @@ $(".currency-switcher-item").click(function (e) {
         let state = $("input#state").val();
         let pincode = $("input#pincode").val();
         if (address==""||state==""||pincode=="") {
-        $("span#paymentError").html("Please fill all fields");
+            $("span#paymentError").html("Please fill all fields");
         } else {
-        $('#staticBackdrop').modal('hide');
-
-
-
-
-        let options = {
-        "key": "rzp_live_EgCVc8wCwpPeDS", // Enter the Key ID generated from the Dashboard
-        // "key": "rzp_test_tt5wGNQQXooze8", // Enter the Key ID generated from the D   ashboard
-        "amount": '<?php echo $payable*100; ?>', 
-        "currency": '<?php echo $_COOKIE['currency_name']; ?>',
-        "name": "Ricka Gauba",
-        "description": 'Payment on Ricka Gauba',
-        "image": "<?php echo site_url('assets/images/sitelogo.jpg'); ?>",
-        <?php $rzpOrder["id"]=""; ?>
-        "order_id": "<?php echo $rzpOrder['id'] ?>", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "handler": function (response){
-        $.ajax({
-            type: "POST",
-            url: $("form#paymentForm").attr("action"),
-            data: $("form#paymentForm").serialize(),
-            success: function (response) {
-                if(response=="order-created"){
-                    window.location.replace("<?php echo site_url("payment-successful"); ?>");
-                }else{
-                    $("span#paymentError").html("Order not created");
-                    setTimeout(() => {
-                        window.location.replace("<?php echo site_url("payment-failed"); ?>");
-
-                    }, 200);
-                }
-            }
-        });
-        },
-        "prefill": {
-        "name": "<?php echo $_SESSION['first_name']; ?>",
-        "email": "<?php echo $_SESSION['email']; ?>",
-        "contact": $("input#mobile_number").val()
-        },
-        "theme": {
-        "color": "#d10762"
+            $('#staticBackdrop').modal('hide');
+            let paymentData = $(this).serialize();
+            setCookie("payment_data",paymentData,1);
+            $("button#ptpButton").addClass("d-none");
+            $("div#paymentButtonsBox").removeClass("d-none");
         }
-        };
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
+    });
+    $("button#paytmPay").click(function (e) { 
         e.preventDefault();
-
-
-        }
+        
     });
 </script>
 <?php endif; ?>
+

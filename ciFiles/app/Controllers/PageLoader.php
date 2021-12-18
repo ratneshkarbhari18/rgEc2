@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 require "./vendor/autoload.php";
 
+require "./ciFiles/app/Controllers/PaytmChecksum.php";
+
 use Razorpay\Api\Api;
 
 
@@ -23,13 +25,13 @@ use CodeIgniter\Database\Query;
 use App\Models\PopupModel;
 use App\Models\ScModel;
 use App\Models\TsModel;
+use App\Controllers\PaytmChecksum;
 
 class PageLoader extends BaseController
 {
 
     private function public_page_loader($viewName,$data){
         
-
 
         $collectionModel = new CollectionModel();
         $styleModel = new StyleModel();
@@ -560,19 +562,145 @@ class PageLoader extends BaseController
         helper("form");
         $cartModel = new CartModel();
 
+        setcookie("shippingLocation","domestic",time()+(5*24*60*60),site_url());
+        setcookie("shippingSpeed","regular",time()+(5*24*60*60),site_url());
+
         $cartItems = $cartModel->fetch_all_cart_items();
         $productModel = new ProductModel();
         $allProducts = array_reverse($productModel->findAll());
+
+        $totalWeight = 0.00;
+        $subtotal = 0.00;
+
+        foreach($cartItems as $cartItem): foreach($allProducts as $product): if($cartItem['product_id']==$product['id']): 
+
+        $amount = $product["sale_price"]*$cartItem['quantity'];
+        $subtotal=$subtotal+$amount; 
+        $totalWeight=$totalWeight+$product["weight"];
+
+        endif; endforeach; endforeach;
+
+        $subtotal = $subtotal*$_COOKIE["currency_rate"];
+
+        $gstAmt = 0;
 
         $scModel = new ScModel();
 
         $allScs = array_reverse($scModel->findAll());
 
+        $shippingCharge = 0.00;
+        if (!isset($_COOKIE["shippingLocation"])) {
+            $shippingLocation = "domestic";
+        }else {
+            $shippingLocation = $_COOKIE["shippingLocation"];
+        }
+        foreach($allScs as $sc){
+            
+            if (($sc["weight_min"]<=$totalWeight)&&($totalWeight<=$sc["weight_max"])&&$sc['domestic_international']==$_COOKIE["shippingLocation"]) {
 
-        $data = array('title' => "Cart","cartItems"=>$cartItems,"allProducts"=>$allProducts,"scs"=>$allScs,"rzpOrder"=> NULL,"error"=>$error);
+                if ($_COOKIE["shippingSpeed"]=="express") {
+
+                    $shippingCharge = $sc["shipping_charge_express"]*$_COOKIE['currency_rate'];
+
+                } else {
+
+                    $shippingCharge = $sc["shipping_charge_regular"]*$_COOKIE['currency_rate'];
+                    
+                }
+                
+
+            }
+        }
+
+        $shippingCharge = $shippingCharge*$_COOKIE["currency_rate"];
+
+        $payable = number_format($subtotal+$gstAmt+$shippingCharge,2);
+
+
+        $oid = uniqid();
+
+        if ($_COOKIE["currency_name"]=="INR") {
+            $paytmToken = $this->get_paytm_token($oid,$payable,$_COOKIE["currency_name"]);
+        } else {
+            $paytmToken = "";
+        }
+        
+
+
+        $data = array('title' => "Cart","cartItems"=>$cartItems,"allProducts"=>$allProducts,"shippingCharge"=>$shippingCharge,"gstAmt"=>$gstAmt,"subtotal"=>$subtotal,"paytmToken"=> $paytmToken,"error"=>$error,"orderId"=>$oid,"totalWeight"=>$totalWeight,"payable"=>$payable);
         
         $this->public_page_loader("cart",$data);
     }
+
+   
+
+    private function get_paytm_token($oid,$amount,$currency)
+    {
+        $paytmParams = array();
+
+
+        if (isset($_SESSION["id"])) {
+            $custId =  $_SESSION["id"];
+        } else {
+            $custId = "001";
+        }
+        
+
+        $paytmParams["body"] = array(
+          "requestType"  => "Payment",
+          "mid"      => "RICKAG48377511400337",
+          "websiteName"  => "Default",
+          "orderId"    => $oid,
+          "callbackUrl"  => "https://<callback URL to be used by merchant>",
+          "txnAmount"   => array(
+            "value"   => $amount,
+            "currency" => $currency,
+          ),
+          "userInfo"   => array(
+            "custId"  => $custId,
+          ),
+        );
+
+        $paytmCheckSum = new PaytmChecksum();
+
+
+        $jsonBody = json_encode($paytmParams["body"], JSON_UNESCAPED_SLASHES);
+
+        $mkey = "ltOmNioOsW22Ne6S";
+
+        $paytmCheckSum = new PaytmChecksum();        
+
+        $checksum = $paytmCheckSum->generateSignature($jsonBody,$mkey);
+
+        $paytmParams["head"] = array(
+          "signature" => $checksum
+        );
+
+        $post_data = json_encode($paytmParams, JSON_UNESCAPED_SLASHES);
+
+        /* for Staging */
+        $url = "https://securegw.paytm.in/theia/api/v1/initiateTransaction?mid="."RICKAG48377511400337"."&orderId=".$oid;
+
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        $res = json_decode($response,TRUE);
+
+        if ($_COOKIE["currency_name"]=="INR") {
+            return $token = $res["body"]["txnToken"];            # code...
+        } else {
+            return "";
+        }
+        
+
+    }
+
 
     public function product_page($slug){
         
