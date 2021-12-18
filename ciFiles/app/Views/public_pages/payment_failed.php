@@ -6,9 +6,10 @@
   </div>   
 
   <div class="container text-center">
-    <h4>Payment Failed</h4>
-        <a href="<?php echo site_url("cart"); ?>" class="btn btn-primary">Back to Cart</a>
-    </div>
+      <h4>Payment Failed</h4>
+      <p class="text-danger"><?php echo $error; ?></p>
+      <a href="<?php echo site_url("cart"); ?>" class="btn btn-primary">Back to Cart</a>
+  </div>
   
 </section>
 

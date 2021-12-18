@@ -1,3 +1,23 @@
+<?php 
+
+
+if($details!=""): 
+$url = site_url("payment-exe");
+$ch = curl_init();
+
+    //set the url, number of POST vars, POST data
+    curl_setopt($ch,CURLOPT_URL, $url);
+    curl_setopt($ch,CURLOPT_POST, 1);
+    curl_setopt($ch,CURLOPT_POSTFIELDS, $details);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+//execute post
+$res  = curl_exec($ch);
+
+
+endif; ?>
 <section class="c-container">
   
   <div class="o-circle c-container__circle o-circle__sign--success">

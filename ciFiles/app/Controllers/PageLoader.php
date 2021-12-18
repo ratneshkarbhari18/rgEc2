@@ -632,6 +632,20 @@ class PageLoader extends BaseController
         $this->public_page_loader("cart",$data);
     }
 
+
+    public function payment_callback()
+    {
+        if(isset($_GET["errorMessage"])){
+            $errorMessage = $_GET["errorMessage"];
+            $this->payment_failed($errorMessage);
+        }else {
+            if($_POST["STATUS"]=="TXN_SUCCESS"){
+                $paymentDetails = $_COOKIE['payment_data'];     
+                $uid = session("id");
+                $this->payment_successful($paymentDetails,$uid);
+            }
+        }
+    }
    
 
     private function get_paytm_token($oid,$amount,$currency)
@@ -651,7 +665,7 @@ class PageLoader extends BaseController
           "mid"      => "RICKAG48377511400337",
           "websiteName"  => "Default",
           "orderId"    => $oid,
-          "callbackUrl"  => "https://<callback URL to be used by merchant>",
+          "callbackUrl"  => site_url("payment-callback?uid=".session("id")),
           "txnAmount"   => array(
             "value"   => $amount,
             "currency" => $currency,
@@ -692,7 +706,7 @@ class PageLoader extends BaseController
 
         $res = json_decode($response,TRUE);
 
-        if ($_COOKIE["currency_name"]=="INR") {
+        if ($_COOKIE["currency_name"]=="INR"&&isset($res["body"]["txnToken"])) {
             return $token = $res["body"]["txnToken"];            # code...
         } else {
             return "";
@@ -1003,18 +1017,21 @@ class PageLoader extends BaseController
     
     }
 
-    public function payment_successful()
+    public function payment_successful($details="",$uid)
     {
+
         helper("form");
-        $data = array("title"=>"Payment Successful");
+        $data = array("title"=>"Payment Successful","details"=>$details,"uid"=>$uid);
+
+        $details = $details."&uid=".$uid;
 
         $this->public_page_loader("payment_successful",$data);
     }
 
-    public function payment_failed()
+    public function payment_failed($error="")
     {
         helper("form");
-        $data = array("title"=>"Payment failed");
+        $data = array("title"=>"Payment failed","error"=>$error);
 
         $this->public_page_loader("payment_failed",$data);
     }

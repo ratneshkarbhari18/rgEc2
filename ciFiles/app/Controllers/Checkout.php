@@ -115,9 +115,10 @@ class Checkout extends BaseController
     {
 
         $customerDetails = array(
-            "first_name" => session("first_name"),
-            "last_name" => session("last_name"),
-            "email" => session("email"),
+            "uid" => $this->request->getPost("uid"),
+            "first_name" => $this->request->getPost("first_name"),
+            "last_name" => $this->request->getPost("last_name"),
+            "email" => $this->request->getPost("email"),
             "country" => $this->request->getPost("country"),
             "state" => $this->request->getPost("state"),
             "pincode" => $this->request->getPost("pincode")
@@ -133,8 +134,6 @@ class Checkout extends BaseController
             $cartItems = json_encode($cartModel->fetch_all_cart_items());
     
         }
-        
-
 
 
         $orderData = array(
@@ -147,7 +146,7 @@ class Checkout extends BaseController
             "status_details" => "",
             "address" => $this->request->getPost("address"),
             "date" => date("d-m-Y H:i:s D"),
-            'customer_id' => session("id")
+            'customer_id' => $this->request->getPost("uid")
         );
 
 
@@ -156,7 +155,7 @@ class Checkout extends BaseController
 
         $authModel = new AuthModel();
 
-        $addressAdded = $authModel->update($_SESSION["id"],array(
+        $addressAdded = $authModel->update($this->request->getPost("uid"),array(
             "address"=>$this->request->getPost("address"),
             "country" => $this->request->getPost("country"),
             "state" => $this->request->getPost("state"),

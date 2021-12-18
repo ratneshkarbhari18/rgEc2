@@ -245,9 +245,10 @@ if(count($cartItems)>0): ?>
                                                     if(eventName=="APP_CLOSED"){
                                                         location.reload();
                                                     }else{
-                                                        // console.log("notifyMerchant handler function called");
-                                                        // console.log("eventName => ",eventName);
-                                                        // console.log("data => ",data);
+                                                        console.log("notifyMerchant handler function called");
+                                                        console.log("eventName => ",eventName);
+                                                        console.log("data => ",data);
+
                                                     }
                                                 } 
                                                 }
@@ -339,9 +340,15 @@ if(count($cartItems)>0): ?>
                                                 
                                                 <span class="text-danger" id="paymentError"></span>
                                                 <?php $attributes = array("id"=>"paymentForm"); echo form_open(site_url("payment-exe"),$attributes); ?>
+                                                <input type="hidden" name="first_name" value="<?php echo session("first_name"); ?>">
+
+                                                <input type="hidden" name="last_name" value="<?php echo session("last_name"); ?>">
+                                                <input type="hidden" name="email" value="<?php echo session("email"); ?>">
+
                                                 <input type="hidden" name="currency" value="<?php echo $_COOKIE["currency_name"]; ?>">
                                                 <input type="hidden" name="cart_items" value="<?php echo json_encode($cartItems); ?>">
                                                 <input type="hidden" name="amount" value="<?php echo $payable; ?>">
+                                                <input type="hidden" name="uid" value="<?php echo session("id"); ?>">
                                                 <input type="hidden" name="buy_now" value="no">
                                                 
                                                 <div class="form-group">

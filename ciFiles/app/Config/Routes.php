@@ -47,6 +47,8 @@ $routes->get("forgot-password","PageLoader::forgot_password");
 $routes->get("payment-successful","PageLoader::payment_successful");
 $routes->get("payment-failed","PageLoader::payment_failed");
 $routes->get("wishlist","PageLoader::wishlist");
+$routes->get("payment-callback","PageLoader::payment_callback");
+$routes->post("payment-callback","PageLoader::payment_callback");
 
 // Public Static
 $routes->get("about","PageLoader::about");
