@@ -202,7 +202,49 @@ class PageLoader extends BaseController
 
         $subtotal =  $_COOKIE["currency_rate"]*$pdata['sale_price']*$pq;
 
-        $data = array('title' => "Buy Now","scs"=>$allScs,"product"=>$pdata,"size"=>$psize,"quantity"=>$pq,"subtotal"=>$subtotal,"error"=>$error);
+        $gstAmt = 0;
+
+        $shippingCharge = 0.00;
+        if (!isset($_COOKIE["shippingLocation"])) {
+            $shippingLocation = "domestic";
+        }else {
+            $shippingLocation = $_COOKIE["shippingLocation"];
+        }
+
+        $totalWeight = $pdata["weight"];
+
+        foreach($allScs as $sc){
+            
+            if (($sc["weight_min"]<=$totalWeight)&&($totalWeight<=$sc["weight_max"])&&$sc['domestic_international']==$_COOKIE["shippingLocation"]) {
+
+                if ($_COOKIE["shippingSpeed"]=="express") {
+
+                    $shippingCharge = $sc["shipping_charge_express"]*$_COOKIE['currency_rate'];
+
+                } else {
+
+                    $shippingCharge = $sc["shipping_charge_regular"]*$_COOKIE['currency_rate'];
+                    
+                }
+                
+
+            }
+        }
+
+        $shippingCharge = $shippingCharge*$_COOKIE["currency_rate"];
+
+        $payable = number_format($subtotal+$gstAmt+$shippingCharge,2);
+
+
+        $oid = uniqid();
+
+        if ($_COOKIE["currency_name"]=="INR") {
+            $paytmToken = $this->get_paytm_token($oid,$payable,$_COOKIE["currency_name"]);
+        } else {
+            $paytmToken = "";
+        }
+
+        $data = array('title' => "Buy Now","scs"=>$allScs,"product"=>$pdata,"size"=>$psize,"quantity"=>$pq,"subtotal"=>$subtotal,"error"=>$error,"shippingCharge"=>$shippingCharge,"gstAmt"=>$gstAmt,"payable"=>$payable,"orderId"=>$oid,"paytmToken"=>$paytmToken,"cartItems"=>$pdata);
         
         $this->public_page_loader("buy_now",$data);
 

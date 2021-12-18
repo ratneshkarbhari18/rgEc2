@@ -1,19 +1,15 @@
-
+<?php 
+    $payable = 0.00;
+    if(!isset($_COOKIE["shippingLocation"])){
+        setcookie("shippingLocation","domestic",site_url());
+        setcookie("shippingSpeed","regular",site_url());
+    }
+?>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <main class="page-contentX" id="cart" style="padding: 0;">
 
-    <section class="title-section text-center" id="cart-title">
-        <div class="container-fluid " style="padding: 1em 0; margin-bottom: 2em; background-color: #d10762;">
-            <h2 class="section-titleX text-light">CART</h2>
-        </div>
-    </section>
-    <?php
-
-use PhpParser\Node\Stmt\Echo_;
-?>
-
-    <section id="cart" >
-        <div class="container-fluid text-center">
+    <section class="title-section text-center" style="padding: 2em 0; margin-bottom: 2em; background-color: #fff;" id="cart-title">
+        <div class="container " >
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-sm-12"></div>
                 <div class="col-lg-4 col-md-12 col-sm-12">
@@ -23,11 +19,18 @@ use PhpParser\Node\Stmt\Echo_;
                         <div class="card-content">
                             <h1 class="text-dark"><?php echo $product["title"]; ?></h1>
                         </div>
-                    </div>   
+                    </div>                    
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12"></div>
             </div>
         </div>
+    </section>
+    <?php
+
+use PhpParser\Node\Stmt\Echo_;
+?>
+    <section id="cart" >
+        
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-12 col-sm-12"></div>
@@ -49,9 +52,9 @@ use PhpParser\Node\Stmt\Echo_;
                                 <?php
                                         echo form_open(site_url("customer-login-exe"),'id="customerLogin"');
                                         ?>
-                                        <input type="hidden" name="redirect_url" value="<?php echo site_url("cart"); ?>">
+                                    <p id="errorMessage" class="text-danger"></p>
 
-                                        <p id="errorMessage" class="text-danger"></p>
+                                        <input type="hidden" name="redirect_url" value="<?php echo site_url("product/".$product["slug"]); ?>">
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input class="form-control" type="text" name="email" id="email">
@@ -87,37 +90,54 @@ use PhpParser\Node\Stmt\Echo_;
 
                     <?php else: ?>
                         
+                        <?php
+                            $shippingCharge = 0.00;
+                            if (!isset($_COOKIE["shippingLocation"])) {
+                                $shippingLocation = "domestic";
+                            }else {
+                                $shippingLocation = $_COOKIE["shippingLocation"];
+                            }
+                            $totalWeight = $product["weight"];
+                            foreach($scs as $sc){
+                                
+                                if (($sc["weight_min"]<=$totalWeight)&&($totalWeight<=$sc["weight_max"])&&$sc['domestic_international']==$_COOKIE["shippingLocation"]) {
+
+                                    if ($_COOKIE["shippingSpeed"]=="express") {
+
+                                        $shippingCharge = $sc["shipping_charge_express"]*$_COOKIE['currency_rate'];
+
+                                    } else {
+
+                                        $shippingCharge = $sc["shipping_charge_regular"]*$_COOKIE['currency_rate'];
+                                        
+                                    }
+                                    
+
+                                }
+                            }
+                        ?>
                         <div class="card" style="margin: 2em 0;">
                             <div class="card-body text-center">
                                 
-                                <h3>SUBTOTAL:  <?php echo $_COOKIE["currency_symbol"]."". number_format($subtotal,2); ?></h3>
+                                <h3>PRICE:  <?php echo $price = $_COOKIE["currency_symbol"]."". number_format($subtotal,2); ?></h3>
+                                <h3>QUANTITY:  <?php echo $quantity; ?></h3>
+                                <h3>SUBTOTAL:  <?php echo $subtotal; ?></h3>
                                 <div class="form-group w-50 ml-auto mr-auto">
-                                    <label for="shipping_speed">Express or Normal Delivery?</label>
+                                    <label for="shipping_speed">Select Shipping Speed</label>
                                     <select class="form-control shippingVariable" name="shipping_speed" id="shipping_speed">
-                                        <option value="regular" <?php if($_COOKIE["shippingSpeed"]=="regular"){echo "selected";} ?>>NORMAL</option>
+                                        <option value="regular" <?php if($_COOKIE["shippingSpeed"]=="regular"){echo "selected";} ?>>REGULAR</option>
                                         <!-- <option value="express" <?php if($_COOKIE["shippingSpeed"]=="express"){echo "selected";} ?>>EXPRESS</option> -->
                                     </select>
                                 </div>
                                 <div class="form-group w-50 ml-auto mr-auto">
-                                    <label for="shipping_location">Delivery Destination</label>
+                                    <label for="shipping_location">Select Shipping Location</label>
                                     <select class="form-control shippingVariable" name="shipping_location" id="shipping_location">
                                         <option value="domestic" <?php if($_COOKIE["shippingLocation"]=="domestic"){echo "selected";} ?>>DOMESTIC</option>
                                         <option value="international" <?php if($_COOKIE["shippingLocation"]=="international"){echo "selected";} ?>>INTERNATIONAL</option>
                                     </select>
                                 </div>
                                 <script>
-                                    function setCookie(name,value,days) {
-                                        var expires = "";
-                                        if (days) {
-                                            var date = new Date();
-                                            date.setTime(date.getTime() + (days*24*60*60*1000));
-                                            expires = "; expires=" + date.toUTCString();
-                                        }
-                                        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-                                    }
-                                    function delete_cookie(name) {
-                                         document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-                                    }
+                                    
                                     $("select.shippingVariable").on('change', function () {
                                         let shippingSpeed = $("select#shipping_speed").val();
                                         let shippingLocation = $("select#shipping_location").val();
@@ -137,26 +157,70 @@ use PhpParser\Node\Stmt\Echo_;
                                     });
                                 </script>
                                 
-                                <h3>SHIPPING: <?php echo $_COOKIE["currency_symbol"]."".  number_format($shippingCharge,2); ?></h3>
-                                <h3 class="d-none">GST : <?php echo $_COOKIE["currency_symbol"]."". number_format($gstAmt,2); ?></h3>
+                                <!-- <h3>SHIPPING CHARGES:  <?php $_COOKIE["currency_symbol"]."". number_format(($shippingCharge*$_COOKIE["currency_rate"]),2); ?></h3> -->
+                                <h3>SHIPPING: <?php echo number_format($shippingCharge,2); ?></h3>
+                                <h3 class="d-none">GST : <?php echo $_COOKIE["currency_symbol"]."". $gstAmt = 0*$subtotal; ?></h3>
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
-                                <h3>DISCOUNT: <?php echo $_COOKIE["currency_symbol"]."". number_format($discount = ($_COOKIE["coupon_value"]/100)*$subtotal,2); ?></h3>
-                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". number_format($payable = ($subtotal+$gstAmt+$shippingCharge)-$discount,2); ?></h3>
+                                <h3>DISCOUNT: <?php echo $_COOKIE["currency_symbol"]."". $discount = ($_COOKIE["coupon_value"]/100)*$subtotal; ?></h3>
+                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". $payable = ($subtotal+$gstAmt+$shippingCharge)-$discount; ?></h3>
 
                                 <?php else: ?>
 
-                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". $payable; ?></h3>
+                                <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". $payable = $subtotal+$gstAmt+$shippingCharge; ?></h3>
 
                                 <?php endif; ?>
 
-                          
+                                <?php
+
+                                    $pf = array(
+                                        'amount' => number_format($payable,2),
+                                        'currency' => $_COOKIE["currency_name"]
+                                    );
+
+                                    // print_r($pf);
+
+                                    $curl = curl_init();
+
+                                    curl_setopt_array($curl, array(
+                                    CURLOPT_URL => site_url("create-rzp-order"),
+                                    CURLOPT_RETURNTRANSFER => true,
+                                    CURLOPT_ENCODING => '',
+                                    CURLOPT_MAXREDIRS => 10,
+                                    CURLOPT_TIMEOUT => 0,
+                                    CURLOPT_FOLLOWLOCATION => true,
+                                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                    CURLOPT_CUSTOMREQUEST => 'POST',
+                                    CURLOPT_POSTFIELDS => $pf,
+                                    ));
+
+                                    $rzpOrder = curl_exec($curl);
+
+                                    curl_close($curl);
+
+                                    // echo $rzpOrder;
+
+                                    $rzpOrder = json_decode($rzpOrder,TRUE);
+
+                                    // print_r($rzpOrder);
+
+                                    // echo($rzpOrder);
+
+                                    // echo $rzpOrder->id;
+
+                                    // $rzpOrder = json_decode($rzpOrder,TRUE);
+
+                                    // var_dump($rzpOrder);
+
+                                    
+                                ?>
+                                <!-- Button trigger modal -->
+                                
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
                                 <p><?php echo $_COOKIE["coupon_code"]; ?> applied that gives <?php echo $_COOKIE["coupon_value"]; ?>% of Discount</p>
-                                <a href="<?php echo site_url("remove-cc"); ?>"><p class="text-danger">Remove?</p></a>
                                 <?php else: ?>
                                 <?php echo form_open("apply-coupon-exe"); ?>
                                     <div class="form-group">
@@ -172,119 +236,9 @@ use PhpParser\Node\Stmt\Echo_;
                                 
                                 
                                 
-                                <button type="button" id="ptpButton" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                                     PROCEED to payment
                                 </button>
-
-
-
-
-
-
-                                <div id="paymentButtonsBox" class="d-none">
-                                    <?php if($_COOKIE["currency_name"]=="INR"): ?>
-                                   
-                                    <script>
-                                        function onScriptLoad(){
-                                            var config = {
-                                                "root": "",
-                                                "flow": "DEFAULT",
-                                                "data": {
-                                                "orderId": "<?php echo $orderId; ?>", /* update order id */
-                                                "token": "<?php echo $paytmToken; ?>", /* update token value */
-                                                "tokenType": "TXN_TOKEN",
-                                                "amount": "<?php echo $payable ?>",
-                                                "currency": "INR" /* update amount */
-                                                },
-                                                "handler": {
-                                                "notifyMerchant": function(eventName,data){
-                                                    // console.log("notifyMerchant handler function called");
-                                                    // console.log("eventName => ",eventName);
-                                                    // console.log("data => ",data);
-
-                                                    if(eventName=="APP_CLOSED"){
-                                                        location.reload();
-                                                    }else{
-                                                        console.log("notifyMerchant handler function called");
-                                                        console.log("eventName => ",eventName);
-                                                        console.log("data => ",data);
-
-                                                    }
-                                                } 
-                                                }
-                                            };
-
-                                            if(window.Paytm && window.Paytm.CheckoutJS){
-                                                window.Paytm.CheckoutJS.onLoad(function excecuteAfterCompleteLoad() {
-                                                    // initialze configuration using init method 
-                                                    window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
-                                                        // after successfully updating configuration, invoke JS Checkout
-                                                        window.Paytm.CheckoutJS.invoke();
-                                                    }).catch(function onError(error){
-                                                        console.log("error => ",error);
-                                                    });
-                                                });
-                                            } 
-                                        }
-                                    </script>
-
-                                    <script type="application/javascript" crossorigin="anonymous" src="https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/RICKAG48377511400337.js"  onload="onScriptLoad();"> </script>
-                                    <style>
-                                        div#paytm-checkoutjs{
-                                            display: none;
-                                        }
-                                    </style>
-                                    <button type="button" class="btn btn-primary" id="paytmPay">
-                                        Pay Now 
-                                    </button>
-                                    <script>
-
-                                        $("button#paytmPay").click(function (e) { 
-                                            e.preventDefault();
-                                            $("div#paytm-checkoutjs").css("display","block");
-                                        });
-
-                                    </script>
-                                    <?php else: ?>
-                                        <p id="paymentErrorPayPal" class="text-danger"></p>
-                                        <!-- Sandbox -->
-                                        <script src="https://www.paypal.com/sdk/js?client-id=ATpq7eEQpxzOLYcBQZfdJmq8cWvsNur0Th580tAar7Y_uihvwME8nDUUs22WA2sQSPBUr5hMM4gw-95m&currency=<?php echo $_COOKIE["currency_name"]; ?>">
-                                        </script>
-                                        <div id="paypal-button-container"></div>
-                                        <script>
-                                            paypal.Buttons({
-                                                createOrder: function(data, actions) {
-                                                return actions.order.create({
-                                                    purchase_units: [{
-                                                    amount: {
-                                                        value: '<?php echo $payable; ?>',
-                                                        currency: '<?php echo $_COOKIE["currency_name"]; ?>'
-                                                    }
-                                                    }]
-                                                });
-                                                },
-                                                onApprove: function(data, actions) {
-                                                    $.ajax({
-                                                        type: "POST",
-                                                        url: $("form#paymentForm").attr("action"),
-                                                        data: $("form#paymentForm").serialize(),
-                                                        success: function (response) {
-                                                            if(response=="order-created"){
-                                                                window.location.replace("<?php echo site_url("payment-successful"); ?>");
-                                                            }else{
-                                                                $("p#paymentErrorPayPal").html("Order not placed");
-                                                                setTimeout(() => {
-                                                                    window.location.replace("<?php echo site_url("payment-failed"); ?>");
-
-                                                                }, 200);
-                                                            }
-                                                        }
-                                                    });
-                                                }
-                                            }).render('#paypal-button-container'); // Display payment options on your web page
-                                        </script>
-                                    <?php endif; ?>
-                                </div>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -300,17 +254,24 @@ use PhpParser\Node\Stmt\Echo_;
                                                 
                                                 <span class="text-danger" id="paymentError"></span>
                                                 <?php $attributes = array("id"=>"paymentForm"); echo form_open(site_url("payment-exe"),$attributes); ?>
-                                                <input type="hidden" name="first_name" value="<?php echo session("first_name"); ?>">
-
-                                                <input type="hidden" name="last_name" value="<?php echo session("last_name"); ?>">
-                                                <input type="hidden" name="email" value="<?php echo session("email"); ?>">
-
                                                 <input type="hidden" name="currency" value="<?php echo $_COOKIE["currency_name"]; ?>">
-                                                <input type="hidden" name="cart_items" value='<?php echo json_encode($cartItems); ?>'>
+                                                <input type="hidden" name="cart_items" value='<?php $product["quantity"] = $quantity; $product["size"] = $size;  echo json_encode($product); ?>'>
                                                 <input type="hidden" name="amount" value="<?php echo $payable; ?>">
-                                                <input type="hidden" name="uid" value="<?php echo session("id"); ?>">
-                                                <input type="hidden" name="buy_now" value="no">
+                                                <?php $pdata = array();
+                                                $pdata["product_id"] = $product["id"];
+
+                                                if ($size=="Custom") {
+                                                    $stitching = "yes";
+                                                } else {
+                                                    $stitching = "no";
+                                                }
                                                 
+
+                                                $pdata["stitching"] = $stitching;
+                                                $pdata["quantity"] = $quantity;
+                                                ?>
+                                                <input type="hidden" name="pdata" value='<?php echo json_encode($pdata); ?>'>
+                                                <input type="hidden" name="buy_now" value="yes">
                                                 <div class="form-group">
                                                     <label for="country">Country</label>
                                                     <select class="form-control" name="country" id="country">
@@ -334,7 +295,7 @@ use PhpParser\Node\Stmt\Echo_;
                                                     <input class="form-control" required type="text" name="pincode" id="pincode">
                                                 </div>
                                                 
-                                                <button class="btn btn-success" id="payNow" type="submit">Submit Details</button>
+                                                <button class="btn btn-success" id="payNow" type="submit">Pay now</button>
                                                 <?php echo form_close(); ?>
                                                
                                             </div>
@@ -353,7 +314,6 @@ use PhpParser\Node\Stmt\Echo_;
             </div>
         </div>
     </section>
-
 </main>
 <script>
    $(document).ready(function () {
@@ -404,7 +364,6 @@ $(".currency-switcher-item").click(function (e) {
 });
 </script>
 <?php if(isset($_SESSION["first_name"])): ?>
-
 <script>
     $("form#paymentForm").submit(function (e) { 
         e.preventDefault();
@@ -412,15 +371,56 @@ $(".currency-switcher-item").click(function (e) {
         let state = $("input#state").val();
         let pincode = $("input#pincode").val();
         if (address==""||state==""||pincode=="") {
-            $("span#paymentError").html("Please fill all fields");
+        $("span#paymentError").html("Please fill all fields");
         } else {
-            $('#staticBackdrop').modal('hide');
-            let paymentData = $(this).serialize();
-            setCookie("payment_data",paymentData,1);
-            $("button#ptpButton").addClass("d-none");
-            $("div#paymentButtonsBox").removeClass("d-none");
+        $('#staticBackdrop').modal('hide');
+
+
+
+
+        let options = {
+        "key": "rzp_live_EgCVc8wCwpPeDS", // Enter the Key ID generated from the Dashboard
+        // "key": "rzp_test_tt5wGNQQXooze8", // Enter the Key ID generated from the D   ashboard
+        "amount": '<?php echo $payable*100; ?>', 
+        "currency": '<?php echo $_COOKIE['currency_name']; ?>',
+        "name": "Ricka Gauba",
+        "description": 'Payment on Ricka Gauba',
+        "image": "<?php echo site_url('assets/images/sitelogo.jpg'); ?>",
+        <?php $rzpOrder["id"]=""; ?>
+        "order_id": "<?php echo $rzpOrder['id'] ?>", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+        $.ajax({
+            type: "POST",
+            url: $("form#paymentForm").attr("action"),
+            data: $("form#paymentForm").serialize(),
+            success: function (response) {
+                if(response=="order-created"){
+                    window.location.replace("<?php echo site_url("payment-successful"); ?>");
+                }else{
+                    $("span#paymentError").html("Order not created");
+                    setTimeout(() => {
+                        window.location.replace("<?php echo site_url("payment-failed"); ?>");
+
+                    }, 200);
+                }
+            }
+        });
+        },
+        "prefill": {
+        "name": "<?php echo $_SESSION['first_name']; ?>",
+        "email": "<?php echo $_SESSION['email']; ?>",
+        "contact": $("input#mobile_number").val()
+        },
+        "theme": {
+        "color": "#d10762"
+        }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+        e.preventDefault();
+
+
         }
     });
-    
 </script>
 <?php endif; ?>
