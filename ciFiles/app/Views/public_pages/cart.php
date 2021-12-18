@@ -216,17 +216,76 @@ if(count($cartItems)>0): ?>
                                     PROCEED to payment
                                 </button>
 
-                                <script type="application/javascript" crossorigin="anonymous" src="https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/RICKAG48377511400337.js"> </script>
+
+
 
 
 
                                 <div id="paymentButtonsBox" class="d-none">
                                     <?php if($_COOKIE["currency_name"]=="INR"): ?>
+                                   
+                                    <script>
+                                        function onScriptLoad(){
+                                            var config = {
+                                                "root": "",
+                                                "flow": "DEFAULT",
+                                                "data": {
+                                                "orderId": "<?php echo $orderId; ?>", /* update order id */
+                                                "token": "<?php echo $paytmToken; ?>", /* update token value */
+                                                "tokenType": "TXN_TOKEN",
+                                                "amount": "<?php echo $payable ?>",
+                                                "currency": "INR" /* update amount */
+                                                },
+                                                "handler": {
+                                                "notifyMerchant": function(eventName,data){
+                                                    // console.log("notifyMerchant handler function called");
+                                                    // console.log("eventName => ",eventName);
+                                                    // console.log("data => ",data);
+
+                                                    if(eventName=="APP_CLOSED"){
+                                                        location.reload();
+                                                    }else{
+                                                        // console.log("notifyMerchant handler function called");
+                                                        // console.log("eventName => ",eventName);
+                                                        // console.log("data => ",data);
+                                                    }
+                                                } 
+                                                }
+                                            };
+
+                                            if(window.Paytm && window.Paytm.CheckoutJS){
+                                                window.Paytm.CheckoutJS.onLoad(function excecuteAfterCompleteLoad() {
+                                                    // initialze configuration using init method 
+                                                    window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+                                                        // after successfully updating configuration, invoke JS Checkout
+                                                        window.Paytm.CheckoutJS.invoke();
+                                                    }).catch(function onError(error){
+                                                        console.log("error => ",error);
+                                                    });
+                                                });
+                                            } 
+                                        }
+                                    </script>
+
+                                    <script type="application/javascript" crossorigin="anonymous" src="https://securegw.paytm.in/merchantpgpui/checkoutjs/merchants/RICKAG48377511400337.js"  onload="onScriptLoad();"> </script>
+                                    <style>
+                                        div#paytm-checkoutjs{
+                                            display: none;
+                                        }
+                                    </style>
                                     <button type="button" class="btn btn-primary" id="paytmPay">
                                         Pay Now 
                                     </button>
-                                    <p id="paymentErrorPayPal" class="text-danger"></p>
+                                    <script>
+
+                                        $("button#paytmPay").click(function (e) { 
+                                            e.preventDefault();
+                                            $("div#paytm-checkoutjs").css("display","block");
+                                        });
+
+                                    </script>
                                     <?php else: ?>
+                                        <p id="paymentErrorPayPal" class="text-danger"></p>
                                         <!-- Sandbox -->
                                         <script src="https://www.paypal.com/sdk/js?client-id=ATpq7eEQpxzOLYcBQZfdJmq8cWvsNur0Th580tAar7Y_uihvwME8nDUUs22WA2sQSPBUr5hMM4gw-95m&currency=<?php echo $_COOKIE["currency_name"]; ?>">
                                         </script>
@@ -252,7 +311,7 @@ if(count($cartItems)>0): ?>
                                                             if(response=="order-created"){
                                                                 window.location.replace("<?php echo site_url("payment-successful"); ?>");
                                                             }else{
-                                                                $("p#paymentErrorPayPal").html("Order not created");
+                                                                $("p#paymentErrorPayPal").html("Order not placed");
                                                                 setTimeout(() => {
                                                                     window.location.replace("<?php echo site_url("payment-failed"); ?>");
 
@@ -404,10 +463,7 @@ $(".currency-switcher-item").click(function (e) {
             $("div#paymentButtonsBox").removeClass("d-none");
         }
     });
-    $("button#paytmPay").click(function (e) { 
-        e.preventDefault();
-        
-    });
+    
 </script>
 <?php endif; ?>
 
