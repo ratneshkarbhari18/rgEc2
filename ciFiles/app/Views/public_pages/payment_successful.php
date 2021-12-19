@@ -16,7 +16,6 @@ $ch = curl_init();
 //execute post
 $res  = curl_exec($ch);
 
-
 endif; ?>
 <section class="c-container">
   

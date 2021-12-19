@@ -127,12 +127,10 @@ class Checkout extends BaseController
         $buy_now = $this->request->getPost('buy_now');
 
         if ($buy_now=="yes") {
-            $cartItems = $this->request->getPost("pdata"); 
+            $cartItems = $this->request->getPost("cart_items"); 
         } else {
             $cartModel = new CartModel();
-
             $cartItems = json_encode($cartModel->fetch_all_cart_items());
-    
         }
 
 

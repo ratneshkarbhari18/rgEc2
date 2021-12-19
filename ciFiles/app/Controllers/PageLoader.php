@@ -1095,19 +1095,34 @@ class PageLoader extends BaseController
 
         $productIds = array();
 
+
         foreach($customerOrders as $co):
-        foreach(json_decode($co["order_details"],TRUE) as $od){
-            $productIds[] = $od["product_id"];
+        $odata = json_decode($co["order_details"],TRUE);
+        if(count($odata)!=1){
+            foreach($odata as $od){
+                if (isset($od["product_id"])) {
+                    $productIds[] = $od["product_id"];
+                }
+            }
         }
+
         endforeach;
+
 
         $productModel = new ProductModel();
 
         if(!empty($productIds)){
             $products = $productModel->find($productIds);
         }else{
-            $products = array();
+            foreach($customerOrders as $co):
+            $odata = json_decode($co["order_details"],TRUE);
+            
+            $products = $productModel->find($odata["id"]);
+
+            endforeach;
         }
+
+        
 
         $wishListModel = new WishlistModel();
 

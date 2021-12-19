@@ -81,14 +81,23 @@
                                                             <h5>Status: <?php echo $order['status']; ?></h5>
 
                                                             <h4>Items:</h4>
-                                                            <?php $orderDetails = json_decode($order["order_details"],TRUE); foreach($orderDetails as $od): ?>
-                                                                <?php foreach($products as $product): if($od["product_id"]==$product['id']): ?>
+
+                                                            <?php $orderDetails = json_decode($order["order_details"],TRUE); 
+                                                                                                                        
+                                                            if(count($orderDetails)!=14):
+                                                            foreach($orderDetails as $od): ?>
+                                                                <?php foreach($products as $product):  if($od["product_id"]==$product['id']): ?>
                                                                     <p style="font-weight: bold;">Title: <?php echo $product["title"]; ?></p>
-                                                                    <p>Stitching: <?php echo $od["stitching"]; ?></p>
+                                                                    <!-- <p>Stitching: <?php echo $od["stitching"]; ?></p> -->
                                                                     <p>Size: <?php echo $od["size"]; ?></p>
                                                                     <p>Quantity: <?php echo $od["quantity"]; ?></p>
-                                                                <?php endif; endforeach; ?>
-                                                            <?php endforeach; ?>
+                                                                <?php endif;  endforeach; ?>
+                                                            <?php endforeach; else:  ?>
+
+                                                                <p style="font-weight: bold;">Title: <?php echo $orderDetails["title"]; ?></p>
+                                                                   
+
+                                                            <?php endif; ?>
 
                                                         </div>
                                                         <!-- <div class="modal-footer">

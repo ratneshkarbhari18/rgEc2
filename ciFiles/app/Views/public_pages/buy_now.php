@@ -2,7 +2,7 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <main class="page-contentX" id="cart" style="padding: 0;">
 
-    <section class="title-section text-center" id="cart-title">
+    <section class="title-section text-center d-none" id="cart-title">
         <div class="container-fluid " style="padding: 1em 0; margin-bottom: 2em; background-color: #d10762;">
             <h2 class="section-titleX text-light">CART</h2>
         </div>
@@ -306,10 +306,10 @@ use PhpParser\Node\Stmt\Echo_;
                                                 <input type="hidden" name="email" value="<?php echo session("email"); ?>">
 
                                                 <input type="hidden" name="currency" value="<?php echo $_COOKIE["currency_name"]; ?>">
-                                                <input type="hidden" name="cart_items" value='<?php echo json_encode($cartItems); ?>'>
+                                                <input type="hidden" name="cart_items" value='<?php echo json_encode($product); ?>'>
                                                 <input type="hidden" name="amount" value="<?php echo $payable; ?>">
                                                 <input type="hidden" name="uid" value="<?php echo session("id"); ?>">
-                                                <input type="hidden" name="buy_now" value="no">
+                                                <input type="hidden" name="buy_now" value="yes">
                                                 
                                                 <div class="form-group">
                                                     <label for="country">Country</label>
