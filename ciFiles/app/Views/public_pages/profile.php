@@ -95,7 +95,9 @@
                                                             <?php endforeach; else:  ?>
 
                                                                 <p style="font-weight: bold;">Title: <?php echo $orderDetails["title"]; ?></p>
-                                                                   
+                                                                <p>Stitching: <?php echo $orderDetails["stitching"]; ?></p>
+                                                                <p>Size: <?php echo $orderDetails["size"]; ?></p>
+                                                                <p>Quantity: <?php echo $orderDetails["quantity"]; ?></p>
 
                                                             <?php endif; ?>
 

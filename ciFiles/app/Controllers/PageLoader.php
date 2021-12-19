@@ -196,6 +196,9 @@ class PageLoader extends BaseController
 
         $pdata = $productModel->find($pid);
 
+        $pdata["size"] = $psize;
+        $pdata["quantity"] = $pq;
+
         $scModel = new ScModel();
 
         $allScs = array_reverse($scModel->findAll());

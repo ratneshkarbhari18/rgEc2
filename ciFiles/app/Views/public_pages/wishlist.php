@@ -88,13 +88,16 @@
                                                             foreach($orderDetails as $od): ?>
                                                                 <?php foreach($products as $product):  if($od["product_id"]==$product['id']): ?>
                                                                     <p style="font-weight: bold;">Title: <?php echo $product["title"]; ?></p>
-
+                                                                    <p>Stitching: <?php echo $od["stitching"]; ?></p>
+                                                                    <p>Size: <?php echo $od["size"]; ?></p>
+                                                                    <p>Quantity: <?php echo $od["quantity"]; ?></p>
                                                                 <?php endif;  endforeach; ?>
                                                             <?php endforeach; else:  ?>
 
                                                                 <p style="font-weight: bold;">Title: <?php echo $orderDetails["title"]; ?></p>
-                                                                    <p>Size: <?php echo $orderDetails["size"]; ?></p>
-                                                                    <p>Quantity: <?php echo $orderDetails["quantity"]; ?></p>
+                                                                <p>Stitching: <?php echo $orderDetails["stitching"]; ?></p>
+                                                                <p>Size: <?php echo $orderDetails["size"]; ?></p>
+                                                                <p>Quantity: <?php echo $orderDetails["quantity"]; ?></p>
 
                                                             <?php endif; ?>
 
