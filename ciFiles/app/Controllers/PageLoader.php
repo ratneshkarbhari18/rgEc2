@@ -1106,12 +1106,22 @@ class PageLoader extends BaseController
 
         $totalRevenue = 0.00;
 
-        $data["currencies"] = $currencies = array(
+
+        $data["currencies"] = $currencies =  array(
             "INR" => array("name"=>"INR","currency_rate"=>1.00,"currency_symbol"=>"₹"),
             "USD" => array("name"=>"USD","currency_rate"=>0.013,"currency_symbol"=>"$"),
             "CAD" => array("name"=>"CAD","currency_rate"=>0.016,"currency_symbol"=>"CAD"),
             "AUD" => array("name"=>"AUD","currency_rate"=>0.018,"currency_symbol"=>"AUD"),
             "AED" => array("name"=>"AED","currency_rate"=>0.049,"currency_symbol"=>"د.إ"),
+            "EUR" => array("name"=>"EUR","currency_rate"=>0.012,"currency_symbol"=>"EUR"),
+            "GBP" => array("name"=>"GBP","currency_rate"=>0.010,"currency_symbol"=>"GBP"),
+            "CHF" => array("name"=>"CHF","currency_rate"=>0.012,"currency_symbol"=>"CHF"),
+            "HKD" => array("name"=>"HKD","currency_rate"=>0.010,"currency_symbol"=>"HKD"),
+            "NZD" => array("name"=>"NZD","currency_rate"=>0.020,"currency_symbol"=>"NZD"),
+            "JPY" => array("name"=>"JPY","currency_rate"=>1.50,"currency_symbol"=>"JPY"),
+            "ZAR" => array("name"=>"ZAR","currency_rate"=>0.21,"currency_symbol"=>"ZAR"),
+            "THB" => array("name"=>"THB","currency_rate"=>0.45,"currency_symbol"=>"THB"),
+            "BHD" => array("name"=>"BHD","currency_rate"=>0.0050,"currency_symbol"=>"BHD"),
         );
 
         foreach ($orders as $order) {
@@ -1133,7 +1143,7 @@ class PageLoader extends BaseController
 
         $fiveOrderUsers = $authModel->find($fiveOrderUserIds);
 
-        $data = array("title"=>"Admin Dashboard","welcome_message"=>"Welcome ".session("first_name"),"scripts"=>$scripts,"noOrders"=>$numberOfOrders,"noCustomers"=>$numberOfCustomers,"total_revenue"=>$totalRevenue,"fiveOrders"=>$fiveOrders,"fiveOrderUsers"=>$fiveOrderUsers);
+        $data = array("title"=>"Admin Dashboard","welcome_message"=>"Welcome ".session("first_name"),"scripts"=>$scripts,"noOrders"=>$numberOfOrders,"noCustomers"=>$numberOfCustomers,"orders"=> $orders,"total_revenue"=>$totalRevenue,"fiveOrders"=>$fiveOrders,"fiveOrderUsers"=>$fiveOrderUsers);
         $this->admin_page_loader("dashboard",$data);
     }
 

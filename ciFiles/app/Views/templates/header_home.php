@@ -23,12 +23,7 @@
     
     <script src="<?php echo site_url("assets/js/jquery.min.js"); ?>"></script>
 
-    <!-- Reloading if currency not set -->
-    <?php if(!isset($_COOKIE["currency_name"])): ?>
-    <script>
-        location.reload();
-    </script>
-    <?php endif; ?>
+    
 
     <header id="desktop">
         <div class="container">
@@ -218,7 +213,7 @@
 
         <div id="other-links-menu" style="position: absolute; margin-top: 20%; left: 0; right: 0;">
             <a href="<?php echo site_url('/'); ?>" class="sidenav-link">Home</a>
-            <a href="<?php echo site_url('shop'); ?>" class="sidenav-link">Shop</a>
+            <!-- <a href="<?php echo site_url('shop'); ?>" class="sidenav-link">Shop</a> -->
             <a href="<?php echo site_url('about'); ?>" class="sidenav-link">About</a>
             <a href="<?php echo site_url('contact'); ?>" class="sidenav-link">Contact</a>
         </div>

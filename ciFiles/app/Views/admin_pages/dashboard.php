@@ -102,6 +102,31 @@
         <div id="sales_bar_graph"></div>
 
     </div>
+    
+    <?php
+        $monthlySales = array(
+            "Jan" => 0,
+            "Feb" => 0,
+            "Mar" => 0,
+            "Apr" => 0,
+            "May" => 0,
+            "Jun" => 0,
+            "Jul" => 0,
+            "Aug" => 0,
+            "Sep" => 0,
+            "Oct" => 0,
+            "Nov" => 0,
+            "Dec" => 0,
+        );
+
+        foreach($orders as $order){
+            $date =  explode(" ",$order["date"])[0];
+            $monthKey = explode("-",$date)[1];
+            $sale = $order["amount_paid"];
+            $monthlySales[$monthKey]=$monthlySales[$monthKey]+$sale;
+        }
+        
+        ?>
     <script>
         google.charts.load('current', {
             'packages':['geochart'],
@@ -133,21 +158,7 @@
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales'],
-            ['Jan',  1000],
-            ['Feb',  1170],
-            ['Mar',  660],
-            ['Apr',  1030],
-            ['May',  1030],
-            ['Jun',  1030],
-            ['Jul',  660],
-            ['Aug',  1030],
-            ['Sep',  660],
-            ['Oct',  1030],
-            ['Nov',  1170],
-            ['Dec',  1030]
-            ]);
+            var data = google.visualization.arrayToDataTable(JSON.parse(<?php echo json_encode($monthlySales); ?>));
 
             var options = {
             title: 'Sales',

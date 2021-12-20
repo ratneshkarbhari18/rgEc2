@@ -143,7 +143,7 @@ class Checkout extends BaseController
             "status" => "created",
             "status_details" => "",
             "address" => $this->request->getPost("address"),
-            "date" => date("d-m-Y H:i:s D"),
+            "date" => date("d-M-Y H:i:s D"),
             'customer_id' => $this->request->getPost("uid"),
             "country" => $this->request->getPost("country"),
             "state" => $this->request->getPost("state")
