@@ -1,3 +1,4 @@
+
 <main class="page-content" id="my-account" style="padding: 10% 0 10% 0;">
     <div class="container">
         
@@ -5,10 +6,10 @@
             <div class="col-lg-3 col-md-12 col-sm-12">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item w-100" role="presentation">
-                        <a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
                     </li>
                     <li class="nav-item w-100 " role="presentation">
-                        <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+                        <a class="nav-link " id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
                     </li>
                     <li class="nav-item w-100" role="presentation">
                         <a class="nav-link active" id="wishlist-tab" data-toggle="tab" href="#wishlist" role="tab" aria-controls="wishlist" aria-selected="false">Wishlist</a>
@@ -82,23 +83,25 @@
 
                                                             <h4>Items:</h4>
 
-                                                            <?php $orderDetails = json_decode($order["order_details"],TRUE); 
-                                                                                                                        
-                                                            if(count($orderDetails)!=14):
-                                                            foreach($orderDetails as $od): ?>
-                                                                <?php foreach($products as $product):  if($od["product_id"]==$product['id']): ?>
-                                                                    <p style="font-weight: bold;">Title: <?php echo $product["title"]; ?></p>
-                                                                    <p>Stitching: <?php echo $od["stitching"]; ?></p>
-                                                                    <p>Size: <?php echo $od["size"]; ?></p>
-                                                                    <p>Quantity: <?php echo $od["quantity"]; ?></p>
-                                                                <?php endif;  endforeach; ?>
-                                                            <?php endforeach; else:  ?>
+                                                            <?php 
+                                                                $orderDetails = json_decode($order["order_details"],TRUE);
+                                                                $count = count($orderDetails);
+                                                                
+                                                                if($count!=16):                                                            foreach($orderDetails as $od): ?>
+                                                                    <?php foreach($products as $product):  if($od["product_id"]==$product['id']): ?>
+                                                                        <p style="font-weight: bold;">Title: <?php echo $product["title"]; ?></p>
+                                                                        <p>Stitching: <?php echo $od["stitching"]; ?></p>
+                                                                        <p>Size: <?php echo $od["size"]; ?></p>
+                                                                        <p>Quantity: <?php echo $od["quantity"]; ?></p>
+                                                                    <?php endif;  endforeach; ?>
+                                                                <?php endforeach;
+                                                            ?>
 
+                                                            <?php else: ?>
                                                                 <p style="font-weight: bold;">Title: <?php echo $orderDetails["title"]; ?></p>
-                                                                <p>Stitching: <?php echo $orderDetails["stitching"]; ?></p>
+                                                                
                                                                 <p>Size: <?php echo $orderDetails["size"]; ?></p>
                                                                 <p>Quantity: <?php echo $orderDetails["quantity"]; ?></p>
-
                                                             <?php endif; ?>
 
                                                         </div>

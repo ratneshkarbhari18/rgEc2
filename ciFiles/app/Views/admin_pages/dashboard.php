@@ -1,3 +1,4 @@
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 page-content">
 
@@ -101,139 +102,109 @@
         <div id="sales_bar_graph"></div>
 
     </div>
+    <script>
+        google.charts.load('current', {
+            'packages':['geochart'],
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable([
+            ['Country', 'Sales'],
+            ['Germany', 3],
+            ['United States', 4],
+            ['Brazil', 2],
+            ['Canada', 7],
+            ['France', 6],
+            ['RU', 4],
+            ["India",9]
+            ]);
+
+            var options = {};
+
+            var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+            chart.draw(data, options);
+        }
+
+
+        // Area chart
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+            ['Year', 'Sales'],
+            ['Jan',  1000],
+            ['Feb',  1170],
+            ['Mar',  660],
+            ['Apr',  1030],
+            ['May',  1030],
+            ['Jun',  1030],
+            ['Jul',  660],
+            ['Aug',  1030],
+            ['Sep',  660],
+            ['Oct',  1030],
+            ['Nov',  1170],
+            ['Dec',  1030]
+            ]);
+
+            var options = {
+            title: 'Sales',
+            hAxis: {title: 'Months',  titleTextStyle: {color: '#333'}},
+            vAxis: {title: 'INR',minValue: 0}
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('sales_bar_graph'));
+            chart.draw(data, options);
+        }
+
+
+    </script>
     <br><br><br>
     <div class="row">
-        <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="margin: 1em 0;">
             <h4 class="text-center">Orders by Country</h4>
             
             <div id="regions_div" class="w-100"></div>
 
         </div>
-        <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="col-lg-12 col-md-12 col-sm-12" style="margin: 1em 0;">
 
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Recent Orders</h4>
-                    <div class="saw-table__body sa-widget-table text-nowrap">
-                        <table class="table-responsive bordered-table">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Status</th>
-                                    <th>Customer</th>
-                                    <th>Date</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00745</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-primary">Pending</div></div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Giordano Bruno</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-11-02</td>
-                                    <td>$2,742.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00513</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-warning">Hold</div></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Hans Weber</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-09-05</td>
-                                    <td>$204.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00507</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-primary">Pending</div></div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Andrea Rossi</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-08-21</td>
-                                    <td>$5,039.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00104</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-danger">Canceled</div></div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Richard Feynman</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-06-22</td>
-                                    <td>$79.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00097</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-success">Completed</div></div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Leonardo Garcia</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-05-09</td>
-                                    <td>$826.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00082</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-success">Completed</div></div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Nikola Tesla</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-04-27</td>
-                                    <td>$1,052.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00063</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-primary">Pending</div></div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Marie Curie</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-02-09</td>
-                                    <td>$441.00</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="app-order.html" class="text-reset">#00012</a></td>
-                                    <td>
-                                        <div class="d-flex fs-6"><div class="badge badge-sa-success">Completed</div></div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div><a href="app-customer.html" class="text-reset">Konstantin Tsiolkovsky</a></div>
-                                        </div>
-                                    </td>
-                                    <td>2020-01-01</td>
-                                    <td>$12,961.00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <table class="table-responsive bordered-table table w-100">
+                        <thead class="w-100">
+                            <tr>
+                                <!-- <th>No.</th> -->
+                                <th>Status</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="w-100">
+                            <?php foreach($fiveOrders as $order): foreach($fiveOrderUsers as $user): ?>
+                            <tr>
+                                <td>
+                                    <div class="d-flex fs-6"><div class="badge badge-sa-primary"><?php echo $order["status"]; ?></div></div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div><?php  echo $user["first_name"].' '.$user["last_name"]; ?></div>
+                                    </div>
+                                </td>
+                                <td><?php $parts = explode(" ",$order["date"]); echo $parts[0]; ?></td>
+                                <td><?php echo $order["amount_paid"]; ?></td>
+                            </tr>
+                            <?php endforeach; endforeach; ?>
+                            
+                            <tr>
+                                <td><a href="<?php echo site_url("manage-orders"); ?>" class="btn btn-primary btn-block">All Orders</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

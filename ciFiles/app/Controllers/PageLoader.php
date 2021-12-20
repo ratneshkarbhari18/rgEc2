@@ -478,8 +478,6 @@ class PageLoader extends BaseController
 
     public function my_profile($success="",$error="")
     {
-        helper("form");
-        
         $session = session();
         $currentrole = $session->get("role");
 
@@ -487,25 +485,57 @@ class PageLoader extends BaseController
             return redirect()->to(site_url("login"));
         }
 
+        helper("form");
+
         $orderModel = new OrderModel();
 
         $customerOrders = $orderModel->where("customer_id",session("id"))->findAll();
 
         $productIds = array();
 
+
         foreach($customerOrders as $co):
-        foreach(json_decode($co["order_details"],TRUE) as $od){
-            $productIds[] = $od["product_id"];
+        $odata = json_decode($co["order_details"],TRUE);
+        
+
+        if(count($odata)!=1){
+            foreach($odata as $od){
+                if (isset($od["product_id"])) {
+                    $productIds[] = $od["product_id"];
+                }
+            }
+        }else {
+
+            if(isset($odata[0]["product_id"])){
+                $productIds[] = $odata[0]["product_id"];
+            }else {
+                $productIds[] = $odata["id"];
+            }
+
         }
+
+
         endforeach;
 
+        
+
+
         $productModel = new ProductModel();
+
+        
 
         if(!empty($productIds)){
             $products = $productModel->find($productIds);
         }else{
-            $products = array();
+            foreach($customerOrders as $co):
+            $odata = json_decode($co["order_details"],TRUE);
+            
+            $products = $productModel->find($odata["id"]);
+
+            endforeach;
         }
+
+        
 
         $wishListModel = new WishlistModel();
 
@@ -536,6 +566,8 @@ class PageLoader extends BaseController
 
         $scripts = array("assets/js/app/auth.min.js");
 
+
+
         $data = array("title"=>"Admin Login","error"=>$error,"scripts"=>$scripts);
         $this->public_page_loader("admin_login",$data);
     }
@@ -543,8 +575,6 @@ class PageLoader extends BaseController
 
     public function wishlist($success="",$error="")
     {
-        helper("form");
-        
         $session = session();
         $currentrole = $session->get("role");
 
@@ -552,12 +582,71 @@ class PageLoader extends BaseController
             return redirect()->to(site_url("login"));
         }
 
+        helper("form");
+
+        $orderModel = new OrderModel();
+
+        $customerOrders = $orderModel->where("customer_id",session("id"))->findAll();
+
+        $productIds = array();
+
+
+        foreach($customerOrders as $co):
+        $odata = json_decode($co["order_details"],TRUE);
+        
+
+        if(count($odata)!=1){
+            foreach($odata as $od){
+                if (isset($od["product_id"])) {
+                    $productIds[] = $od["product_id"];
+                }
+            }
+        }else {
+
+            if(isset($odata[0]["product_id"])){
+                $productIds[] = $odata[0]["product_id"];
+            }else {
+                $productIds[] = $odata["id"];
+            }
+
+        }
+
+
+        endforeach;
+
+        
+
+
+        $productModel = new ProductModel();
+
+        
+
+        if(!empty($productIds)){
+            $products = $productModel->find($productIds);
+        }else{
+            foreach($customerOrders as $co):
+            $odata = json_decode($co["order_details"],TRUE);
+            
+            $products = $productModel->find($odata["id"]);
+
+            endforeach;
+        }
+
+        
+
         $wishListModel = new WishlistModel();
 
         $wlItems = $wishListModel->fetchWlItems();
 
+        $data = array(
+            "title" => "My Orders",
+            "orders" => $customerOrders,
+            "products" => $products,
+            "wishlist_items" => $wlItems
+        );
 
-        $data = array("title"=>"Wishlist","success"=>$success,"error"=>$error,"wishlist_items"=>$wlItems);
+        
+
         $this->public_page_loader("wishlist",$data);
     }
 
@@ -1033,7 +1122,18 @@ class PageLoader extends BaseController
             $totalRevenue+=$orderAmtInr;
         }
 
-        $data = array("title"=>"Admin Dashboard","welcome_message"=>"Welcome ".session("first_name"),"scripts"=>$scripts,"noOrders"=>$numberOfOrders,"noCustomers"=>$numberOfCustomers,"total_revenue"=>$totalRevenue);
+        $fiveOrders = $orderModel->orderBy("id","desc")->findAll(5,0);
+
+        $authModel = new AuthModel();
+        $fiveOrderUserIds = array();
+
+        foreach ($fiveOrders as $order) {
+            $fiveOrderUserIds[] = $order["customer_id"];
+        }
+
+        $fiveOrderUsers = $authModel->find($fiveOrderUserIds);
+
+        $data = array("title"=>"Admin Dashboard","welcome_message"=>"Welcome ".session("first_name"),"scripts"=>$scripts,"noOrders"=>$numberOfOrders,"noCustomers"=>$numberOfCustomers,"total_revenue"=>$totalRevenue,"fiveOrders"=>$fiveOrders,"fiveOrderUsers"=>$fiveOrderUsers);
         $this->admin_page_loader("dashboard",$data);
     }
 
@@ -1101,18 +1201,33 @@ class PageLoader extends BaseController
 
         foreach($customerOrders as $co):
         $odata = json_decode($co["order_details"],TRUE);
+        
+
         if(count($odata)!=1){
             foreach($odata as $od){
                 if (isset($od["product_id"])) {
                     $productIds[] = $od["product_id"];
                 }
             }
+        }else {
+
+            if(isset($odata[0]["product_id"])){
+                $productIds[] = $odata[0]["product_id"];
+            }else {
+                $productIds[] = $odata["id"];
+            }
+
         }
+
 
         endforeach;
 
+        
+
 
         $productModel = new ProductModel();
+
+        
 
         if(!empty($productIds)){
             $products = $productModel->find($productIds);

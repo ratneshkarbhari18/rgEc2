@@ -306,7 +306,7 @@ use PhpParser\Node\Stmt\Echo_;
                                                 <input type="hidden" name="email" value="<?php echo session("email"); ?>">
 
                                                 <input type="hidden" name="currency" value="<?php echo $_COOKIE["currency_name"]; ?>">
-                                                <input type="hidden" name="cart_items" value='<?php echo json_encode($product); ?>'>
+                                                <input type="hidden" name="cart_items" value='<?php $product["size"] = $size; $product["quantity"] = $quantity; echo json_encode($product); ?>'>
                                                 <input type="hidden" name="amount" value="<?php echo $payable; ?>">
                                                 <input type="hidden" name="uid" value="<?php echo session("id"); ?>">
                                                 <input type="hidden" name="buy_now" value="yes">

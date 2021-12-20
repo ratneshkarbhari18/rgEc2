@@ -228,7 +228,7 @@
                                 </script>
 
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12" style="margin: 1em 0;" id="share"></div>
+                            <div class="col-lg-12 col-md-12 col-sm-12" style="margin: 1em 0; padding: 0;" id="share"></div>
 
 
 
@@ -641,7 +641,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
 <script>
     $("#share,#share-touch").jsSocials({
-        shares: ["email", "twitter", "facebook", "pinterest","instagram"]
+        shares: ["email", "twitter", "facebook", "pinterest"]
     });
 </script>
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

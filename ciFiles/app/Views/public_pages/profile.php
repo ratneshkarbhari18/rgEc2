@@ -1,3 +1,4 @@
+
 <main class="page-content" id="my-account" style="padding: 10% 0 10% 0;">
     <div class="container">
         
@@ -8,7 +9,7 @@
                         <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
                     </li>
                     <li class="nav-item w-100 " role="presentation">
-                        <a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
+                        <a class="nav-link " id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false">Orders</a>
                     </li>
                     <li class="nav-item w-100" role="presentation">
                         <a class="nav-link" id="wishlist-tab" data-toggle="tab" href="#wishlist" role="tab" aria-controls="wishlist" aria-selected="false">Wishlist</a>
@@ -18,7 +19,7 @@
             </div>
             <div class="col-lg-9 col-md-12 col-sm-12">
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab">
                         <h4>Update Profile</h4>
                         <?php echo form_open("update-profile-exe"); ?>
                             <input type="hidden" name="id" value="<?php echo session("id"); ?>">
@@ -41,7 +42,7 @@
                             <button type="submit" class="btn btn-success">UPDATE</button>
                         <?php echo form_close(); ?>
                     </div>
-                    <div class="tab-pane fade show active" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                    <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                         <h4>Orders</h4>
                         <div class="table-responsive">
                         
@@ -82,23 +83,25 @@
 
                                                             <h4>Items:</h4>
 
-                                                            <?php $orderDetails = json_decode($order["order_details"],TRUE); 
-                                                                                                                        
-                                                            if(count($orderDetails)!=14):
-                                                            foreach($orderDetails as $od): ?>
-                                                                <?php foreach($products as $product):  if($od["product_id"]==$product['id']): ?>
-                                                                    <p style="font-weight: bold;">Title: <?php echo $product["title"]; ?></p>
-                                                                    <!-- <p>Stitching: <?php echo $od["stitching"]; ?></p> -->
-                                                                    <p>Size: <?php echo $od["size"]; ?></p>
-                                                                    <p>Quantity: <?php echo $od["quantity"]; ?></p>
-                                                                <?php endif;  endforeach; ?>
-                                                            <?php endforeach; else:  ?>
+                                                            <?php 
+                                                                $orderDetails = json_decode($order["order_details"],TRUE);
+                                                                $count = count($orderDetails);
+                                                                
+                                                                if($count!=16):                                                            foreach($orderDetails as $od): ?>
+                                                                    <?php foreach($products as $product):  if($od["product_id"]==$product['id']): ?>
+                                                                        <p style="font-weight: bold;">Title: <?php echo $product["title"]; ?></p>
+                                                                        <p>Stitching: <?php echo $od["stitching"]; ?></p>
+                                                                        <p>Size: <?php echo $od["size"]; ?></p>
+                                                                        <p>Quantity: <?php echo $od["quantity"]; ?></p>
+                                                                    <?php endif;  endforeach; ?>
+                                                                <?php endforeach;
+                                                            ?>
 
+                                                            <?php else: ?>
                                                                 <p style="font-weight: bold;">Title: <?php echo $orderDetails["title"]; ?></p>
-                                                                <p>Stitching: <?php echo $orderDetails["stitching"]; ?></p>
+                                                                
                                                                 <p>Size: <?php echo $orderDetails["size"]; ?></p>
                                                                 <p>Quantity: <?php echo $orderDetails["quantity"]; ?></p>
-
                                                             <?php endif; ?>
 
                                                         </div>
