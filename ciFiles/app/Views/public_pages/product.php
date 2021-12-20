@@ -641,7 +641,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
 <script>
     $("#share,#share-touch").jsSocials({
-        shares: ["email", "twitter", "facebook", "pinterest"]
+        shares: ["email", "twitter", "facebook", "pinterest","instagram"]
     });
 </script>
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
