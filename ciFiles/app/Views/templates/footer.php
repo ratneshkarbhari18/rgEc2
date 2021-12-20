@@ -210,7 +210,7 @@
 
     <?php foreach($popups as $popup):  
         if(!isset($_COOKIE["popup_closed"])):    
-        if($popup["visible"]=="yes"):
+        if($popup["visible"]=="no"):
     ?>
         <div class="modal fade d-none" popupId="<?php echo $popup["id"]; ?>" id="popup-<?php echo $popup["id"]; ?>" tabindex="-1" aria-labelledby="popup<?php echo $popup["id"]; ?>Label" aria-hidden="true">
             <div class="modal-dialog">

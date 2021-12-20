@@ -213,7 +213,7 @@ echo $title; ?> | Ricka Gauba</title>
 
         <div id="other-links-menu" style="position: absolute; margin-top: 20%; left: 0; right: 0;">
             <a href="<?php echo site_url('/'); ?>" class="sidenav-link">Home</a>
-            <!-- <a href="<?php echo site_url('shop'); ?>" class="sidenav-link">Shop</a> -->
+            <a href="<?php echo site_url('shop'); ?>" class="sidenav-link">Shop</a>
             <a href="<?php echo site_url('about'); ?>" class="sidenav-link">About</a>
             <a href="<?php echo site_url('contact'); ?>" class="sidenav-link">Contact</a>
         </div>
