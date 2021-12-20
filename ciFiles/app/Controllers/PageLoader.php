@@ -33,6 +33,10 @@ class PageLoader extends BaseController
     private function public_page_loader($viewName,$data){
         
 
+        print_r($_COOKIE);
+
+        exit;
+
         $collectionModel = new CollectionModel();
         $styleModel = new StyleModel();
         $productModel = new ProductModel();
