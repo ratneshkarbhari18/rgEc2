@@ -276,7 +276,7 @@
 
                             </div>
                             </div>
-                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
+                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919930777376&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
 
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>
@@ -500,7 +500,7 @@
 
 
                             <div class="col-lg-12 col-md-12 col-sm-12 text-left" style="padding-left: 0; margin-top: 1%;">
-                                                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
+                                                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919930777376&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
 
                             </div>
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">

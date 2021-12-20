@@ -143,26 +143,33 @@
         
         </div>
     
-        <a class="d-none d-lg-block whatsappLink " target="_blank" href="https://api.whatsapp.com/send?phone=919920166157" id="wa-desktop" class="whatsappLink">
+        <a class="d-none d-lg-block whatsappLink " target="_blank" href="https://api.whatsapp.com/send?phone=919930777376" id="wa-desktop" class="whatsappLink">
             <img src="<?php echo site_url("assets/images/wa.png"); ?>" style="width: 60px;
     height: 60px;
     position: fixed;
     right: 1em;
     bottom: 8em;">
         </a>
-        <a target="_blank" href="https://api.whatsapp.com/send?phone=919920166157" id="wa-touch" class="whatsappLink d-block d-lg-none">
+        <a target="_blank" href="https://api.whatsapp.com/send?phone=919930777376" id="wa-touch" class="whatsappLink d-block d-lg-none">
             <img src="<?php echo site_url("assets/images/wa.png"); ?>" style="width: 60px;
     height: 60px;
     position: fixed;
     right: 1.5em;
     bottom: 20em;">
         </a>
-        <!--Start of Tawk.to Script-->
+
         <!--Start of Tawk.to Script-->
         <script type="text/javascript">
-        
+            var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6195e7196bb0760a4943253a/1fkootfl4';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
         </script>
-        <!--End of Tawk.to Script-->
         <!--End of Tawk.to Script-->
 
     </footer>
