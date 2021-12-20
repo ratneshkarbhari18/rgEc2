@@ -212,29 +212,7 @@
         if(!isset($_COOKIE["popup_closed"])):    
         if($popup["visible"]=="yes"):
     ?>
-        <div class="modal fade d-none" popupId="<?php echo $popup["id"]; ?>" id="popup-<?php echo $popup["id"]; ?>" tabindex="-1" aria-labelledby="popup<?php echo $popup["id"]; ?>Label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><?php echo $popup["title"]; ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <?php  if ($popup["image"]!="noimage.jpg"): ?>
-                            <a id="popupLink" href="<?php echo $popup["link"]; ?>" target="_blank">
-                               <img src="<?php echo site_url("assets/images/popupImages/".$popup["image"]); ?>" class="w-100">
-                            </a>
-                        <?php else: ?>
-                            <iframe class="popup-video" width="100%" height="315" src="https://www.youtube.com/embed/<?php echo $popup["youtube_embed_code"] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            <a href="<?php echo $popup["link"]; ?>" class="btn btn-success btn-block">Grab Offer</a>
-                        <?php endif; ?>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        
         <div class="modal fade" popupId="<?php echo $popup["id"]; ?>" id="popupx-<?php echo $popup["id"]; ?>" tabindex="-1" aria-labelledby="popup<?php echo $popup["id"]; ?>Label" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
