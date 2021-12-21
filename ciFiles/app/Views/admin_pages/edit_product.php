@@ -135,7 +135,7 @@
             </div>
             <br><br><br>
             <div class="form-group">
-                <label for="gallery_images">Replace all Gallery Images*</label><br>
+                <label for="gallery_images">Add New Gallery Images*</label><br>
                 <input type="file" name="gallery_images[]" id="gallery_images" accept="image/*" multiple>
             </div>
             <br>

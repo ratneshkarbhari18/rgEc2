@@ -227,7 +227,7 @@ class Products extends BaseController
             $galleryImages = $this->request->getFilemULTIPLE('gallery_images');
 
             $galleryImageNames = $prevProductDetails["gallery_images"];
-            $galleryImageNamesx = "";
+            $galleryImageNamesx = $galleryImageNames;
 
 			foreach ($galleryImages as $galleryImage) {
 
