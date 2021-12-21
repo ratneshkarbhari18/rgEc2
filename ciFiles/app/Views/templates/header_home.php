@@ -166,7 +166,7 @@
         </div>
     </header>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top d-lg-block d-xl-none d-md-block d-sm-block" id="mobilenav" style="padding: 0.5rem 0.7rem; background-color: #f7f7f7 !important; border-bottom: 1px solid; box-shadow: 0px 0px 20px darkgray;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top d-lg-block d-xl-none d-md-block d-sm-block" id="mobilenav" style="padding: 0.5rem 0.7rem; background-color: #ffffff !important; border-bottom: 1px solid; box-shadow: 0px 0px 20px darkgray;">
 
         <a href="#" id="sideNavOpenLink" class="nav-link"><img src="<?php echo site_url('assets/icons/menu.svg'); ?>" width="15px" height="15px"></a>
 
@@ -210,7 +210,7 @@
     <div id="sidenavMobile" style="overflow: auto;
     max-height: 500vh;
     height: 100vh;">
-        <div id="sidenavLogoBox" style="text-align: center; background-color: #f7f7f7 !important;">
+        <div id="sidenavLogoBox" style="text-align: center; background-color: #ffffff !important;">
         <img src="<?php echo site_url('assets/images/sitelogo.jpg'); ?>" id="logonew" style="width: 70%; margin: 10% auto;">
         </div>
         <div id="sidenavCatBox" >

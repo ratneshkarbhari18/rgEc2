@@ -8,7 +8,6 @@
 
     <div class="container-fluid">
 
-    <h1 class="section-titlex text-center" style="margin: 1em 0;" id="filtered-title"><?php echo $title; ?></h1>
 
     
         <div class="row" style="margin: 5% 0;">
@@ -201,7 +200,8 @@
 
                 <div class="container-fluid" style="padding: 0;">
                         
-        
+                    <h1 class="section-titlex text-center" style="margin: 1em 0;" id="filtered-title"><?php echo $title; ?></h1>
+
                             
                     <div id="productsBox" class="row" style="min-height: 300px;">
         

@@ -143,14 +143,14 @@
         
         </div>
     
-        <a class="d-none d-lg-block whatsappLink " target="_blank" href="https://api.whatsapp.com/send?phone=919920166157" id="wa-desktop" class="whatsappLink">
+        <a class="d-none d-lg-block whatsappLink " target="_blank" href="https://api.whatsapp.com/send?phone=919930777376" id="wa-desktop" class="whatsappLink">
             <img src="<?php echo site_url("assets/images/wa.png"); ?>" style="width: 60px;
     height: 60px;
     position: fixed;
     right: 1em;
     bottom: 8em;">
         </a>
-        <a target="_blank" href="https://api.whatsapp.com/send?phone=919920166157" id="wa-touch" class="whatsappLink d-block d-lg-none">
+        <a target="_blank" href="https://api.whatsapp.com/send?phone=919930777376" id="wa-touch" class="whatsappLink d-block d-lg-none">
             <img src="<?php echo site_url("assets/images/wa.png"); ?>" style="width: 60px;
     height: 60px;
     position: fixed;

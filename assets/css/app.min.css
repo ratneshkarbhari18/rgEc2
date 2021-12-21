@@ -94,7 +94,7 @@ img#siteLogoMobile {
     width: 50%;
 }
 header#desktop {
-    background-color: #f7f7f7;
+    background-color: #ffffff;
     box-shadow: 0 0 4px #fafafa;
 }
 .w-20 {
@@ -314,7 +314,7 @@ button.owl-prev span{
     top: 40%;
 }
 .usual-section{
-    padding: 5% 0 5% 0;
+    padding: 2% 0 2% 0;
 }
 a.whatsappLink#wa-touch{
     position: fixed;
@@ -341,4 +341,7 @@ div#mqCarousel .owl-nav,div#mqCarousel .owl-dots{
 }
 span.jssocials-share-label{
     display: none !important;
+}
+.jssocials-share-logo{
+    font-size: 1em !important;
 }

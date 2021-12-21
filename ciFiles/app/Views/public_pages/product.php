@@ -1,7 +1,4 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
 <script src="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.2.3/src/jquery.ez-plus.js"></script>
 <link rel="stylesheet" href="<?php echo site_url("assets/lity/lity.min.css"); ?>">
 <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
@@ -48,8 +45,8 @@
                             gallery: 'gallery_01', 
                             // scrollZoom: true
                             easing: false,
-                            zoomWindowWidth: 300,
-                            zoomWindowHeight: 300
+                            zoomWindowWidth: 350,
+                            zoomWindowHeight: 350
                         });
                     </script>
                     
@@ -276,7 +273,7 @@
 
                             </div>
                             </div>
-                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
+                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919930777376&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
 
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
                                 <p class="product-description text-left"><?php echo $product['description']; ?></p>
@@ -500,7 +497,7 @@
 
 
                             <div class="col-lg-12 col-md-12 col-sm-12 text-left" style="padding-left: 0; margin-top: 1%;">
-                                                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919920166157&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
+                                                            <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919930777376&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
 
                             </div>
                             <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
@@ -598,8 +595,8 @@
         gallery: 'gallery_01', 
         // scrollZoom: true
         easing: false,
-        zoomWindowWidth: 300,
-        zoomWindowHeight: 300
+        zoomWindowWidth: 350,
+        zoomWindowHeight: 350
 
 
     });
@@ -622,8 +619,8 @@
         gallery: 'gallery_01', 
         // scrollZoom: true
         easing: false,
-        zoomWindowWidth: 300,
-        zoomWindowHeight: 300
+        zoomWindowWidth: 350,
+        zoomWindowHeight: 350
 
 
         });
