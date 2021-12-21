@@ -21,7 +21,7 @@
                         <tr>
                             <td style="font-size: 1.2rem; font-weight: 500;">Feat. Image</td>
                             <td style="font-size: 1.2rem; font-weight: 500;">Title</td>
-                            <td style="font-size: 1.2rem; font-weight: 500;">Description</td>
+                            <td style="font-size: 1.2rem; font-weight: 500;">Prices</td>
                             <td style="font-size: 1.2rem; font-weight: 500;">Actions</td>
                         </tr>
                     </thead>
@@ -33,7 +33,8 @@
                             </td>
                             <td><?php echo $product['title']; ?></td>
                             
-                            <td><?php echo $product['description']; ?></td>
+                            <td>Price: <?php echo $product['price']; ?><br>
+                            Sale Price: <?php echo $product['sale_price']; ?> </td>
                             <td>
                                 <a class="btn btn-primary" href="<?php echo site_url('edit-product/'.$product['slug']); ?>">Edit</a>
                                 <?php $attributes = array("class"=>"d-inline"); echo form_open(site_url('delete-product-exe'),$attributes);  ?>
