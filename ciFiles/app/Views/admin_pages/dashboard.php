@@ -185,7 +185,8 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Recent Orders</h4>
-                    <table class="table-responsive bordered-table table w-100">
+                    <div class="table-responsive">
+                    <table class="table">
                         <thead class="w-100">
                             <tr>
                                 <!-- <th>No.</th> -->
@@ -216,6 +217,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
