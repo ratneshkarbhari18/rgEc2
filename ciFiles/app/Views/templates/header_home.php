@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ricka Gauba</title>
-    <link rel="shortcut icon" href="<?php echo site_url("assets/images/favicon.jfif"); ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo site_url("assets/images/favicon.png"); ?>" type="image/x-icon">
 
     <link rel="stylesheet" href="<?php echo site_url("assets/css/bootstrap.min.css"); ?>">
 
