@@ -22,7 +22,11 @@
 
     
     <script src="<?php echo site_url("assets/js/jquery.min.js"); ?>"></script>
-
+    <?php if(!isset($_COOKIE["currency_name"])): ?>
+        <script>
+            location.reload();
+        </script>
+    <?php endif; ?>
     
 
     <header id="desktop">

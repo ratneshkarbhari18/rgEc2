@@ -70,9 +70,9 @@ class PageLoader extends BaseController
 
 
         if(!isset($_COOKIE["currency_name"])){
-            setcookie("currency_name","INR",time()+(5*24*60*60),site_url());
-            setcookie("currency_rate",1.00,time()+(5*24*60*60),site_url());
-            setcookie("currency_symbol","₹",time()+(5*24*60*60),site_url());
+            setcookie("currency_name","INR",time()+(5*24*60*60),"/");
+            setcookie("currency_rate",1.00,time()+(5*24*60*60),"/");
+            setcookie("currency_symbol","₹",time()+(5*24*60*60),"/");
         }
 
         $data["site_url"] = site_url();
@@ -159,9 +159,9 @@ class PageLoader extends BaseController
 
 
         if(!isset($_COOKIE["currency_name"])){
-            setcookie("currency_name","INR",time()+(5*24*60*60),site_url());
-            setcookie("currency_rate",1.00,time()+(5*24*60*60),site_url());
-            setcookie("currency_symbol","₹",time()+(5*24*60*60),site_url());
+            setcookie("currency_name","INR",time()+(5*24*60*60),"/");
+            setcookie("currency_rate",1.00,time()+(5*24*60*60),"/");
+            setcookie("currency_symbol","₹",time()+(5*24*60*60),"/");
         }
 
         $data["site_url"] = site_url();
@@ -695,8 +695,8 @@ class PageLoader extends BaseController
         helper("form");
         $cartModel = new CartModel();
 
-        setcookie("shippingLocation","domestic",time()+(5*24*60*60),site_url());
-        setcookie("shippingSpeed","regular",time()+(5*24*60*60),site_url());
+        setcookie("shippingLocation","domestic",time()+(5*24*60*60),"/");
+        setcookie("shippingSpeed","regular",time()+(5*24*60*60),"/");
 
         $cartItems = $cartModel->fetch_all_cart_items();
         $productModel = new ProductModel();
