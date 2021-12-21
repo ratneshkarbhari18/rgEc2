@@ -159,10 +159,10 @@ echo $title; ?> | Ricka Gauba</title>
                 </div>
             </div>
         </nav>
-        <div id="mqCarousel" class="mq w-100 owl-carousel text-center" style="background-color: #000; color: white; padding: 1em 0;"  >
-            <?php foreach($messages as $message): ?>
-            <p style="margin: 0; padding: 0;"><?php echo $message; ?></p>
-            <?php endforeach; ?>
+        <div id="mqCarousel" class="mq w-100 owl-carousel text-center d-none d-xl-block" style="background-color: black; color: white; padding: 1em 0;"  >
+        <?php foreach($messages as $message): ?>
+        <p style="margin: 0; padding: 0;"><?php echo $message; ?></p>
+        <?php endforeach; ?>
         </div>
     </header>
 
@@ -200,7 +200,13 @@ echo $title; ?> | Ricka Gauba</title>
         });
         </script>
         <!-- <a class="nav-link" href="<?php echo site_url('cart'); ?>"><img src="<?php echo site_url('assets/icons/shopping-bag.svg'); ?>" width="15px" height="15px"></a> -->
+        
     </nav>
+    <div id="mqCarousel" class="mq w-100 owl-carousel text-center d-block d-lg-none" style="background-color: #000; color: white; padding: 1em 0;"  >
+        <?php foreach($messages as $message): ?>
+        <p style="margin: 0; padding: 0;"><?php echo $message; ?></p>
+        <?php endforeach; ?>
+    </div>
         <div id="sidenavMobileCloser"></div>
         <div id="sidenavMobile" style="overflow: auto;
         max-height: 500vh;

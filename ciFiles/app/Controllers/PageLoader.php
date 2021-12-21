@@ -41,10 +41,7 @@ class PageLoader extends BaseController
         $allProducts = $productModel->findAll();
         $popups = $popupModel->findAll();
         
-        $tsModel = new TsModel();
 
-        $data["messages"] = explode(",",$tsModel->findAll()[0]["messages"]);
-        
         $data["collections"] = $allCollections;
         $data["styles"] = $allStyles;
         
@@ -87,6 +84,10 @@ class PageLoader extends BaseController
 
         $data["cart_item_count"] = count($cartItems);
 
+        $tsModel = new TsModel();
+
+        $data["messages"] = explode(",",$tsModel->findAll()[0]["messages"]);
+        
 
         echo view("templates/header",$data);
         echo view("public_pages/".$viewName,$data);
@@ -116,6 +117,7 @@ class PageLoader extends BaseController
         $allSlides = $slidesModel->findAll();
         $allCollections = array_reverse($collectionModel->findAll());
         $allProducts = array_reverse($productModel->findAll());
+
 
         $testimonialsModel = new TestimonialsModel();
 
@@ -175,6 +177,11 @@ class PageLoader extends BaseController
 
 
         $data["cart_item_count"] = count($cartItems);
+
+        $tsModel = new TsModel();
+
+        $data["messages"] = explode(",",$tsModel->findAll()[0]["messages"]);
+
 
         echo view("templates/header_home",$data);
         echo view("public_pages/home",$data);
