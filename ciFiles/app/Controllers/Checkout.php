@@ -182,8 +182,8 @@ class Checkout extends BaseController
         $coupon = $couponModel->where("code",$code)->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->first();
 
         if ($coupon) {
-            setcookie("coupon_code",$coupon["code"],time()+(5*24*60),site_url());
-            setcookie("coupon_value",$coupon["value"],time()+(5*24*60),site_url());
+            setcookie("coupon_code",$coupon["code"],time()+(5*24*60),"/");
+            setcookie("coupon_value",$coupon["value"],time()+(5*24*60),"/");
             return redirect()->to(site_url("cart"));
         } else {
             $pageLoader = new PageLoader();

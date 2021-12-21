@@ -63,9 +63,9 @@ class BackgroundFeatures extends BaseController
 
 
         if(!isset($_COOKIE["currency_name"])){
-            setcookie("currency_name","INR",time()+(5*24*60*60),site_url());
-            setcookie("currency_rate",1.00,time()+(5*24*60*60),site_url());
-            setcookie("currency_symbol","₹",time()+(5*24*60*60),site_url());
+            setcookie("currency_name","INR",time()+(5*24*60*60),"/");
+            setcookie("currency_rate",1.00,time()+(5*24*60*60),"/");
+            setcookie("currency_symbol","₹",time()+(5*24*60*60),"/");
         }
         
         $cartModel = new CartModel();
@@ -427,9 +427,9 @@ class BackgroundFeatures extends BaseController
         delete_cookie("currency_rate");
         delete_cookie("currency_symbol");
 
-        setcookie("currency_name",$currencies[$name]["name"],time()+(5*24*60*60),site_url());
-        setcookie("currency_rate",$currencies[$name]["currency_rate"],time()+(5*24*60*60),site_url());
-        setcookie("currency_symbol",$currencies[$name]["currency_symbol"],time()+(5*24*60*60),site_url());
+        setcookie("currency_name",$currencies[$name]["name"],time()+(5*24*60*60),"/");
+        setcookie("currency_rate",$currencies[$name]["currency_rate"],time()+(5*24*60*60),"/");
+        setcookie("currency_symbol",$currencies[$name]["currency_symbol"],time()+(5*24*60*60),"/");
 
         exit("currency-set");
         

@@ -1,8 +1,8 @@
 <?php 
     $payable = 0.00;
     if(!isset($_COOKIE["shippingLocation"])){
-        setcookie("shippingLocation","domestic",site_url());
-        setcookie("shippingSpeed","regular",site_url());
+        setcookie("shippingLocation","domestic","/");
+        setcookie("shippingSpeed","regular","/");
     }
 ?>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
