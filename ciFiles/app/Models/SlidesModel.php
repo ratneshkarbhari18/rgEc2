@@ -9,7 +9,7 @@ class SlidesModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['desktop_image','touch_image','link'];
+    protected $allowedFields = ['desktop_image','touch_image','link','visibility'];
 
 
 }

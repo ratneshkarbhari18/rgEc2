@@ -24,6 +24,13 @@
                 <label for="touch_image">Touch Image</label>
                 <input class="form-control" type="file" name="touch_image" id="touch_image" accept="image/*">
             </div>
+            <div class="form-group">
+                <label for="visible">Visible</label>
+                <select name="visible" id="visible" class="form-control">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-success">Add Slide</button>
         <?php echo form_close(); ?>
 
@@ -50,6 +57,57 @@
                             <td><?php echo site_url('assets/images/slider_images/'.$slide['desktop_image']); ?></td>
                             <td><?php echo site_url('assets/images/slider_images/'.$slide['touch_image']); ?></td>
                             <td>
+                                <a href="#" class="modal-trigger btn btn-primary" data-toggle="modal" data-target="#edit-slide-<?php echo $slide["id"]; ?>" class="btn btn-primary">Edit</a>
+                                <div class="modal fade" id="edit-slide-<?php echo $slide["id"]; ?>">
+                                
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="addcouponModalLabel">Edit Slide</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <?php
+                                                $attributes = array('enctype' => "multipart/form-data","method"=>"POST");
+                                                echo form_open(site_url('update-slide-exe'),$attributes);
+
+                                            ?>  
+                                                <input type="hidden" name="id" value="<?php echo $slide["id"]; ?>">
+                                                <div class="form-group">
+                                                    <label for="link">Link</label>
+                                                    <input class="form-control" type="text" name="link" id="link" value="<?php echo $slide["link"]; ?>">
+                                                </div>
+                                                <img src="<?php echo site_url("assets/images/slider_images/".$slide["desktop_image"]); ?>" style="width: 20%;">
+                                                <div class="form-group">
+                                                    <label for="desktop_image">Desktop Image</label>
+                                                    <input class="form-control" type="file" name="desktop_image" id="desktop_image" accept="image/*">
+                                                </div>
+                                                <img src="<?php echo site_url("assets/images/slider_images/".$slide["touch_image"]); ?>" style="width: 20%;">
+                                                <div class="form-group">
+                                                    <label for="touch_image">Touch Image</label>
+                                                    <input class="form-control" type="file" name="touch_image" id="touch_image" accept="image/*">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="visible">Visible</label>
+                                                    <select name="visible" id="visible" class="form-control">
+                                                        <option value="yes" <?php if($slide["visibility"]=="yes"){
+                                                            echo "selected";
+                                                        } ?>>Yes</option>
+                                                        <option value="no" <?php if($slide["visibility"]=="no"){
+                                                            echo "selected";
+                                                        } ?>>No</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-success">Update Slide</button>
+                                            <?php echo form_close(); ?>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                </div>
                                 <?php  $attributes = array('method' => "POST");
                                     echo form_open(site_url('delete-slide-exe'),$attributes);
                                 ?>

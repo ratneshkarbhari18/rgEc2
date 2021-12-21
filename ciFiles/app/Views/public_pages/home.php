@@ -5,21 +5,21 @@
     
     <section id="home-slider-section" class="d-none d-lg-block">
         <div id="home-hero-slider" class="owl-carousel owl-theme">
-            <?php foreach($slides as $slide): ?>
+            <?php foreach($slides as $slide): if($slide["visibility"]=="yes"): ?>
             <a href="<?php echo $slide['link'] ?>" target="_blank">
                 <img src="<?php echo site_url('assets/images/slider_images/'.$slide['desktop_image']); ?>" class="w-100">
             </a>
-            <?php endforeach; ?>
+            <?php endif; endforeach; ?>
         </div>
     </section>
-    <section id="home-slider-section" class="d-sm-block d-md-block d-lg-none">
+    <section id="home-slider-section" class="d-block d-lg-none">
         <div id="home-hero-slider-mobile" class="owl-carousel owl-theme">
 
-            <?php foreach($slides as $slide): ?>
+            <?php foreach($slides as $slide): if($slide["visibility"]=="yes"):  ?>
             <a href="<?php echo $slide['link'] ?>" target="_blank">
                 <img src="<?php echo site_url('assets/images/slider_images/'.$slide['touch_image']); ?>" class="w-100 lazy">
             </a>
-            <?php endforeach; ?>
+            <?php endif; endforeach; ?>
 
         </div>
     </section>
