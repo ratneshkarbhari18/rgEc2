@@ -181,12 +181,22 @@ class Checkout extends BaseController
         $pageLoader = new PageLoader();    
         if($code!=""){
             $couponModel = new CouponModel();
-            $coupon = $couponModel->where("code",$code)->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->first();
+            $coupon = $couponModel->where("code",$code)->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->where("on_off","on")->first();
             if ($coupon) {
-                setcookie("coupon_code",$coupon["code"],time()+(5*24*60),"/");
-                setcookie("coupon_value",$coupon["value"],time()+(5*24*60),"/");
-                setcookie("coupon_type",$coupon["type"],time()+(5*24*60),"/");
+
+                if($coupon["type"]=="free_shipping"){
+                    setcookie("coupon_code",$coupon["code"],time()+(5*24*60),"/");
+                    setcookie("coupon_value",$coupon["value"],time()+(5*24*60),"/");
+                    setcookie("coupon_type","free_shipping",time()+(5*24*60),"/");
+                }else {
+                    setcookie("coupon_code",$coupon["code"],time()+(5*24*60),"/");
+                    setcookie("coupon_value",$coupon["value"],time()+(5*24*60),"/");
+                    setcookie("coupon_type",$coupon["type"],time()+(5*24*60),"/");
+                }
+
                 return redirect()->to(site_url("cart"));
+
+
             } else {
                 $pageLoader->cart("Invalid Coupon");
             }

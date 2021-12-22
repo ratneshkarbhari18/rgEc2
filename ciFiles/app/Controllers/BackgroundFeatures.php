@@ -362,9 +362,9 @@ class BackgroundFeatures extends BaseController
 
     public function remove_cc()
     {
-        unset($_COOKIE["coupon_code"]);
-        unset($_COOKIE["coupon_value"]);
-        unset($_COOKIE["coupon_type"]);
+        setcookie('coupon_code','xxx',time()-24*3600,"/");
+        setcookie('coupon_value',0,time()-24*3600,"/");
+        setcookie('coupon_type','xxx',time()-24*3600,"/");
 
         // print_r($_COOKIE);
 

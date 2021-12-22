@@ -242,6 +242,12 @@ class PageLoader extends BaseController
 
         $shippingCharge = $shippingCharge*$_COOKIE["currency_rate"];
 
+        
+        if(isset($_COOKIE['coupon_type'])&&$_COOKIE["coupon_type"]="free_shipping"){
+            $shippingCharge = 0;
+        }
+
+
         $payable = number_format($subtotal+$gstAmt+$shippingCharge,2);
 
 
@@ -734,6 +740,7 @@ class PageLoader extends BaseController
         }else {
             $shippingLocation = $_COOKIE["shippingLocation"];
         }
+
         foreach($allScs as $sc){
             
             if (($sc["weight_min"]<=$totalWeight)&&($totalWeight<=$sc["weight_max"])&&$sc['domestic_international']==$_COOKIE["shippingLocation"]) {
@@ -751,8 +758,13 @@ class PageLoader extends BaseController
 
             }
         }
+        
+    
+        
+        if(isset($_COOKIE['coupon_type'])&&$_COOKIE["coupon_type"]="free_shipping"){
+            $shippingCharge = 0;
+        }
 
-        $shippingCharge = $shippingCharge*$_COOKIE["currency_rate"];
 
         $payable = number_format($subtotal+$gstAmt+$shippingCharge,2);
 

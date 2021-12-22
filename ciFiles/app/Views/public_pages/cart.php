@@ -182,7 +182,14 @@ if(count($cartItems)>0): ?>
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
-                                <h3>DISCOUNT: <?php echo $_COOKIE["currency_symbol"]."". number_format($discount = ($_COOKIE["coupon_value"]/100)*$subtotal,2); ?></h3>
+                                <h3>DISCOUNT: <?php if ($_COOKIE["coupon_type"]=="percentage") {
+                                    $discount = ($_COOKIE["coupon_value"]/100)*$subtotal;
+                                } elseif ($_COOKIE["coupon_type"]=="flat"){
+                                    $discount = $_COOKIE["coupon_value"]*$_COOKIE["currency_rate"];
+                                }else {
+                                    $discount=0;
+                                }
+                                 echo $_COOKIE["currency_symbol"]."". number_format($discount,2); ?></h3>
                                 <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". number_format($payable = ($subtotal+$gstAmt+$shippingCharge)-$discount,2); ?></h3>
 
                                 <?php else: ?>
@@ -194,13 +201,15 @@ if(count($cartItems)>0): ?>
                           
                                 <?php 
                                     if(isset($_COOKIE["coupon_type"])):
-                                    if($_COOKIE["coupon_type"]=="percentage"||$_COOKIE["coupon_type"]=="flat"):
+                                    if($_COOKIE["coupon_type"]=="percentage"||$_COOKIE["coupon_type"]=="flat"||$_COOKIE["coupon_type"]=="free_shipping"):
                                 ?>
                                 <p><?php echo $_COOKIE["coupon_code"]; ?> applied that gives  <?php if($_COOKIE["coupon_type"]=="percentage"){
-                                    echo $_COOKIE["coupon_value"].' %'; 
+                                    echo $_COOKIE["coupon_value"].' % of'; 
                                 }elseif ($_COOKIE["coupon_type"]=="flat") {
-                                    echo $_COOKIE["currency_name"].' '.$_COOKIE["coupon_value"];
-                                } ?> of Discount</p>
+                                    echo $_COOKIE["currency_name"].' '.$_COOKIE["coupon_value"].' of';
+                                }else {
+                                    echo "Free Shipping as a";
+                                } ?>  Discount</p>
                                 <a href="<?php echo site_url("remove-cc"); ?>"><p class="text-danger">Remove?</p></a>   
                                 <?php else: ?>
                                 <?php echo form_open("apply-coupon-exe"); ?>
@@ -406,8 +415,10 @@ if(count($cartItems)>0): ?>
             </div>
         </div>
     </section>
-    <?php else:         setcookie('coupon_code','xxx',time()-24*3600);
-        setcookie('coupon_value',0,time()-24*3600); ?>
+    <?php else:          setcookie('coupon_code','xxx',time()-24*3600,"/");
+        setcookie('coupon_value',0,time()-24*3600,"/");
+        setcookie('coupon_type','xxx',time()-24*3600,"/");
+        ?>
         <div class="container">
             <div class="card" style="margin: 2em 0;">
                 <div class="card-body">
