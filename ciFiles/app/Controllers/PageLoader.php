@@ -26,6 +26,7 @@ use App\Models\PopupModel;
 use App\Models\ScModel;
 use App\Models\TsModel;
 use App\Controllers\PaytmChecksum;
+use App\Models\CouponUseModel;
 
 class PageLoader extends BaseController
 {
@@ -243,7 +244,7 @@ class PageLoader extends BaseController
         $shippingCharge = $shippingCharge*$_COOKIE["currency_rate"];
 
         
-        if(isset($_COOKIE['coupon_type'])&&$_COOKIE["coupon_type"]="free_shipping"){
+        if(isset($_COOKIE['coupon_type'])&&$_COOKIE["coupon_type"]=="free_shipping"){
             $shippingCharge = 0;
         }
 
@@ -254,7 +255,7 @@ class PageLoader extends BaseController
         $oid = uniqid();
 
         if ($_COOKIE["currency_name"]=="INR") {
-            $paytmToken = $this->get_paytm_token($oid,$payable,$_COOKIE["currency_name"]);
+            $paytmToken = $this->get_paytm_token($oid,str_replace(",","",$payable),$_COOKIE["currency_name"]);
         } else {
             $paytmToken = "";
         }
@@ -706,6 +707,20 @@ class PageLoader extends BaseController
     public function cart($error="")
     {
         helper("form");
+
+
+        if(isset($_COOKIE["coupon_code"])):
+
+            $couponUseModel = new CouponUseModel();
+
+
+            $couponUseModel->insert(array(
+                "customer_id" => session("id"),
+                "coupon_code" => $_COOKIE["coupon_code"]
+            ));
+
+        endif;
+
         $cartModel = new CartModel();
 
         setcookie("shippingLocation","domestic",time()+(5*24*60*60),"/");
@@ -761,7 +776,7 @@ class PageLoader extends BaseController
         
     
         
-        if(isset($_COOKIE['coupon_type'])&&$_COOKIE["coupon_type"]="free_shipping"){
+        if(isset($_COOKIE['coupon_type'])&&$_COOKIE["coupon_type"]=="free_shipping"){
             $shippingCharge = 0;
         }
 
@@ -857,6 +872,7 @@ class PageLoader extends BaseController
         curl_close($ch);
 
         $res = json_decode($response,TRUE);
+
 
         if ($_COOKIE["currency_name"]=="INR"&&isset($res["body"]["txnToken"])) {
             return $token = $res["body"]["txnToken"];            # code...

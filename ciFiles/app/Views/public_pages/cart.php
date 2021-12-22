@@ -207,7 +207,7 @@ if(count($cartItems)>0): ?>
                                     echo $_COOKIE["coupon_value"].' % of'; 
                                 }elseif ($_COOKIE["coupon_type"]=="flat") {
                                     echo $_COOKIE["currency_name"].' '.$_COOKIE["coupon_value"].' of';
-                                }else {
+                                }elseif($_COOKIE["coupon_type"]=="free_shipping") {
                                     echo "Free Shipping as a";
                                 } ?>  Discount</p>
                                 <a href="<?php echo site_url("remove-cc"); ?>"><p class="text-danger">Remove?</p></a>   
@@ -228,6 +228,7 @@ if(count($cartItems)>0): ?>
                                     <div class="form-group">
                                         <input type="text" name="couponcode" placeholder="ENTER COUPON CODE HERE" required id="" class="form-control w-50 ml-auto mr-auto">
                                     </div>
+                                    <input type="hidden" name="buy_now" value="no">
                                     <p class="text-danger"><?php echo $error; ?></p>
                                     <button class="btn btn-primary">APPLY COUPON CODE</button>
                                 <?php echo form_close();  ?>

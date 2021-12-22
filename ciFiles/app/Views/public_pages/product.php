@@ -405,7 +405,7 @@
                             <?php $session = session(); if($session->role=='customer'): ?>
 
 
-                                <?php echo form_open("buy-now"); ?>
+                            <?php echo form_open("buy-now"); ?>
 
                                 <input type="hidden" name="product-id" id="product-id-buy-now" value="<?php echo $product["id"]; ?>">
 

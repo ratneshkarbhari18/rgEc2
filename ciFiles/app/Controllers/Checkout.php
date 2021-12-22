@@ -9,6 +9,7 @@ use Razorpay\Api\Api;
 use App\Models\CartModel;
 use App\Models\OrderModel;
 use App\Models\CouponModel;
+use App\Models\CouponUseModel;
 
 class Checkout extends BaseController
 {
@@ -165,9 +166,27 @@ class Checkout extends BaseController
         if ($orderCreated) {
             $cartModel = new CartModel(); 
             $cartModel->clear_cart_for_ip();
-            helper('cookie');
-            delete_cookie('coupon_code');
-            delete_cookie('coupon_value');
+
+            
+            if(isset($_COOKIE["coupon_code"])):
+
+                $couponUseModel = new CouponUseModel();
+
+
+                $couponUseModel->insert(array(
+                    "customer_id" => session("id"),
+                    "coupon_code" => $_COOKIE["coupon_code"]
+                ));
+
+                
+
+                helper('cookie');
+                delete_cookie('coupon_code');
+                delete_cookie('coupon_value');
+                delete_cookie('coupon_type');
+
+            endif;
+
             echo "order-created";
         } else {
             echo "order-not-created";
@@ -184,6 +203,21 @@ class Checkout extends BaseController
             $coupon = $couponModel->where("code",$code)->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->where("on_off","on")->first();
             if ($coupon) {
 
+                $couponUseModel = new CouponUseModel();
+
+                $couponUsed = $couponUseModel->where("customer_id",session("id"))->where("coupon_code",$code)->first();
+
+                if($couponUsed){
+
+                    if ($this->request->getPost("buy_now")=="yes") {
+                        return redirect()->to(site_url("product/".$this->request->getPost("slug")));
+                    } else {
+                        return redirect()->to(site_url("cart"));
+                    }
+                    
+                
+                }
+
                 if($coupon["type"]=="free_shipping"){
                     setcookie("coupon_code",$coupon["code"],time()+(5*24*60),"/");
                     setcookie("coupon_value",$coupon["value"],time()+(5*24*60),"/");
@@ -194,7 +228,13 @@ class Checkout extends BaseController
                     setcookie("coupon_type",$coupon["type"],time()+(5*24*60),"/");
                 }
 
-                return redirect()->to(site_url("cart"));
+                if ($this->request->getPost("buy_now")=="yes") {
+                    return redirect()->to(site_url("product/".$this->request->getPost("slug")));
+                } else {
+                    return redirect()->to(site_url("cart"));
+                }
+                
+
 
 
             } else {

@@ -142,7 +142,14 @@ use PhpParser\Node\Stmt\Echo_;
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
-                                <h3>DISCOUNT: <?php echo $_COOKIE["currency_symbol"]."". number_format($discount = ($_COOKIE["coupon_value"]/100)*$subtotal,2); ?></h3>
+                                <h3>DISCOUNT: <?php if ($_COOKIE["coupon_type"]=="percentage") {
+                                    $discount = ($_COOKIE["coupon_value"]/100)*$subtotal;
+                                } elseif ($_COOKIE["coupon_type"]=="flat"){
+                                    $discount = $_COOKIE["coupon_value"]*$_COOKIE["currency_rate"];
+                                }else {
+                                    $discount=0;
+                                }
+                                 echo $_COOKIE["currency_symbol"]."". number_format($discount,2); ?></h3>                                
                                 <h3>PAYABLE:  <?php echo $_COOKIE["currency_symbol"]."". number_format($payable = ($subtotal+$gstAmt+$shippingCharge)-$discount,2); ?></h3>
 
                                 <?php else: ?>
@@ -155,17 +162,56 @@ use PhpParser\Node\Stmt\Echo_;
                                 <?php 
                                     if(isset($_COOKIE["coupon_value"])):
                                 ?>
-                                <p><?php echo $_COOKIE["coupon_code"]; ?> applied that gives <?php echo $_COOKIE["coupon_value"]; ?>% of Discount</p>
-                                <a href="<?php echo site_url("remove-cc"); ?>"><p class="text-danger">Remove?</p></a>
+                                <p><?php echo $_COOKIE["coupon_code"]; ?> applied that gives  <?php if($_COOKIE["coupon_type"]=="percentage"){
+                                    echo $_COOKIE["coupon_value"].' % of'; 
+                                }elseif ($_COOKIE["coupon_type"]=="flat") {
+                                    echo $_COOKIE["currency_name"].' '.$_COOKIE["coupon_value"].' of';
+                                }elseif($_COOKIE["coupon_type"]=="free_shipping") {
+                                    echo "Free Shipping as a";
+                                } ?>  Discount</p>
+                                <a href="#" id="removeCoupon"><p class="text-danger">Remove?</p></a>
+                                <script>
+                                $("a#removeCoupon").click(function (e) { 
+                                    e.preventDefault();
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "<?php echo site_url("remove-cc"); ?>",
+                                        data: {},
+                                        success: function (response) {
+                                            location.reload();   
+                                        }
+                                    });
+                                });
+                                </script>
                                 <?php else: ?>
-                                <?php echo form_open("apply-coupon-exe"); ?>
+                                <?php echo form_open("apply-coupon-exe",array("id"=>"applyCouponId")); ?>
+                                    <p class="text-success" id="couponApplysuccess"></p>
+                                    <p class="text-danger" id="couponApplyerror"></p>
                                     <div class="form-group">
                                         <input type="text" name="couponcode" placeholder="ENTER COUPON CODE HERE" id="" class="form-control w-50 ml-auto mr-auto">
                                     </div>
+                                    <input type="hidden" name="slug" value="<?php echo $product["slug"]; ?>">
+                                    <input type="hidden" name="buy_now" value="yes">
                                     <p class="text-danger"><?php echo $error; ?></p>
                                     <button class="btn btn-primary">APPLY COUPON CODE</button>
                                 <?php echo form_close();  ?>
-                                
+                                <script>
+                                    $("form#applyCouponId").submit(function (e) { 
+                                        e.preventDefault();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: $(this).attr("action"),
+                                            data: $(this).serialize(),
+                                            success: function (response) {
+                                                if(response=="invalid-coupon"){
+                                                    $("p#couponApplyerror").html("Invalid Coupon");
+                                                }else{
+                                                    location.reload();
+                                                }
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <br>
                                 <h4>OR</h4>
                                 <?php endif; ?>
