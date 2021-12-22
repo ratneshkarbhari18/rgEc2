@@ -193,14 +193,19 @@ if(count($cartItems)>0): ?>
 
                           
                                 <?php 
-                                    if(isset($_COOKIE["coupon_value"])):
+                                    if(isset($_COOKIE["coupon_type"])):
+                                    if($_COOKIE["coupon_type"]=="percentage"||$_COOKIE["coupon_type"]=="flat"):
                                 ?>
-                                <p><?php echo $_COOKIE["coupon_code"]; ?> applied that gives <?php echo $_COOKIE["coupon_value"]; ?>% of Discount</p>
-                                <a href="<?php echo site_url("remove-cc"); ?>"><p class="text-danger">Remove?</p></a>
+                                <p><?php echo $_COOKIE["coupon_code"]; ?> applied that gives  <?php if($_COOKIE["coupon_type"]=="percentage"){
+                                    echo $_COOKIE["coupon_value"].' %'; 
+                                }elseif ($_COOKIE["coupon_type"]=="flat") {
+                                    echo $_COOKIE["currency_name"].' '.$_COOKIE["coupon_value"];
+                                } ?> of Discount</p>
+                                <a href="<?php echo site_url("remove-cc"); ?>"><p class="text-danger">Remove?</p></a>   
                                 <?php else: ?>
                                 <?php echo form_open("apply-coupon-exe"); ?>
                                     <div class="form-group">
-                                        <input type="text" name="couponcode" placeholder="ENTER COUPON CODE HERE" id="" class="form-control w-50 ml-auto mr-auto">
+                                        <input type="text" name="couponcode" placeholder="ENTER COUPON CODE HERE" required id="" class="form-control w-50 ml-auto mr-auto">
                                     </div>
                                     <p class="text-danger"><?php echo $error; ?></p>
                                     <button class="btn btn-primary">APPLY COUPON CODE</button>
@@ -208,9 +213,17 @@ if(count($cartItems)>0): ?>
                                 
                                 <br>
                                 <h4>OR</h4>
+                                <?php endif; else: ?>
+                                
+                                    <?php echo form_open("apply-coupon-exe"); ?>
+                                    <div class="form-group">
+                                        <input type="text" name="couponcode" placeholder="ENTER COUPON CODE HERE" required id="" class="form-control w-50 ml-auto mr-auto">
+                                    </div>
+                                    <p class="text-danger"><?php echo $error; ?></p>
+                                    <button class="btn btn-primary">APPLY COUPON CODE</button>
+                                <?php echo form_close();  ?>
+                                <br>
                                 <?php endif; ?>
-                                
-                                
                                 
                                 <button type="button" id="ptpButton" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                                     PROCEED to payment

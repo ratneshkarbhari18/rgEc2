@@ -9,7 +9,7 @@ class CouponModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['title','code','value','start_date','end_date'];
+    protected $allowedFields = ['title','code','value','start_date','end_date','type','on_off'];
 
 
 }

@@ -30,7 +30,23 @@
                                 <input type="text" class="form-control" name="code" id="code">
                             </div>
                             <div class="form-group">
-                                <label for="value">Value (Percentage off 0 to 100)</label>
+                                <label for="on_off">On / Off</label>
+                                <select name="on_off" id="on_off" class="form-control">
+                                    <option value="on">On</option>
+                                    <option value="off" >Off</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select name="type" id="type" class="form-control">
+                                    <option value="percentage" >Percentage</option>
+                                    <option value="flat" >Flat</option>
+                                    <option value="free_shipping" >Free Shipping</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="value">Value (Percentage off 0 to 100 or Flat discount Value)</label>
                                 <input type="text" class="form-control" name="value" id="value">
                             </div>
                             <div class="form-group">
@@ -90,9 +106,37 @@
                                                             <input type="text" class="form-control" name="code" id="code" value="<?php echo $coupon["code"]; ?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="value">Value (Percentage off 0 to 100)</label>
+                                                            <label for="on_off">On / Off</label>
+                                                            <select name="on_off" id="on_off" class="form-control">
+                                                                <option value="on" <?php if($coupon["on_off"]=="on"){
+                                                                    echo "selected";
+                                                                } ?>>On</option>
+                                                                <option value="off" <?php if($coupon["on_off"]=="off"){
+                                                                    echo "selected";
+                                                                } ?>>Off</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="type">Type</label>
+                                                            <select name="type" id="type" class="form-control">
+                                                                <option value="percentage" <?php if($coupon["type"]=="percentage"){
+                                                                    echo "selected";
+                                                                } ?>>Percentage</option>
+                                                                <option value="flat" <?php if($coupon["type"]=="flat"){
+                                                                    echo "selected";
+                                                                } ?>>Flat</option>
+                                                                <option value="free_shipping" <?php if($coupon["type"]=="free_shipping"){
+                                                                    echo "selected";
+                                                                } ?>>Free Shipping</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label for="value">Value (Percentage off 0 to 100 or Flat discount Value)</label>
                                                             <input type="text" class="form-control" name="value" id="value" value="<?php echo $coupon["value"]; ?>">
                                                         </div>
+                                                        
                                                         <div class="form-group">
                                                             <label for="start_date">Start Date</label>
                                                             <input type="text" placeholder="<?php echo date("d-m-Y"); ?>" value="<?php echo $coupon["start_date"]; ?>"  class="form-control" name="start_date" id="start_date">

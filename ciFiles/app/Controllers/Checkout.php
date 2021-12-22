@@ -178,17 +178,23 @@ class Checkout extends BaseController
     public function apply_coupon()
     {
         $code = $this->request->getPost("couponcode");
-        $couponModel = new CouponModel();
-        $coupon = $couponModel->where("code",$code)->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->first();
-
-        if ($coupon) {
-            setcookie("coupon_code",$coupon["code"],time()+(5*24*60),"/");
-            setcookie("coupon_value",$coupon["value"],time()+(5*24*60),"/");
-            return redirect()->to(site_url("cart"));
-        } else {
-            $pageLoader = new PageLoader();
-            $pageLoader->cart("Invalid Coupon");
+        $pageLoader = new PageLoader();    
+        if($code!=""){
+            $couponModel = new CouponModel();
+            $coupon = $couponModel->where("code",$code)->where('start_date <=', date("d-m-Y"))->where("end_date>=",date("d-m-Y"))->first();
+            if ($coupon) {
+                setcookie("coupon_code",$coupon["code"],time()+(5*24*60),"/");
+                setcookie("coupon_value",$coupon["value"],time()+(5*24*60),"/");
+                setcookie("coupon_type",$coupon["type"],time()+(5*24*60),"/");
+                return redirect()->to(site_url("cart"));
+            } else {
+                $pageLoader->cart("Invalid Coupon");
+            }
+        }else {
+            $pageLoader->cart("Please Enter coupon Code");
         }
+        
+
     }
 
 }

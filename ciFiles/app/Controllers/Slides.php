@@ -35,7 +35,7 @@ class Slides extends BaseController
         }
 
 
-        $dataToInsert  = array('desktop_image' => $desktopImageRandomName, "touch_image"=>$touchImageRandomName, "link"=>$this->request->getPost("link"), "visibility"=>$this->request->getPost("visibility"));
+        $dataToInsert  = array('desktop_image' => $desktopImageRandomName, "touch_image"=>$touchImageRandomName, "link"=>$this->request->getPost("link"), "visibility"=>$this->request->getPost("visible"));
 
         $slidesModel = new SlidesModel();
 
@@ -83,7 +83,7 @@ class Slides extends BaseController
         }
 
 
-        $dataToUpdate  = array('desktop_image' => $desktopImageRandomName, "touch_image"=>$touchImageRandomName, "link"=>$this->request->getPost("link"),"visibility"=>$this->request->getPost("visibility"));
+        $dataToUpdate  = array('desktop_image' => $desktopImageRandomName, "touch_image"=>$touchImageRandomName, "link"=>$this->request->getPost("link"),"visibility"=>$this->request->getPost("visible"));
 
 
         $created = $slidesModel->insert($dataToUpdate);

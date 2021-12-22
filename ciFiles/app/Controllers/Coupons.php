@@ -17,7 +17,7 @@ class Coupons extends BaseController
         if ($currentrole!="admin") {
             return redirect()->to(site_url("admin-login"));
         }
-        $dataToInsert = array('title' => $this->request->getPost("title"), "code"=> $this->request->getPost("code"), "value"=>$this->request->getPost("value"),"start_date"=>$this->request->getPost("start_date"),"end_date"=>$this->request->getPost("end_date"));
+        $dataToInsert = array('title' => $this->request->getPost("title"), "code"=> $this->request->getPost("code"), "value"=>$this->request->getPost("value"),"start_date"=>$this->request->getPost("start_date"),"end_date"=>$this->request->getPost("end_date"),'on_off'=>$this->request->getPost("on_off"),"type"=>$this->request->getPost("type"));
         $couponModel = new CouponModel();
         $created = $couponModel->insert($dataToInsert);
         $pageLoader = new PageLoader();
@@ -39,7 +39,7 @@ class Coupons extends BaseController
 
         $id = $this->request->getPost("id");
 
-        $dataToInsert = array('title' => $this->request->getPost("title"), "code"=> $this->request->getPost("code"), "value"=>$this->request->getPost("value"),"start_date"=>$this->request->getPost("start_date"),"end_date"=>$this->request->getPost("end_date"));
+        $dataToInsert = array('title' => $this->request->getPost("title"), "code"=> $this->request->getPost("code"), "value"=>$this->request->getPost("value"),"start_date"=>$this->request->getPost("start_date"),"end_date"=>$this->request->getPost("end_date"),'on_off'=>$this->request->getPost("on_off"),"type"=>$this->request->getPost("type"));
 
         $couponModel = new CouponModel();
         $update = $couponModel->update($id,$dataToInsert);
