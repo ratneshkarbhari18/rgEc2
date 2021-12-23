@@ -86,7 +86,7 @@ class Slides extends BaseController
         $dataToUpdate  = array('desktop_image' => $desktopImageRandomName, "touch_image"=>$touchImageRandomName, "link"=>$this->request->getPost("link"),"visibility"=>$this->request->getPost("visible"));
 
 
-        $created = $slidesModel->insert($dataToUpdate);
+        $created = $slidesModel->update($this->request->getPost("id"),$dataToUpdate);
         $pageLoader = new PageLoader();
 
         if ($created) {

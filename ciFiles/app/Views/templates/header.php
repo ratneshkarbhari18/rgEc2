@@ -221,6 +221,11 @@ echo $title; ?> | Ricka Gauba</title>
 
         <?php endif; endforeach; ?>
         </div>
+        <div id="sidenavCatBox" >
+        <?php foreach($styles as $style): ?> 
+            <a href="<?php echo site_url('style/'.$style['slug']); ?>" class="sidenav-link"><?php echo $style['title']; ?></a>                                
+        <?php endforeach; ?>
+        </div>
 
         <div id="other-links-menu" style="position: absolute; margin-top: 20%; left: 0; right: 0;">
             <a href="<?php echo site_url('/'); ?>" class="sidenav-link">Home</a>
