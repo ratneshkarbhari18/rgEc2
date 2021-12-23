@@ -214,14 +214,17 @@ echo $title; ?> | Ricka Gauba</title>
         <div id="sidenavLogoBox" style="text-align: center; background-color: #ffffff !important;">
         <img src="<?php echo site_url('assets/images/sitelogo.jpg'); ?>" id="logonew" style="width: 70%; margin: 10% auto;">
         </div>
-        <div id="sidenavCatBox" >
+        <div class="sidenavCatBox" >
+        <h4>Collections</h4>
         <?php foreach($collections as $collection): if($collection["parent"]=="0"): ?>
 
             <a href="<?php echo site_url('collection/'.$collection['slug']); ?>" class="sidenav-link"><?php echo $collection['title']; ?></a>
 
         <?php endif; endforeach; ?>
         </div>
-        <div id="sidenavCatBox" >
+        <div class="sidenavCatBox" >
+        <h4>Styles</h4>
+
         <?php foreach($styles as $style): ?> 
             <a href="<?php echo site_url('style/'.$style['slug']); ?>" class="sidenav-link"><?php echo $style['title']; ?></a>                                
         <?php endforeach; ?>

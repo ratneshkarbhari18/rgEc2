@@ -345,3 +345,9 @@ span.jssocials-share-label{
 .jssocials-share-logo{
     font-size: 1em !important;
 }
+.sidenavCatBox{
+    margin-bottom: 2em;
+}
+.sidenavCatBox h4{
+    padding-left: 0.5em;
+}
