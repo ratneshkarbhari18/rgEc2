@@ -73,11 +73,11 @@
                 Collections
               </a>
             </li>
-            <div class="collapse" id="collectionMenu">
-              <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("manage-collections"); ?>">Manage</a></li>
-              <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("add-collection"); ?>">Add</a></li>
-              
-            </div>
+          <div class="collapse" id="collectionMenu">
+            <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("manage-collections"); ?>">Manage</a></li>
+            <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("add-collection"); ?>">Add</a></li>
+            
+          </div>
 
             
             

@@ -215,7 +215,7 @@ echo $title; ?> | Ricka Gauba</title>
         <img src="<?php echo site_url('assets/images/sitelogo.jpg'); ?>" id="logonew" style="width: 70%; margin: 10% auto;">
         </div>
         <div class="sidenavCatBox" >
-        <h4>Collections</h4>
+        <h5>Collections</h5>
         <?php foreach($collections as $collection): if($collection["parent"]=="0"): ?>
 
             <a href="<?php echo site_url('collection/'.$collection['slug']); ?>" class="sidenav-link"><?php echo $collection['title']; ?></a>
@@ -223,18 +223,33 @@ echo $title; ?> | Ricka Gauba</title>
         <?php endif; endforeach; ?>
         </div>
         <div class="sidenavCatBox" >
-        <h4>Styles</h4>
+        <h5>Styles</h5>
 
         <?php foreach($styles as $style): ?> 
             <a href="<?php echo site_url('style/'.$style['slug']); ?>" class="sidenav-link"><?php echo $style['title']; ?></a>                                
         <?php endforeach; ?>
         </div>
 
-        <div id="other-links-menu" style="position: absolute; margin-top: 20%; left: 0; right: 0;">
+        <div id="other-links-menu"class="sidenavCatBox">
+            <h5>OTHER LINKS</h5>
+
             <a href="<?php echo site_url('/'); ?>" class="sidenav-link">Home</a>
-            <a href="<?php echo site_url('shop'); ?>" class="sidenav-link">Shop</a>
+            <!-- <a href="<?php echo site_url('shop'); ?>" class="sidenav-link">Shop</a> -->
             <a href="<?php echo site_url('about'); ?>" class="sidenav-link">About</a>
             <a href="<?php echo site_url('contact'); ?>" class="sidenav-link">Contact</a>
+        </div>
+
+        <li class="nav-item no-margin sidenavCatBox">
+            <a class="nav-link sidebar-link" data-toggle="collapse" href="#currencySwitcher" role="button" aria-expanded="false" aria-controls="currencySwitcher">
+            <h5>SELECT CURRENCY</h5>
+            </a>
+        </li>
+        <div class="collapse" id="currencySwitcher">
+        <?php foreach($currencies as $currency): if($currency["name"]!=$_COOKIE["currency_name"]): ?>
+        
+            <a href="#" class="sidenav-link currency-switcher-item sidebar-dropdown-link" currency_switching_url="<?php echo site_url("currency-switcher"); ?>" currency_name="<?php echo $currency["name"]; ?>"><?php echo $currency["name"]; ?></a>
+
+        <?php endif; endforeach; ?>
         </div>
 
         </div>
