@@ -34,7 +34,9 @@ class Popups extends BaseController
             "link" => $this->request->getPost("link"),
             "trigger_timeout" => $this->request->getPost("trigger_timeout"),
             "youtube_embed_code" => $this->request->getPost("youtube_link"),
-            "visible" => $this->request->getPost("visible")
+            "visible" => $this->request->getPost("visible"),
+            "has_form" => $this->request->getPost("has_form"),
+            "form_fields" => implode(",",$this->request->getPost("form_fields")),
         );
 
         $created = $popupModel->insert($popupData);
@@ -81,7 +83,9 @@ class Popups extends BaseController
             "link" => $this->request->getPost("link"),
             "trigger_timeout" => $this->request->getPost("trigger_timeout"),
             "youtube_embed_code" => $this->request->getPost("youtube_link"),
-            "visible" => $this->request->getPost("visible")
+            "visible" => $this->request->getPost("visible"),
+            "has_form" => $this->request->getPost("has_form"),
+            "form_fields" => $this->request->getPost("form_fields"),
         );
 
         $created = $popupModel->update($this->request->getPost("id"),$popupData);

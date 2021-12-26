@@ -9,7 +9,7 @@ class PopupModel extends Model
 
     protected $primaryKey = 'id';
 
-    protected $allowedFields = ['title','image','link',"trigger_timeout","youtube_embed_code",'visible'];
+    protected $allowedFields = ['title','image','link',"trigger_timeout","youtube_embed_code",'visible','has_form','form_fields'];
 
 
 }

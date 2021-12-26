@@ -208,63 +208,7 @@
 
     <script src="<?php echo site_url("assets/js/app.min.js") ?>"></script>
 
-    <?php foreach($popups as $popup):  
-        if(!isset($_COOKIE["popup_closed"])):    
-        if($popup["visible"]=="yes"):
-    ?>
-        
-        <div class="modal fade" popupId="<?php echo $popup["id"]; ?>" id="popupx-<?php echo $popup["id"]; ?>" tabindex="-1" aria-labelledby="popup<?php echo $popup["id"]; ?>Label" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><?php echo $popup["title"]; ?></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="<?php echo site_url("assets/images/popupImages/".$popup["image"]); ?>" class="w-100">
-
-                        <h4>Sign Up for our Email List</h4>
-                        <?php echo form_open("subsribe-to-email-list",array("class"=>"d-inline","id"=>"emailSubForm")); ?>
-                        <p class="text-success" id="emailSubSuccess"></p>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" id="email">
-                        </div>
-                        <button id="emailSubAdd" class="btn btn-block" style="background-color: deeppink; color: white;">Sign Up</button>
-                        <?php echo form_close(); ?>
-                    </div>
-
-                    <script>
-                        $("button#emailSubAdd").click(function (e) { 
-                            e.preventDefault();
-                            $("form#emailSubForm").submit();
-                            $("p#emailSubSucces").html("Subscribted to email List");
-                            setCookie("popup_closed","y",3);
-                            location.reload();
-                        });
-                    </script>
-
-                </div>
-            </div>
-        </div>
-        <script>
-            setTimeout(() => {
-                $('#popupx-<?php echo $popup["id"]; ?>').modal('show')
-            }, <?php echo $popup["trigger_timeout"]*1000; ?>);
-            $('#popupx-<?php echo $popup["id"]; ?>').on('hidden.bs.modal', function () {
-                let popupId = $(this).attr("popupId");
-                setCookie("popup_closed","y",3);
-                location.reload();
-            });
-            
-        </script>
-    <?php 
-        endif;
-        endif;
-        endforeach;
-    ?>
+    
     
 </body>
 </html>

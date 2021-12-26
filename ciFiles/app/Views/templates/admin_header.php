@@ -142,7 +142,7 @@
             <div class="collapse" id="marketingMenu">
               <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("coupons-mgt"); ?>">Coupons Mgt.</a></li>
               <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("popup-mgt"); ?>">Popup Mgt.</a></li>
-              <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("email-signups"); ?>">Email Signups</a></li>
+              <!-- <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("email-signups"); ?>">Email Signups</a></li> -->
               <a class="d-block nav-link sidebar-dropdown-link" href="<?php echo site_url("manage-top-strip-messages"); ?>">Top Stip Messages</a></li>
               
             </div>

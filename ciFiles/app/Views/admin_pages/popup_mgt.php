@@ -43,6 +43,30 @@
                                 <label for="trigger_timeout">Trigger Timeout (in seconds)</label>
                                 <input type="text" class="form-control" value="5" name="trigger_timeout" id="trigger_timeout">
                             </div>
+
+                            <div class="form-group">
+                                <label for="has_form">Has Form?</label>
+                                <select name="has_form" id="has_form" class="form-control">
+                                    <option value="no">No</option>
+                                    <option value="yes">Yes</option>
+                                </select>
+                            </div>
+
+                            <h5>FORM FIELDS</h5>
+
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="form_field1">Full Name</label>
+                                <input type="checkbox" name="form_fields[]" value="full_name" id="form_fields1" class="form-check-input">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="form_field3">Email</label>
+                                <input type="checkbox" name="form_fields[]" value="email" id="form_fields3" class="form-check-input">
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label" for="form_field4">Mobile Number</label>
+                                <input type="checkbox" name="form_fields[]" value="mobile_number" id="form_fields4" class="form-check-input">
+                            </div>
+                            <br><br>
                             <div class="form-group">
                                 <label for="visible">Visible</label>
                                 <select name="visible" id="visible" class="form-control">
@@ -116,6 +140,40 @@
                                                             <label for="trigger_timeout">Trigger Timeout (in seconds)</label>
                                                             <input type="text" class="form-control" value="5" name="trigger_timeout" value="<?php echo $popup["trigger_timeout"]; ?>" id="trigger_timeout">
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label for="has_form">Has Form?</label>
+                                                            <select name="has_form" id="has_form" class="form-control">
+                                                                <option <?php if($popup["has_form"]=="no"){
+                                                                    echo "selected";
+                                                                } ?> value="no">No</option>
+                                                                <option <?php if($popup["has_form"]=="yes"){
+                                                                    echo "selected";
+                                                                } ?> value="yes">Yes</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <h5>FORM FIELDS</h5>
+
+                                                        <div class="form-check form-check-inline">
+                                                            <label class="form-check-label" for="form_field1">Full Name</label>
+                                                            <input <?php if(in_array("full_name",explode(",",$popup["form_fields"]))){
+                                                                echo "checked";
+                                                            } ?> type="checkbox" name="form_fields[]" value="full_name" id="form_fields1" class="form-check-input">
+                                                        </div>
+
+                                                        <div class="form-check form-check-inline">
+                                                            <label class="form-check-label" for="form_field3">Email</label>
+                                                            <input <?php if(in_array("email",explode(",",$popup["form_fields"]))){
+                                                                echo "checked";
+                                                            } ?> type="checkbox" name="form_fields[]" value="email" id="form_fields3" class="form-check-input">
+                                                        </div>
+                                                        <div class="form-check form-check-inline">
+                                                            <label class="form-check-label" for="form_field4">Mobile Number</label>
+                                                            <input <?php if(in_array("mobile_number",explode(",",$popup["form_fields"]))){
+                                                                echo "checked";
+                                                            } ?> type="checkbox" name="form_fields[]" value="mobile_number" id="form_fields4" class="form-check-input">
+                                                        </div>
+                                                        <br><br>
                                                         <div class="form-group">
                                                             <label for="visible">Visible</label>
                                                             <select name="visible" id="visible" class="form-control">

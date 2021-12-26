@@ -112,7 +112,7 @@ $routes->post("update-ts-messages","TsMessages::update");
 $routes->get("manage-top-strip-messages","PageLoader::ts_messages");
 
 // es
-$routes->post("subsribe-to-email-list","EmailSignups::create");
+$routes->post("submit-subscription","SignUps::create");
 
 $routes->post("search-customer-exe","PageLoader::customer_search");
 $routes->post("send-contact-email","BackgroundFeatures::send_contact_email");
@@ -186,6 +186,8 @@ $routes->post("buy-now","PageLoader::buy_now");
 $routes->post("set-shipping-cookies","BackgroundFeatures::set_shipping_cookies");
 
 $routes->get("remove-cc","BackgroundFeatures::remove_cc");
+
+
 
 /*
  * --------------------------------------------------------------------

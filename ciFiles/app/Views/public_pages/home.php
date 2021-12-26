@@ -200,3 +200,71 @@
         }
     });
 </script>
+<?php foreach($popups as $popup):  
+        if($popup["visible"]=="yes"):
+    ?>
+        
+        <div class="modal fade" popupId="<?php echo $popup["id"]; ?>" id="popupx-<?php echo $popup["id"]; ?>" tabindex="-1" aria-labelledby="popup<?php echo $popup["id"]; ?>Label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><?php echo $popup["title"]; ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <a href="<?php echo $popup["link"]; ?>">
+                        <img src="<?php echo site_url("assets/images/popupImages/".$popup["image"]); ?>" class="w-100">
+                        </a>
+                        <?php if($popup["has_form"]=="yes"): ?>
+                        <h4 class="d-none">Sign Up for our Email List</h4>
+                        <?php echo form_open("submit-subscription",array("class"=>"d-inline","id"=>"emailSubForm")); ?>
+                        <p class="text-success text-center" id="emailSubSuccess" style="margin-top: 1em;"></p>
+                        <?php $form_fields = explode(",",$popup["form_fields"]); foreach($form_fields as $ff): ?>
+                        <input type="hidden" name="fields" value='<?php echo json_encode($form_fields); ?>'>
+                        <div class="form-group">
+                            <label for="<?php echo $ff; ?>"><?php echo ucfirst(str_replace("_"," ",$ff)); ?></label>
+                            <input required type="text" name="<?php echo $ff; ?>" class="form-control" id="<?php echo $ff; ?>">
+                        </div>
+                        <?php endforeach; ?>
+                        <button id="emailSubAdd" class="btn btn-block" style="background-color: deeppink; color: white;">Submit</button>
+                        <?php echo form_close(); ?>
+                        <?php endif; ?>
+                    </div>
+
+                    <script>
+                        $("form#emailSubForm").submit(function (e) { 
+                            e.preventDefault();
+
+                            $.ajax({
+                                type: "POST",
+                                url: $(this).attr("action"),
+                                data: $(this).serialize(),
+                                success: function (response) {
+                                    $("p#emailSubSuccess").html("Submitted");
+                                }
+                            });
+
+                        });
+
+                    </script>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            setTimeout(() => {
+                $('#popupx-<?php echo $popup["id"]; ?>').modal('show')
+            }, <?php echo $popup["trigger_timeout"]*1000; ?>);
+            $('#popupx-<?php echo $popup["id"]; ?>').on('hidden.bs.modal', function () {
+                // let popupId = $(this).attr("popupId");
+                // setCookie("popup_closed","y",3);
+                // location.reload();
+            });
+            
+        </script>
+    <?php 
+        endif;
+        endforeach;
+    ?>
