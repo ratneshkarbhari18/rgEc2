@@ -167,6 +167,7 @@ class Products extends BaseController
         if ($currentrole!="admin") {
             return redirect()->to(site_url("admin-login"));
         }
+
         $pageLoader = new PageLoader();
 
         $productModel = new ProductModel();
@@ -269,7 +270,6 @@ class Products extends BaseController
             
 
             $response = $productModel->update($prevProductDetails["id"],$productData);
-            $pid = $productModel->getInsertID();
 
 
             if ($response) {
@@ -279,25 +279,21 @@ class Products extends BaseController
                 $pcModel = new PcModel();
                 $psModel = new PsModel();
 
-                $pid = $prevProductDetails["id"];
+                $pcModel->where('pid', $prevProductDetails['id'])->delete();
+                $psModel->where('pid', $prevProductDetails['id'])->delete();
                 
                 foreach($this->request->getPost("collections") as $collection){
-                    $pcModel->where("cid !=",$collection)->where("pid",$prevProductDetails["id"])->delete();
+                    
+                    if(!($pcModel->where("pid",$prevProductDetails["id"])->where("cid",$collection)->first())){
+                        $pcModel->insert(array("pid"=>$prevProductDetails["id"],"cid"=>$collection));
+                    }                    
 
-                    $exists = $pcModel->where("pid",$pid)->where("cid",$collection)->first();
-                    if (!$exists) {
-                        $pcModel->insert(array("pid"=>$pid,"cid"=>$collection));
-                    }
                 }
 
-                
                 foreach($this->request->getPost("styles") as $style){
-                    $exists = $psModel->where("pid",$pid)->where("sid",$style)->first();
-                    $psModel->where("sid !=",$style)->where("pid",$prevProductDetails["id"])->delete();
-                    
-                    if (!$exists) {
-                        $psModel->insert(array("pid"=>$pid,"sid"=>$style));
-                    }
+                    if(!($psModel->where("pid",$prevProductDetails["id"])->where("sid",$style)->first())){
+                        $psModel->insert(array("pid"=>$prevProductDetails["id"],"sid"=>$style));
+                    }                    
                 }
                 
                $pageLoader->edit_product($newProductDetails["slug"],"Product updated","");
