@@ -351,3 +351,6 @@ span.jssocials-share-label{
 .sidenavCatBox h5,.sidenavCatBox a h5{
     padding-left: 0.5em;
 }
+div.tawk-icon-right img{
+    display: none !important;
+}
