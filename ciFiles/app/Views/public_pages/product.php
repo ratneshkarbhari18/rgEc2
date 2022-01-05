@@ -139,7 +139,7 @@
                             
 
                                 <button class="btn" id="reduce-qty" type="button" style="border-radius: 0 !important; border: 1px solid gray; color: black;  margin: 0%; font-size: 20px; padding: 0.3em 0.3em;">-</button>
-                                <input type="number" id="product-quantity" style="width: 40px;position: absolute;font-size: 15px;height: 38px;text-align: center; padding-left: 2%;" value="1" min="1" readonly>
+                                <input type="number" id="product-quantity" style="width: 40px;position: absolute;font-size: 15px;height: 38px;text-align: center; padding-left: 1%;" value="1" min="1" readonly>
                                 <button class="btn" id="add-qty" type="button" style="border-radius: 0 !important;border: 1px solid gray;color: black;margin: 0%;margin-left: 2.3em;font-size: 20px;padding: 0.3em 0.2em;">+</button>
 
                             </div>
