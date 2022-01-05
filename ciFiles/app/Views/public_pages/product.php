@@ -309,7 +309,7 @@
                             <?php if($product['sizes']!=''): ?>
                             <div class="col-lg-4 col-md-6 col-sm12 form-group" style="padding-left: 0;">
                             
-                            <label for="product-size">Size: <a class="text-success" style="font-weight: 600;" href="<?php echo site_url("assets/images/rgSizeChart.jpg"); ?>" data-lity>See Size Chart</a></label>
+                            <label for="product-size">Size: <a class="text-success" style="font-weight: 600;" href="<?php echo site_url("assets/images/rgSizeChart.jpeg"); ?>" data-lity>See Size Chart</a></label>
 
                                 <select class="form-control" id="product-size-touch">
                                     <?php $sizes = explode(',',$product['sizes']); foreach($sizes as $size): ?>
