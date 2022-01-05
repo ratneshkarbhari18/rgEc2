@@ -221,12 +221,13 @@
                                         }else {
                                         echo $product['title'];
                                         } ?></h4>                                
-                    <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
-                        <span class="larger-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['sale_price'],2); ?></span> | <del><span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span></del>
-                    <?php elseif (($product["price"]==$product["sale_price"])||($product["sale_price"]==0.00)): ?>
-                        <span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span>
-                    <?php endif; ?>
+                                                <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
 
+<p> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product["sale_price"],2); ?> | <?php echo $_COOKIE["currency_symbol"]; ?> <del><?php echo number_format($_COOKIE["currency_rate"]*$product["price"],2); ?></del></p>
+
+<?php elseif (($product["price"]==$product["sale_price"])||($product["sale_price"]==0.00)): ?>
+    <p> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product["price"],2); ?></p>
+<?php endif; ?>
                     <br>
 
 
