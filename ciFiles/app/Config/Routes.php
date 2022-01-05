@@ -152,6 +152,7 @@ $routes->get("delete-gallery-image","Products::delete_gallery_image");
 $routes->post("add-slide-exe","Slides::add_new");
 $routes->post("delete-slide-exe","Slides::delete");
 $routes->post("update-slide-exe","Slides::update");
+$routes->post("change-slide-position","Slides::change_slide_pos");
 
 // Testimonial routes
 $routes->post("add-testimonial-exe","Testimonials::add");

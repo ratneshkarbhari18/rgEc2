@@ -3,9 +3,9 @@
     
         <h3 class="page-title"><?php echo $title; ?></h3>
 
-        <p class="text-danger"><?php echo $error; ?></p>
+        <p class="text-danger" id="dangerNotice"><?php echo $error; ?></p>
     
-        <p class="text-success"><?php echo $success; ?></p>
+        <p class="text-success" id="ajaxSuccess"><?php echo $success; ?></p>
 
         <?php
             $attributes = array('enctype' => "multipart/form-data","method"=>"POST");
@@ -45,6 +45,7 @@
                     <thead>
                         <tr>
                             <td style="font-size: 1.2rem; font-weight: 500;">Link</td>
+                            <td font-weight: 500;">Position</td>
                             <td style="font-size: 1.2rem; font-weight: 500;">Image Desktop</td>
                             <td style="font-size: 1.2rem; font-weight: 500;">Image Touch</td>
                             <td style="font-size: 1.2rem; font-weight: 500;">Actions</td>
@@ -54,6 +55,15 @@
                         <?php foreach($slides as $slide): ?>
                         <tr>
                             <td><?php echo $slide['link']; ?></td>
+                            <td>
+                                <?php echo form_open("change-slide-position",array("id"=>"slide-pos-update-form-".$slide["id"])); ?>
+                                <input type="hidden" name="slideId" value="<?php echo $slide["id"]; ?>">
+                                <input type="hidden" name="prevPos" value="<?php echo $slide["position"]; ?>">
+                                <input type="number" id="pos" value="<?php echo $slide["position"]; ?>" name="pos">
+                                <button type="submit" class="btn btn-success">update position</button>
+                                <?php echo form_close(); ?>
+                               
+                            </td>
                             <td><?php echo site_url('assets/images/slider_images/'.$slide['desktop_image']); ?></td>
                             <td><?php echo site_url('assets/images/slider_images/'.$slide['touch_image']); ?></td>
                             <td>

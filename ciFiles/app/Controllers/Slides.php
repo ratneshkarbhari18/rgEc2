@@ -123,4 +123,33 @@ class Slides extends BaseController
         
     }
 
+    public function change_slide_pos()
+    {
+        $slideId = $this->request->getPost("slideId");
+        $pos = $this->request->getPost("pos");
+        $prevPos = $this->request->getPost("prevPos");
+        $slidesModel = new SlidesModel();
+
+        $slide2 = $slidesModel->where("position",$pos)->first();
+
+        $updated = $slidesModel->update($slideId,array("position"=>$pos));
+
+        $pageLoader = new PageLoader();
+
+        if ($updated) {
+
+            if($slide2){
+                $slidesModel->update($slide2["id"],array("position"=>$prevPos));
+            }
+            
+            $pageLoader->manage_slides("Slide positions updated","");
+
+        }else {
+
+            $pageLoader->manage_slides("","Slide positions not updated");
+            
+        }
+
+    }
+
 }
