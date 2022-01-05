@@ -274,9 +274,10 @@
                             </div>
                             </div>
                             <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919930777376&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
+                            <h6>Product Description</h6>
 
-                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
-                                <p class="product-description text-left"><?php echo $product['description']; ?></p>
+                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" >
+                                <?php echo $product['description']; ?>
                             </div>
 
                         
@@ -500,8 +501,10 @@
                                                             <a class="col-lg-12 col-md-12 col-sm-12" style="font-size: 14px;" href="https://api.whatsapp.com/send?phone=919930777376&text=<?php echo urlencode('I am interested in '.site_url('product/'.$product['slug'])); ?>">Inquiry on <img src="<?php echo site_url("assets/images/wa.jpeg"); ?>" width="20px" height="20px"></a>
 
                             </div>
-                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" style="margin-top: 10%;">
-                                <p class="product-description text-left"><?php echo $product['description']; ?></p>
+                            <h6>Product Description</h6>
+
+                            <div id="description-box" class="col-lg-12 col-md-12 col-sm-12" >
+                                <?php echo $product['description']; ?>
                             </div>
 
                         
