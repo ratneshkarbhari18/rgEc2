@@ -4,7 +4,7 @@
             <h2 class="section-titleX text-light">CONTACT</h2>
         </div>
     </section>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7539.508140682487!2d72.93591134035549!3d19.11844186863909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c79bf3327fa9%3A0xb68b2444dfbba0a2!2sRK%20Software%20Labs!5e0!3m2!1sen!2sin!4v1638868473393!5m2!1sen!2sin" width="100%" height="338" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3769.0621184300658!2d72.8301900149023!3d19.14875798704623!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b7abf54514bd%3A0x79bd92c59f2c02c3!2sOm%20Heera%20Panna%20Mall!5e0!3m2!1sen!2sin!4v1641405269107!5m2!1sen!2sin" width="100%" height="338" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
     <section id="contact-info" class="bg-light text-left" style="padding: 2em 0;">
         <div class="container">
             <div class="row">
