@@ -115,7 +115,7 @@ class PageLoader extends BaseController
         $productModel = new ProductModel();
         
         $allStyles = array_reverse($styleModel->findAll());
-        $allSlides = $slidesModel->findAll();
+        $allSlides = $slidesModel->orderBy('position', 'asc')->findAll();
         $allCollections = array_reverse($collectionModel->findAll());
         $allProducts = array_reverse($productModel->findAll());
 
