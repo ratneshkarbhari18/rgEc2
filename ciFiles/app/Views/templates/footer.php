@@ -133,6 +133,9 @@
                     color: #ffffff !important;
                     font-size: 1.3rem;
                 }
+                .menu-item a{
+                    font-size: 14px;
+                }
                 ul.menu{
                     list-style: none;
                     padding-left: 0;
