@@ -539,7 +539,7 @@
                             <div class="card-body">
                             
                             <h4 class="product-title"><?php if(strlen($related_product['title'])>9){
-                                echo substr($related_product['title'],0,10).'...';
+                                echo substr($related_product['title'],0,30).'...';
                                 }else {
                                 echo $related_product['title'];
                                 } ?></h4>           
