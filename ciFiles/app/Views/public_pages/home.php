@@ -27,7 +27,7 @@
     <section class="usual-section" id="featured-products">
         <div class="container-fluid">
             <div class="text-center">
-                <h1 class="section-title">Featured Products</h1>
+                <h1 class="section-title" style="font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;">Featured Products</h1>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-1 col-md-12 col-sm-12"></div>
@@ -41,7 +41,9 @@
                                         <div class="card">
                                             <img src="<?php echo site_url("assets/images/featured_image_product/".$product["featured_image"]); ?>" class="product-image w-100">
                                             <div class="card-body">
-                                                <h4 style="font-weight: 600;"><?php echo substr($product["title"],0,30); ?>...</h4>
+                                                <h4 style="font-weight: 600;"><?php echo substr($product["title"],0,30); ?><?php if(count($product["title"])>30){
+                                                    echo "...";
+                                                } ?></h4>
                                                 <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
 
                                                 <p> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product["sale_price"],2); ?> | <?php echo $_COOKIE["currency_symbol"]; ?> <del><?php echo number_format($_COOKIE["currency_rate"]*$product["price"],2); ?></del></p>
@@ -69,7 +71,7 @@
     <section class="usual-section" id="collections">
         <div class="container">
             <div class="text-center">
-                <h1 class="section-title">Collections</h1>
+                <h1 class="section-title" style="font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;">Collections</h1>
                 <?php if (count($collections)>=4): ?>
                 <div class="owl-carousel product-carousel">
                     <?php foreach ($collections as $collection):  ?>
@@ -109,7 +111,7 @@
     <section class="usual-section" id="styles">
         <div class="container">
             <div class="text-center">
-                <h1 class="section-title">Styles</h1>
+                <h1 class="section-title" style="font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;">Styles</h1>
                 <div class="owl-carousel product-carousel">
                     <?php foreach ($styles as $style):  ?>
                         <a href="<?php echo site_url("style/".$style["slug"]); ?>">
@@ -132,7 +134,7 @@
     
     <section class="usual-section" id="testimonials">
         <div class="container">
-            <h1 class="section-title text-center">TESTIMONIALS</h1>
+            <h1 class="section-title text-center" style="font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;">TESTIMONIALS</h1>
             <div class="owl-carousel product-carousel">
                 <?php foreach ($testimonials as $testimonial):  ?>
                     <div class="card" style="border: none !important;">

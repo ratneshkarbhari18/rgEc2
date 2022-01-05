@@ -216,7 +216,7 @@
                                 
                                     <div class="card-body">
                                     
-                                    <h4 class="product-title"><?php if(strlen($product['title'])>9){
+                                    <h4 class="product-title"><?php if(strlen($product['title'])>30){
                                         echo substr($product['title'],0,30).'...';
                                         }else {
                                         echo $product['title'];

@@ -131,6 +131,7 @@
             <style>
                 .menu-item a,h2.widgettitle,h3.title{
                     color: #ffffff !important;
+                    font-size: 1.3rem;
                 }
                 ul.menu{
                     list-style: none;
