@@ -117,7 +117,7 @@
                                 <a href="<?php echo site_url('privacy-policy'); ?>">Privacy Policy</a>
                             </li>
                             <li class="menu-item">
-                                <a href="<?php echo site_url('refund-exchange-policy'); ?>">Refund Exchange Policy</a>
+                                <a href="<?php echo site_url('refund-exchange-policy'); ?>">Refund and Exchange Policy</a>
                             </li>
                             <li class="menu-item">
                                 <a href="<?php echo site_url('shipping-policy'); ?>">Shipping Policy</a>
@@ -142,7 +142,7 @@
                 }
             </style>
         
-            <p class="text-center text-light" style="margin: 3% 0;">&copy; Ricka Gauba 2021 | All Rights Reserved</p>
+            <p class="text-center text-light" style="margin: 3% 0;">&copy; Ricka Gauba 2022 | All Rights Reserved</p>
             <div class="text-center"><img style="width: 15%;" src="<?php echo site_url("assets/images/cards.png"); ?>" alt="Card Logos" id="card-logos"></div>
         
         </div>

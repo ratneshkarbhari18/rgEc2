@@ -216,7 +216,7 @@
                                 
                                     <div class="card-body">
                                     
-                                    <h4 class="product-title"><?php if(strlen($product['title'])>30){
+                                    <h4 class="product-title" style="font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif; letter-spacing: 1px;"><?php if(strlen($product['title'])>30){
                                         echo substr($product['title'],0,30).'...';
                                         }else {
                                         echo $product['title'];
@@ -224,7 +224,7 @@
                     <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
                         <span class="larger-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['sale_price'],2); ?></span> | <del><span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span></del>
                     <?php elseif (($product["price"]==$product["sale_price"])||($product["sale_price"]==0.00)): ?>
-                        <span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo $_COOKIE["currency_rate"]*$product['price']; ?></span>
+                        <span class="smaller-price-card"> <?php echo $_COOKIE["currency_symbol"]; ?> <?php echo number_format($_COOKIE["currency_rate"]*$product['price'],2); ?></span>
                     <?php endif; ?>
 
                     <br>
