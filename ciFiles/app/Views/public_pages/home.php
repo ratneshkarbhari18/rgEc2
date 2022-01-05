@@ -41,7 +41,7 @@
                                         <div class="card">
                                             <img src="<?php echo site_url("assets/images/featured_image_product/".$product["featured_image"]); ?>" class="product-image w-100">
                                             <div class="card-body">
-                                                <h4 style="font-weight: 600;"><?php echo substr($product["title"],0,30); ?><?php if(count($product["title"])>30){
+                                                <h4 style="font-weight: 600; font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;"><?php echo substr($product["title"],0,30); ?><?php if(count($product["title"])>30){
                                                     echo "...";
                                                 } ?></h4>
                                                 <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
@@ -79,7 +79,7 @@
                             <div class="card">
                                 <img src="<?php echo site_url("assets/images/collection_featured_images/".$collection["featured_image"]); ?>" class="collection-image w-100">
                                 <div class="card-body">
-                                <h4 style="font-weight: 600;"><?php echo substr($collection["title"],0,30); ?></h4>
+                                <h4 style="font-weight: 600; font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;"><?php echo substr($collection["title"],0,30); ?></h4>
                                 </div>
                             </div>
                         </a>
@@ -95,7 +95,7 @@
                             <div class="card">
                                 <img src="<?php echo site_url("assets/images/collection_featured_images/".$collection["featured_image"]); ?>" class="collection-image w-100">
                                 <div class="card-body">
-                                <h4 style="font-weight: 600;"><?php echo substr($collection["title"],0,30); ?></h4>
+                                <h4 style="font-weight: 600; font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;"><?php echo substr($collection["title"],0,30); ?></h4>
                                 </div>
                             </div>
                         </a>
@@ -118,7 +118,7 @@
                             <div class="card">
                                 <img src="<?php echo site_url("assets/images/style_featured_images/".$style["featured_image"]); ?>" class="collection-image w-100">
                                 <div class="card-body">
-                                    <h4 style="font-weight: 600;"><?php echo $style["title"]; ?></h4>
+                                    <h4 style="font-weight: 600; font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;"><?php echo $style["title"]; ?></h4>
                                 </div>
                             </div>
                         </a>
@@ -143,7 +143,7 @@
                             <img src="<?php echo site_url("assets/images/testimonial_images/".$testimonial["mugshot"]); ?>" class="collection-image w-25" style="border-radius: 50%;">
                             </a>
                             <br>
-                            <h5 style="font-weight: 600;"><?php echo $testimonial["name"]; ?></h5>
+                            <h5 style="font-weight: 600; font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;"><?php echo $testimonial["name"]; ?></h5>
                             <p class="testimonial-body"><?php echo $testimonial["testimonial"]; ?></p>
                         </div>
                     </div>
