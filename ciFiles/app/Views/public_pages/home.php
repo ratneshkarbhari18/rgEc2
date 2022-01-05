@@ -41,7 +41,7 @@
                                         <div class="card">
                                             <img src="<?php echo site_url("assets/images/featured_image_product/".$product["featured_image"]); ?>" class="product-image w-100">
                                             <div class="card-body">
-                                                <h4 style="font-weight: 600; font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;"><?php echo substr($product["title"],0,30); ?><?php if(count($product["title"])>30){
+                                                <h4 style="font-weight: 600; font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif;"><?php echo substr($product["title"],0,30); ?><?php if(strlen($product["title"])>30){
                                                     echo "...";
                                                 } ?></h4>
                                                 <?php if(($product['sale_price']!=0.00)&&($product['sale_price']!=$product['price'])): ?>
