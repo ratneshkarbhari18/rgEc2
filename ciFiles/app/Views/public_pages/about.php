@@ -12,3 +12,9 @@
         <p>We hope you enjoy our designs as much as we enjoy offering them to you.</p>
     </div>
 </main>
+<style>
+    p{
+        font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif; 
+        font-size: 1.2em;
+    }
+</style>
