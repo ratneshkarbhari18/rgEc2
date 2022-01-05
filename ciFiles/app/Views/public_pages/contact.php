@@ -54,3 +54,16 @@
         </div>
     </section>
 </main>
+<style>
+
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span {
+    font-family: 'Century Gothic', CenturyGothic, Geneva, AppleGothic, sans-serif; 
+}
+</style>
